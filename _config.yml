@@ -2,3 +2,5 @@ name: Rosengren.me
 pygments: true
 
 permalink: /blog/:title
+
+paginate: 5
