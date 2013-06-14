@@ -1,4 +1,2 @@
 name: Rosengren.me
 pygments: true
-source:      ./_source
-destination: ./website
