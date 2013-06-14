@@ -1,2 +1,4 @@
 name: Rosengren.me
 pygments: true
+
+permalink: /blog/:title
