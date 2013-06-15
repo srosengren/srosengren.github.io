@@ -7,13 +7,13 @@ tags: [web,sitecore,xsl,development]
 
 It was a real easy task. Display the ImageField and GeneralLinkField for every item that was selected in a MultiListField.
 
-So I took a look at the code, crap, it's XSLT and I'm mostly a .NET guy who never touches the stuff. It wasn't easy to find a clear answer to this question, the closest I came was this blog by John West,[http://www.sitecore.net/Community/Technical-Blogs/John-West-Sitecore-Blog/Posts/2010/11/Select-and-Link-to-Media-Items-with-XSLT-Using-the-Sitecore-Web-Content-Management-System.aspx](http://www.sitecore.net/Community/Technical-Blogs/John-West-Sitecore-Blog/Posts/2010/11/Select-and-Link-to-Media-Items-with-XSLT-Using-the-Sitecore-Web-Content-Management-System.aspx)
+So I took a look at the code, crap, it's XSLT and I'm mostly a .NET guy who never touches the stuff. It wasn't easy to find a clear answer to this question, the closest I came was this blog by John West, [http://www.sitecore.net/Community/Technical-Blogs/John-West-Sitecore-Blog/Posts/2010/11/Select-and-Link-to-Media-Items-with-XSLT-Using-the-Sitecore-Web-Content-Management-System.aspx](http://www.sitecore.net/Community/Technical-Blogs/John-West-Sitecore-Blog/Posts/2010/11/Select-and-Link-to-Media-Items-with-XSLT-Using-the-Sitecore-Web-Content-Management-System.aspx)
 
 It goes a bit deeper than I needed but the info was good for learning about working with XSLT in sitecore. I would've never thought of nesting for-each's to account for broken Sitecore links.
 
 In the end, this is what it all came to.
 
-{% highlight XSLT %}
+{% highlight xslt %}
  &#x9;&#x9;&amp;lt;xsl:variable name=&quot;socialHeader&quot; select=&quot;sc:item('/sitecore/content/site/Site settings/Social/HeaderSocialSettings',.)&quot; /&amp;gt;&#xD;&#xA;        &amp;lt;xsl:for-each select=&quot;sc:Split('SocialImageLinks',$socialHeader)&quot;&amp;gt;&#xD;&#xA;          &amp;lt;xsl:for-each select=&quot;sc:item(text(),.)&quot;&amp;gt;&#xD;&#xA;            &amp;lt;sc:link field=&quot;linkforimage&quot;&amp;gt;&#xD;&#xA;              &amp;lt;sc:image field=&quot;linkimage&quot; w=&quot;16&quot; h=&quot;16&quot; class=&quot;ImageSocial&quot; /&amp;gt;&#xD;&#xA;            &amp;lt;/sc:link&amp;gt;&#xD;&#xA;          &amp;lt;/xsl:for-each&amp;gt;&#xD;&#xA;        &amp;lt;/xsl:for-each&amp;gt;&#xD;&#xA; 
 {% endhighlight %}
 

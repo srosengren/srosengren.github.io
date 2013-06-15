@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Rosengren.me - url.action and outbound url matching using current request parameters</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="container">
+          <div class="site">
+            <div class="header">
+              <h1 class="title"><a href="/">Rosengren.me</a></h1>
+              <a class="extra" href="/">home</a>
+            </div>
+
+                <h2>Rosengren.me: url.action and outbound url matching using current request parameters</h2>
+<p class="meta">26 Feb 2013</p>
+
+<div class="post">
+<p>Say that you have a pretty standard app with the /home/index/id routing.</p>
+
+<p>You have a page with the following <strong>route /home/index/1</strong> and on this page you want a link back to <strong>/home/index</strong> so you use</p>
+
+<p><div class='highlight'><pre><code class='c#'><span class='n'>@Url</span><span class='p'>.</span><span class='n'>Action</span><span class='p'>(</span><span class='s'>&quot;index,&quot;</span><span class='n'>home</span><span class='s'>&quot;)</span>
+</code></pre></div></p>
+
+<p>to generate the correct link. But you notice that the generated link have the following href <strong>/home/index/</strong>, ie the same route that you are currently on, why is that?</p>
+
+<p>Well it turns out that Url.Action has a flow for generating your anchor tags. It first looks to the values that you explicitly provide, then to values from the current request (your id parameter) and lastly to defaults. This means that you can&#8217;t even override the id parameter by setting the routevalue object to null, you actually have to explicitly set the id parameter to an empty string.</p>
+
+<p><div class='highlight'><pre><code class='c#'><span class='n'>@Url</span><span class='p'>.</span><span class='n'>Action</span><span class='p'>(</span><span class='s'>&quot;index&quot;</span><span class='p'>,</span><span class='s'>&quot;home&quot;</span><span class='p'>,</span><span class='k'>new</span> <span class='p'>{</span> <span class='n'>id</span> <span class='p'>=</span> <span class='s'>&quot;&quot;</span> <span class='p'>})</span>
+</code></pre></div></p>
+</div>
+
+
+            <div class="footer">
+              <div class="contact">
+                <p>
+                  Your Name<br />
+                  What You Are<br />
+                  your@email.com
+                </p>
+              </div>
+              <div class="contact">
+                <p>
+                  <a href="http://github.com/yourusername/">github.com/yourusername</a><br />
+                  <a href="http://twitter.com/yourusername/">twitter.com/yourusername</a><br />
+                </p>
+              </div>
+            </div>
+          </div>
+        </div> <!-- /container -->
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-41772613-1', 'rosengren.me');
+          ga('send', 'pageview');
+
+        </script>
+    </body>
+</html>
