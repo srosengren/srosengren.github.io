@@ -8,12 +8,14 @@ tags: [development,MVC,asp.net,gotchas,web]
 Say that you have a pretty standard app with the /home/index/id routing.
 
 You have a page with the following **route /home/index/1** and on this page you want a link back to **/home/index** so you use
-```cs
+{% highlight c# %}
 @Url.Action("index,"home")
+{% endhighlight %}
 
 to generate the correct link. But you notice that the generated link have the following href **/home/index/**, ie the same route that you are currently on, why is that?
 
 Well it turns out that Url.Action has a flow for generating your anchor tags. It first looks to the values that you explicitly provide, then to values from the current request (your id parameter) and lastly to defaults. This means that you can't even override the id parameter by setting the routevalue object to null, you actually have to explicitly set the id parameter to an empty string.
 
-```cs
+{% highlight c# %}
 @Url.Action("index","home",new { id = "" })
+{% endhighlight %}
