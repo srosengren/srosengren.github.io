@@ -1,0 +1,35 @@
+.container {
+	width: 940px;
+	margin: 0 auto;
+	.clearfix();
+}
+
+.container .row {
+	margin-left: -40px;
+}
+
+.container .row .half,
+.container .row .third,
+.container .row .fourth,
+.container .row .fill {
+	display:block;
+	box-sizing: border-box;
+	float: left;
+	padding-left: 40px;
+}
+
+.container .row .fill {
+	width: 100%;
+}
+
+.container .row .half {
+	width: 50%;
+}
+
+.container .row .third {
+	width: 100% / 3;
+}
+
+.container .row .fourth {
+	width: 100% / 4;
+}
