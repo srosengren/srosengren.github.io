@@ -8,6 +8,7 @@ tags: [development,MVC,asp.net,gotchas,web]
 Say that you have a pretty standard app with the /home/index/id routing.
 
 You have a page with the following **route /home/index/1** and on this page you want a link back to **/home/index** so you use
+
 {% highlight c# %}
 @Url.Action("index,"home")
 {% endhighlight %}
