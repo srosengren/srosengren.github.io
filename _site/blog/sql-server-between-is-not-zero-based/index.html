@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Rosengren.me - sql server between is not zero based</title>
+        <meta name="viewport" content="width=device-width">
+
+        <!-- syntax highlighting CSS -->
+        <link rel="stylesheet" href="/css/syntax.css">
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="/css/main.css">
+
+    </head>
+    <body>
+
+        <div class="container">
+          <div class="site">
+            <div class="header">
+              <h1 class="title"><a href="/">Rosengren.me</a></h1>
+              <a class="extra" href="/">home</a>
+            </div>
+
+                <h2>Rosengren.me: sql server between is not zero based</h2>
+<p class="meta">08 Feb 2013</p>
+
+<div class="post">
+<p>A small gotcha that happened a colleague tody. A simple search for paginated content went wrong. The first page searched for items BETWEEN 0 and 10 and the second page searched for items BETWEEN 10 and 20, the first page looked alright but the first item on the second page was the same as the last one on the first page. The reason for this is that the BETWEEN function is not zero based as most of our developer brains are, but instead it&#8217;s based on row numbers. meaning that the first hit is row 1 and this is of course included in a search for 0 - 10 and that&#8217;s why the first page seemed correct.</p>
+</div>
+
+
+            <div class="footer">
+              <div class="contact">
+                <p>
+                  Your Name<br />
+                  What You Are<br />
+                  your@email.com
+                </p>
+              </div>
+              <div class="contact">
+                <p>
+                  <a href="http://github.com/yourusername/">github.com/yourusername</a><br />
+                  <a href="http://twitter.com/yourusername/">twitter.com/yourusername</a><br />
+                </p>
+              </div>
+            </div>
+          </div>
+        </div> <!-- /container -->
+
+    </body>
+</html>

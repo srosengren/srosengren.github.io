@@ -1,0 +1,12 @@
+---
+layout: post
+title:  "html.action and url.action"
+date:   2013-02-13 10:42:00
+tags: [development,MVC,gotchas,web]
+---
+
+Some headache last night just before going to bed.
+
+I was trying to output two Uris to data attributes on a html element for navigating to different pages based on the current state of the page. I was getting weird crashes and the debugger kept hitting an action that I wasn't trying to reach.
+
+Turns out that I was using Html.Action to render the result of invoking an action. This was of course not what I wanted, what I wanted was instead Url.Action, to render a qualified Uri to an action.
