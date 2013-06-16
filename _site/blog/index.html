@@ -1,28 +1,137 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Rosengren.me - my blog</title>
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--[if lt IE 9]>
+           <script>
+              document.createElement('nav');
+              document.createElement('header');
+              document.createElement('section');
+              document.createElement('footer');
+           </script>
+        <![endif]-->
 
-        <!-- syntax highlighting CSS -->
-        <link rel="stylesheet" href="/css/syntax.css">
-
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="./assets/styles/syntax.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="./assets/styles/rosengren.css">
 
     </head>
     <body>
-
-        <div class="container">
-          <div class="site">
-            <div class="header">
-              <h1 class="title"><a href="/">Rosengren.me</a></h1>
-              <a class="extra" href="/">home</a>
+      <nav class="navbar">
+        <ul class="navbar-menu">
+          <li class="navbar-menu-item"><a href="/">Rosengren.me</a></li>
+          <li class="navbar-menu-item"><a href="/blog">blog</a></li>
+        </ul>
+        <ul class="navbar-menu right">
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="icon-linkedin"></a>
             </div>
+            <span class="spot-title">Linkedin</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://twitter.com/srrosengren" target="_blank" class="icon-twitter"></a>
+            </div>
+            <span class="spot-title">Twitter</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://github.com/srosengren" target="_blank" class="icon-github"></a>
+            </div>
+            <span class="spot-title">Github</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="javascript:;" id="mail-link" class="icon-envelope"></a>
+            </div>
+            <span class="spot-title">Email</span>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-content">
+          <h1>Blog Posts</h1>
+<ul class="posts">
+  
+    <li><span>16 Jun 2013</span> &raquo; <a href="/blog/installing-jekyll-on-windows">Installing Jekyll on Windows</a>
+      <p><p><span>DRAFT</span> Use Ror for painless installation. Python 2.7.5 for Pygments.</p></p>
+    </li>
+  
+    <li><span>26 Feb 2013</span> &raquo; <a href="/blog/url.action-and-outbound-url-matching-using-current-request-parameters">url.action and outbound url matching using current request parameters</a>
+      <p><p>Say that you have a pretty standard app with the /home/index/id routing.</p></p>
+    </li>
+  
+    <li><span>22 Feb 2013</span> &raquo; <a href="/blog/dont-check-for-case-sensivite-request-headers-in-your-serverside-code">dont check for case sensitive request headers in your serverside code</a>
+      <p><p>Todays funny bug, no ajax request would return data in a real IE8 (not effecting ie10 in ie8 mode).</p></p>
+    </li>
+  
+    <li><span>13 Feb 2013</span> &raquo; <a href="/blog/html.action-and-url.action">html.action and url.action</a>
+      <p><p>Some headache last night just before going to bed.</p></p>
+    </li>
+  
+    <li><span>08 Feb 2013</span> &raquo; <a href="/blog/sql-server-between-is-not-zero-based">sql server between is not zero based</a>
+      <p><p>A small gotcha that happened a colleague tody. A simple search for paginated content went wrong.</p></p>
+    </li>
+  
+    <li><span>28 Jan 2013</span> &raquo; <a href="/blog/dension-gw-500s-bt-in-porsche-997">dension gw 500s bt in porsche 997</a>
+      <p><p>Whats the first thing you do when you buy a new car? Upgrade the stereo to support A2DP phones of course</p></p>
+    </li>
+  
+    <li><span>27 Jan 2013</span> &raquo; <a href="/blog/dont-add-duplicate-mime-types-to-an-iis-site">Dont add duplicate mime-types to an iis site</a>
+      <p><p>It is for some reason possible to add duplicate mime-types through inheritance to a site running on IIS. Doing this will cause 500 server error for statically served files.</p></p>
+    </li>
+  
+    <li><span>27 Jan 2013</span> &raquo; <a href="/blog/limitation-in-sitecore-multilist-field">Limitation in Sitecore Multilist field</a>
+      <p><p>There seems to be a limitation on visible items in a multilist field when settings the source as a sitecore node such as /sitecore/content/mysite. I didn&#8217;t count but it seems to &#8220;only&#8221; show the first 50 subitems.</p></p>
+    </li>
+  
+    <li><span>17 Jan 2013</span> &raquo; <a href="/blog/datetime-from-unix-timestamps">datetime from unix timestamps</a>
+      <p><p>C# Ticks are not the same as Unix Timestamps.</p></p>
+    </li>
+  
+    <li><span>14 Nov 2012</span> &raquo; <a href="/blog/redirecttoaction-and-the-viewbag">RedirectToAction and the ViewBag</a>
+      <p><p>This should have been fairly obvious, but we cannot expect the ViewBag to persist since a RedirectToAction only serves the client with a 302 redirected HTTP response to the new route. A solution for this is to use &#8220;TempData<span>&#8220;key&#8221;</span>&#8221;, this is a dictionary that is persisted in the users session meaning that we can retrieve it in the new action or controller or wherever the recieving end is.</p></p>
+    </li>
+  
+    <li><span>18 Oct 2012</span> &raquo; <a href="/blog/object-literal-as-property-on-a-prototype-object-results-can-cause-headaches">Object literal as property on a prototype object results can cause headaches</a>
+      <p><p>Part of today was to enable an object literal to be used as a prototype. This object in turn had an object literal of its own (along with a few methods).</p></p>
+    </li>
+  
+    <li><span>16 Oct 2012</span> &raquo; <a href="/blog/less-important-mixins">Less !IMPORTANT mixins</a>
+      <p><p>I thought I should share this even though I&#8217;m generally against using !important in css rules.</p></p>
+    </li>
+  
+    <li><span>11 Oct 2012</span> &raquo; <a href="/blog/ios-web-clis-pin-webapp-to-homescreen">ios web-clips pin webapp to homescreen</a>
+      <p><p>Guides for creating icons that are used when pinning a website to the iphone/ipad homescreen.</p></p>
+    </li>
+  
+    <li><span>26 Sep 2012</span> &raquo; <a href="/blog/manually-removing-contenttypes-from-orchard-can-be-tricky">Manually removing ContentTypes from Orchard can be tricky.</a>
+      <p><p>I was experimenting with a new contentpart widget tonight, and when I was done I had a couple of UpdateFromX methods in my migrations.cs file. So I thought to myself, this doesn&#8217;t look very good, lets delete everything from the DB and then combine this to a pretty Create method instead. At first I thought, hey maybe I&#8217;ll only have to remove the table that stores the records themselved. This was of course not enought. I realized that I also had to remove it from the Orchard_Framework_DataMigrationRecord and Orchard_Framework_ContentTypeRecord tables. I think this would be it if I hadn&#8217;t been clever enough to actually create a couple of widgets and place them on the layer that displays on my homepage.</p></p>
+    </li>
+  
+    <li><span>24 Sep 2012</span> &raquo; <a href="/blog/download-file-image-instead-of-displaying-it-in-browser">Download file / image instead of displaying it in browser</a>
+      <p><p>New day new requirements. Atleast this was an easy one.</p></p>
+    </li>
+  
+    <li><span>31 Aug 2012</span> &raquo; <a href="/blog/removing-zone-div-element-in-orchard">Removing zone div wrapper in Orchard</a>
+      <p><p>If you have ever tried building a new Orchard theme from scratch, and like me you like full control of your markup. Then perhaps you have noticed the extra &#8220;zone-name&#8221; div that Orchard adds around every zone.</p></p>
+    </li>
+  
+    <li><span>30 Aug 2012</span> &raquo; <a href="/blog/change-framework-for-application-on-iis6">Change the framework for an application on IIS6</a>
+      <p><p>Sometimes you have to work with older software, like IIS6 on windows server 2003.</p></p>
+    </li>
+  
+    <li><span>29 Aug 2012</span> &raquo; <a href="/blog/xslt-rendering-with-sc-image-in-for-each">XSLT rendering with sc:image in for-each</a>
+      <p><p>It was a real easy task. Display the ImageField and GeneralLinkField for every item that was selected in a MultiListField.</p></p>
+    </li>
+  
+</ul>
 
-                <div id="post-pagination" class="pagination">
+<div id="post-pagination" class="pagination">
   
     <p class="previous disabled">
       <span>Previous</span>
@@ -46,24 +155,10 @@
   
 
 </div>
-
-            <div class="footer">
-              <div class="contact">
-                <p>
-                  Your Name<br />
-                  What You Are<br />
-                  your@email.com
-                </p>
-              </div>
-              <div class="contact">
-                <p>
-                  <a href="http://github.com/yourusername/">github.com/yourusername</a><br />
-                  <a href="http://twitter.com/yourusername/">twitter.com/yourusername</a><br />
-                </p>
-              </div>
-            </div>
-          </div>
-        </div> <!-- /container -->
+      </div> <!-- /container -->
+      <footer class="container footer-content">
+        Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+      </footer>
 
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -73,6 +168,8 @@
 
           ga('create', 'UA-41772613-1', 'rosengren.me');
           ga('send', 'pageview');
+
+          document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
 
         </script>
     </body>

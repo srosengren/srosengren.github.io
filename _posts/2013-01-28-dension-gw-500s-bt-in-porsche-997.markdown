@@ -5,8 +5,6 @@ date:   2013-01-28 19:45:00
 tags: [vehicle,porsche 997,dension,life]
 ---
 
-![installing](https://pxlqsw.bn1.livefilestore.com/y1pjvKDbHl5BMdAbVZ41MLLRQRkA4JDTIDYpad8xx_n7C1lpgIB_ld9TXvFj8k7fEfB90jkol0KL7hunB8kz5sOXcLUc8HEuM22/WP_20130205_002.jpg?psid=1&quot "Installing")
-
 Whats the first thing you do when you buy a new car? Upgrade the stereo to support A2DP phones of course
 
 The PCM 2.1 system found in my car only supports two ways of playing your own music, using a cd or a fm transmitter. Neither of thos really speaks to me as a cd feels pretty limited and fm transmitter requires a plugin to my phone and the sound quality is subpar, especially when transmitting heavy bass.
@@ -20,3 +18,5 @@ The fiber loop itself was fairly easy to figure out and my unit worked with the 
 If you're like me and just want the bluetooth audio to work, keep in mind that you have to shut the car ignition of and on again (not just restart the pcm) for the settings to take effect. Navigating the menues felt weird to me since I had only used the FM radio before installing the unit but they are supposed to be operated in the same fashion as the CD player.
 
 All in all, I couldn't be happier, it's not much money to spend for such a great upgrade to already amazing car.
+
+![installing](https://pxlqsw.bn1.livefilestore.com/y1pjvKDbHl5BMdAbVZ41MLLRQRkA4JDTIDYpad8xx_n7C1lpgIB_ld9TXvFj8k7fEfB90jkol0KL7hunB8kz5sOXcLUc8HEuM22/WP_20130205_002.jpg?psid=1&quot "Installing")

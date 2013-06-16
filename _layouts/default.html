@@ -15,9 +15,9 @@
            </script>
         <![endif]-->
 
-        <link rel="stylesheet" href="/assets/styles/syntax.css">
+        <link rel="stylesheet" href="./assets/styles/syntax.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" href="/assets/styles/rosengren.css">
+        <link rel="stylesheet" href="./assets/styles/rosengren.css">
 
     </head>
     <body>
@@ -26,36 +26,38 @@
           <li class="navbar-menu-item"><a href="/">{{ site.name }}</a></li>
           <li class="navbar-menu-item"><a href="/blog">blog</a></li>
         </ul>
+        <ul class="navbar-menu right">
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="icon-linkedin"></a>
+            </div>
+            <span class="spot-title">Linkedin</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://twitter.com/srrosengren" target="_blank" class="icon-twitter"></a>
+            </div>
+            <span class="spot-title">Twitter</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://github.com/srosengren" target="_blank" class="icon-github"></a>
+            </div>
+            <span class="spot-title">Github</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="javascript:;" id="mail-link" class="icon-envelope"></a>
+            </div>
+            <span class="spot-title">Email</span>
+          </li>
+        </ul>
       </nav>
       <div class="main-content">
           {{ content }}
       </div> <!-- /container -->
       <footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
-        <!--<div class="row">
-          <div class="half">
-            <span class="badge sebastian"></span>
-            <div class="footer-spot">
-              <a href="https://twitter.com/srrosengren" target="_blank" class="spot-bubble actionable icon-twitter"></a>
-              <h1 class="footer-spot-title">Twitter</h1>
-            </div>
-            <div class="footer-spot">
-              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="spot-bubble actionable icon-linkedin"></a>
-              <h1 class="footer-spot-title">Linkedin</h1>
-            </div>
-          </div>
-          <div class="half">
-            <span class="badge map"></span>
-            <div class="footer-spot">
-              <a href="https://github.com/srosengren" target="_blank" class="spot-bubble actionable icon-github"></a>
-              <h1 class="footer-spot-title">Github</h1>
-            </div>
-            <div class="footer-spot">
-              <div class="spot-bubble actionable icon-envelope"></div>
-              <h1 class="footer-spot-title">Email</h1>
-            </div>
-          </div>
-        </div>-->
       </footer>
 
         <script>
@@ -66,6 +68,8 @@
 
           ga('create', 'UA-41772613-1', 'rosengren.me');
           ga('send', 'pageview');
+
+          document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
 
         </script>
     </body>

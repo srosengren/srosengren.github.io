@@ -1,28 +1,60 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Rosengren.me - Change the framework for an application on IIS6</title>
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--[if lt IE 9]>
+           <script>
+              document.createElement('nav');
+              document.createElement('header');
+              document.createElement('section');
+              document.createElement('footer');
+           </script>
+        <![endif]-->
 
-        <!-- syntax highlighting CSS -->
-        <link rel="stylesheet" href="/css/syntax.css">
-
-        <!-- Custom CSS -->
-        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="./assets/styles/syntax.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="./assets/styles/rosengren.css">
 
     </head>
     <body>
-
-        <div class="container">
-          <div class="site">
-            <div class="header">
-              <h1 class="title"><a href="/">Rosengren.me</a></h1>
-              <a class="extra" href="/">home</a>
+      <nav class="navbar">
+        <ul class="navbar-menu">
+          <li class="navbar-menu-item"><a href="/">Rosengren.me</a></li>
+          <li class="navbar-menu-item"><a href="/blog">blog</a></li>
+        </ul>
+        <ul class="navbar-menu right">
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="icon-linkedin"></a>
             </div>
-
-                <h2>Rosengren.me: Change the framework for an application on IIS6</h2>
+            <span class="spot-title">Linkedin</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://twitter.com/srrosengren" target="_blank" class="icon-twitter"></a>
+            </div>
+            <span class="spot-title">Twitter</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://github.com/srosengren" target="_blank" class="icon-github"></a>
+            </div>
+            <span class="spot-title">Github</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="javascript:;" id="mail-link" class="icon-envelope"></a>
+            </div>
+            <span class="spot-title">Email</span>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-content">
+          <h2>Rosengren.me: Change the framework for an application on IIS6</h2>
 <p class="meta">30 Aug 2012</p>
 
 <div class="post">
@@ -45,24 +77,10 @@
 <p>This was of course not enough to get the application to run. I still had to create a new application pool and change the application to use this pool instead since there can only be one version of the .NET framework per pool. You can change the application pool by opening the properties for your application and looking under the &#8220;Home Directory&#8221; tab.</p>
 </div>
 
-
-            <div class="footer">
-              <div class="contact">
-                <p>
-                  Your Name<br />
-                  What You Are<br />
-                  your@email.com
-                </p>
-              </div>
-              <div class="contact">
-                <p>
-                  <a href="http://github.com/yourusername/">github.com/yourusername</a><br />
-                  <a href="http://twitter.com/yourusername/">twitter.com/yourusername</a><br />
-                </p>
-              </div>
-            </div>
-          </div>
-        </div> <!-- /container -->
+      </div> <!-- /container -->
+      <footer class="container footer-content">
+        Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+      </footer>
 
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -72,6 +90,8 @@
 
           ga('create', 'UA-41772613-1', 'rosengren.me');
           ga('send', 'pageview');
+
+          document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
 
         </script>
     </body>
