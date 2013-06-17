@@ -49,16 +49,17 @@
             <div class="spot-bubble">
               <a href="javascript:;" id="mail-link" class="icon-envelope"></a>
             </div>
-            <span class="spot-title">Email</span>
+            <span class="spot-title">Mail</span>
           </li>
         </ul>
       </nav>
       <div class="main-content">
-          <h2>Rosengren.me: XSLT rendering with sc:image in for-each</h2>
-<p class="meta">29 Aug 2012</p>
-
-<div class="post">
-<p>It was a real easy task. Display the ImageField and GeneralLinkField for every item that was selected in a MultiListField.</p>
+          <article>
+	<header>
+		<h1>Rosengren.me: XSLT rendering with sc:image in for-each</h1>
+		<time datetime="2012-08-29 10:55:00 +0200">29 Aug 2012</time>
+	</header>
+	<p>It was a real easy task. Display the ImageField and GeneralLinkField for every item that was selected in a MultiListField.</p>
 
 <p>So I took a look at the code, crap, it&#8217;s XSLT and I&#8217;m mostly a .NET guy who never touches the stuff. It wasn&#8217;t easy to find a clear answer to this question, the closest I came was this blog by John West, <a href='http://www.sitecore.net/Community/Technical-Blogs/John-West-Sitecore-Blog/Posts/2010/11/Select-and-Link-to-Media-Items-with-XSLT-Using-the-Sitecore-Web-Content-Management-System.aspx'>http://www.sitecore.net/Community/Technical-Blogs/John-West-Sitecore-Blog/Posts/2010/11/Select-and-Link-to-Media-Items-with-XSLT-Using-the-Sitecore-Web-Content-Management-System.aspx</a></p>
 
@@ -70,8 +71,7 @@
 <p>The first line takes the value of my MultiListField &#8220;SocialImageLinks&#8221; on the item contained in the xsl variable &#8220;$socialHeader&#8221;, it then uses the SC extension &#8220;Split&#8221; to split it to separate IDs. The next line might seem odd since it&#8217;s a for-each on what should only be a single item. But according to John this to prevent broken links since the for-each will simply step over empty values returned by the &#8220;item&#8221; extension. Text in this context is the current value returned by the split. I then simply use a sc:link control and tell it to use the GeneralLinkField &#8220;linkforimage&#8221; on the current item that was returned by the sc:item extension. The same goes for the sc:image control that uses the &#8220;linkimage&#8221; ImageField.</p>
 
 <p>This outputs every image wrapped in an anchortag just the way I wanted it to.</p>
-</div>
-
+</article>
       </div> <!-- /container -->
       <footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.

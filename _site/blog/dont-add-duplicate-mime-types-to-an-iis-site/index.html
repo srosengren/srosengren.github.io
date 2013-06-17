@@ -49,20 +49,20 @@
             <div class="spot-bubble">
               <a href="javascript:;" id="mail-link" class="icon-envelope"></a>
             </div>
-            <span class="spot-title">Email</span>
+            <span class="spot-title">Mail</span>
           </li>
         </ul>
       </nav>
       <div class="main-content">
-          <h2>Rosengren.me: Dont add duplicate mime-types to an iis site</h2>
-<p class="meta">27 Jan 2013</p>
-
-<div class="post">
-<p>It is for some reason possible to add duplicate mime-types through inheritance to a site running on IIS. Doing this will cause 500 server error for statically served files.</p>
+          <article>
+	<header>
+		<h1>Rosengren.me: Dont add duplicate mime-types to an iis site</h1>
+		<time datetime="2013-01-27 21:02:13 +0100">27 Jan 2013</time>
+	</header>
+	<p>It is for some reason possible to add duplicate mime-types through inheritance to a site running on IIS. Doing this will cause 500 server error for statically served files.</p>
 
 <p>My issue was with running virtual directory sites and adding a mime-type to the default site itself. The solution was to remove it from the top level and only adding it on the virtual sites that really needed it.</p>
-</div>
-
+</article>
       </div> <!-- /container -->
       <footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.

@@ -49,16 +49,17 @@
             <div class="spot-bubble">
               <a href="javascript:;" id="mail-link" class="icon-envelope"></a>
             </div>
-            <span class="spot-title">Email</span>
+            <span class="spot-title">Mail</span>
           </li>
         </ul>
       </nav>
       <div class="main-content">
-          <h2>Rosengren.me: Change the framework for an application on IIS6</h2>
-<p class="meta">30 Aug 2012</p>
-
-<div class="post">
-<p>Sometimes you have to work with older software, like IIS6 on windows server 2003.</p>
+          <article>
+	<header>
+		<h1>Rosengren.me: Change the framework for an application on IIS6</h1>
+		<time datetime="2012-08-30 15:38:00 +0200">30 Aug 2012</time>
+	</header>
+	<p>Sometimes you have to work with older software, like IIS6 on windows server 2003.</p>
 
 <p>And sometimes this happen to coincide with you working on an application that requires an older framework, like Sitecore 6.1 on .NET2.0</p>
 
@@ -75,8 +76,7 @@
 <p>The next issue was to find the virtualpath for my application. I found that there&#8217;s a formula to this the path should look like this: &#8220;w3svc/appID&#8221;, you can find your appID by locating your websites identifier field in the website view of the IIS manager.</p>
 
 <p>This was of course not enough to get the application to run. I still had to create a new application pool and change the application to use this pool instead since there can only be one version of the .NET framework per pool. You can change the application pool by opening the properties for your application and looking under the &#8220;Home Directory&#8221; tab.</p>
-</div>
-
+</article>
       </div> <!-- /container -->
       <footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.

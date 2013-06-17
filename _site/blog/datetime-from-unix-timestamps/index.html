@@ -49,16 +49,17 @@
             <div class="spot-bubble">
               <a href="javascript:;" id="mail-link" class="icon-envelope"></a>
             </div>
-            <span class="spot-title">Email</span>
+            <span class="spot-title">Mail</span>
           </li>
         </ul>
       </nav>
       <div class="main-content">
-          <h2>Rosengren.me: datetime from unix timestamps</h2>
-<p class="meta">17 Jan 2013</p>
-
-<div class="post">
-<p>C# Ticks are not the same as Unix Timestamps.</p>
+          <article>
+	<header>
+		<h1>Rosengren.me: datetime from unix timestamps</h1>
+		<time datetime="2013-01-17 10:06:00 +0100">17 Jan 2013</time>
+	</header>
+	<p>C# Ticks are not the same as Unix Timestamps.</p>
 
 <p>Ticks are instead 1/10.000 of a millisecond. This means that we of course cannot just do</p>
 <div class='highlight'><pre><code class='c#'><span class='k'>new</span> <span class='nf'>DateTime</span><span class='p'>(</span><span class='kt'>long</span> <span class='n'>ticks</span><span class='p'>);</span> <span class='c1'>//with the TimeStamp as ticks</span>
@@ -69,8 +70,7 @@
 <p>Which is actually kind of pretty.</p>
 
 <p>The reason for this is of course that a unix timestamps is expressed in seconds since 01-01-1970.</p>
-</div>
-
+</article>
       </div> <!-- /container -->
       <footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.

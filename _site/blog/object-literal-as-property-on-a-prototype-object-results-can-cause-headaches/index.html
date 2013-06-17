@@ -49,16 +49,17 @@
             <div class="spot-bubble">
               <a href="javascript:;" id="mail-link" class="icon-envelope"></a>
             </div>
-            <span class="spot-title">Email</span>
+            <span class="spot-title">Mail</span>
           </li>
         </ul>
       </nav>
       <div class="main-content">
-          <h2>Rosengren.me: Object literal as property on a prototype object results can cause headaches</h2>
-<p class="meta">18 Oct 2012</p>
-
-<div class="post">
-<p>Part of today was to enable an object literal to be used as a prototype. This object in turn had an object literal of its own (along with a few methods).</p>
+          <article>
+	<header>
+		<h1>Rosengren.me: Object literal as property on a prototype object results can cause headaches</h1>
+		<time datetime="2012-10-18 15:36:00 +0200">18 Oct 2012</time>
+	</header>
+	<p>Part of today was to enable an object literal to be used as a prototype. This object in turn had an object literal of its own (along with a few methods).</p>
 
 <p>Here is pseudo-code to display what happened:</p>
 
@@ -76,8 +77,7 @@
 <p>By doing this I instead replace the settings object alltogether which places the new settings object on my object instance instead of on my prototype.</p>
 
 <p>This is of course pseudo-code and there are prettier ways to replace the settings object with the new properties but this solution shows the problem.</p>
-</div>
-
+</article>
       </div> <!-- /container -->
       <footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.

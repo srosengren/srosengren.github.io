@@ -49,16 +49,17 @@
             <div class="spot-bubble">
               <a href="javascript:;" id="mail-link" class="icon-envelope"></a>
             </div>
-            <span class="spot-title">Email</span>
+            <span class="spot-title">Mail</span>
           </li>
         </ul>
       </nav>
       <div class="main-content">
-          <h2>Rosengren.me: dont check for case sensitive request headers in your serverside code</h2>
-<p class="meta">22 Feb 2013</p>
-
-<div class="post">
-<p>Todays funny bug, no ajax request would return data in a real IE8 (not effecting ie10 in ie8 mode).</p>
+          <article>
+	<header>
+		<h1>Rosengren.me: dont check for case sensitive request headers in your serverside code</h1>
+		<time datetime="2013-02-22 15:32:00 +0100">22 Feb 2013</time>
+	</header>
+	<p>Todays funny bug, no ajax request would return data in a real IE8 (not effecting ie10 in ie8 mode).</p>
 
 <p>We&#8217;re building a MVC4 + WebApi app and are heavy users of ajax that we setup using $.ajaxSetup and setting custom AuthToken and AuthTokenSalt headers in the beforeSend function.</p>
 
@@ -69,8 +70,7 @@
 <div class='highlight'><pre><code class='c#'><span class='n'>HttpContext</span><span class='p'>.</span><span class='n'>Current</span><span class='p'>.</span><span class='n'>Request</span><span class='p'>.</span><span class='n'>Headers</span><span class='p'>[</span><span class='s'>&quot;AuthToken&quot;</span><span class='p'>]</span> <span class='p'>==</span> <span class='k'>null</span>
 </code></pre></div>
 <p>This seemed like a much simpler solution than changing the beforeSend to only send lowercase headers and then remembering that when adding new headers in the future.</p>
-</div>
-
+</article>
       </div> <!-- /container -->
       <footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.

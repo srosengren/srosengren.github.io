@@ -49,22 +49,22 @@
             <div class="spot-bubble">
               <a href="javascript:;" id="mail-link" class="icon-envelope"></a>
             </div>
-            <span class="spot-title">Email</span>
+            <span class="spot-title">Mail</span>
           </li>
         </ul>
       </nav>
       <div class="main-content">
-          <h2>Rosengren.me: html.action and url.action</h2>
-<p class="meta">13 Feb 2013</p>
-
-<div class="post">
-<p>Some headache last night just before going to bed.</p>
+          <article>
+	<header>
+		<h1>Rosengren.me: html.action and url.action</h1>
+		<time datetime="2013-02-13 11:42:00 +0100">13 Feb 2013</time>
+	</header>
+	<p>Some headache last night just before going to bed.</p>
 
 <p>I was trying to output two Uris to data attributes on a html element for navigating to different pages based on the current state of the page. I was getting weird crashes and the debugger kept hitting an action that I wasn&#8217;t trying to reach.</p>
 
 <p>Turns out that I was using Html.Action to render the result of invoking an action. This was of course not what I wanted, what I wanted was instead Url.Action, to render a qualified Uri to an action.</p>
-</div>
-
+</article>
       </div> <!-- /container -->
       <footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
