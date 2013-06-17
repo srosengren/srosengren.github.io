@@ -12,19 +12,21 @@
               document.createElement('header');
               document.createElement('section');
               document.createElement('footer');
+              document.createElement('article');
+              document.createElement('time');
            </script>
         <![endif]-->
 
-        <link rel="stylesheet" href="./assets/styles/syntax.css">
+        <link rel="stylesheet" href="/assets/styles/syntax.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" href="./assets/styles/rosengren.css">
+        <link rel="stylesheet" href="/assets/styles/rosengren.css">
 
     </head>
     <body>
       <nav class="navbar">
         <ul class="navbar-menu">
           <li class="navbar-menu-item"><a href="/">Rosengren.me</a></li>
-          <li class="navbar-menu-item"><a href="/blog">blog</a></li>
+          <li class="navbar-menu-item"><a href="/blog"><i class="icon-edit"></i>blog</a></li>
         </ul>
         <ul class="navbar-menu right">
           <li class="navbar-menu-item spot">
@@ -54,12 +56,13 @@
         </ul>
       </nav>
       <div class="main-content">
-          <article>
-	<header>
-		<h1>Rosengren.me: Download file / image instead of displaying it in browser</h1>
-		<time datetime="2012-09-24 15:53:00 +0200">24 Sep 2012</time>
-	</header>
-	<p>New day new requirements. Atleast this was an easy one.</p>
+          <div class="container">
+	<article>
+		<header>
+			<h1>Download file / image instead of displaying it in browser</h1>
+			<time datetime="2012-09-24 15:53:00 +0200">24 Sep 2012</time>
+		</header>
+		<p>New day new requirements. Atleast this was an easy one.</p>
 
 <p>The normal action when clicking an anchor tag with an href pointing to an image is to display the image in the browser. Today this was not the desired outcome, instead I wanted to put an &#8220;Download image&#8221; button next to the image. The solution to this is very simple if you have access to the http server response. This was no problem for me since I&#8217;m working with asp.NET MVC, all I had to to was to add an extra header to the response. The content-disposition header to be precise.</p>
 
@@ -69,7 +72,8 @@
 <div class='highlight'><pre><code class='c#'><span class='n'>Response</span><span class='p'>.</span><span class='n'>AppendHeader</span><span class='p'>(</span><span class='s'>&quot;content-disposition&quot;</span><span class='p'>,</span> <span class='s'>&quot;attachment;filename=&quot;</span> <span class='p'>+</span> <span class='n'>myfile</span><span class='p'>.</span><span class='n'>Name</span><span class='p'>);</span>
 </code></pre></div>
 <p>And this is really all there is to it.</p>
-</article>
+	</article>
+</div>
       </div> <!-- /container -->
       <footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.

@@ -12,19 +12,21 @@
               document.createElement('header');
               document.createElement('section');
               document.createElement('footer');
+              document.createElement('article');
+              document.createElement('time');
            </script>
         <![endif]-->
 
-        <link rel="stylesheet" href="./assets/styles/syntax.css">
+        <link rel="stylesheet" href="/assets/styles/syntax.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" href="./assets/styles/rosengren.css">
+        <link rel="stylesheet" href="/assets/styles/rosengren.css">
 
     </head>
     <body>
       <nav class="navbar">
         <ul class="navbar-menu">
           <li class="navbar-menu-item"><a href="/">Rosengren.me</a></li>
-          <li class="navbar-menu-item"><a href="/blog">blog</a></li>
+          <li class="navbar-menu-item"><a href="/blog"><i class="icon-edit"></i>blog</a></li>
         </ul>
         <ul class="navbar-menu right">
           <li class="navbar-menu-item spot">
@@ -54,15 +56,17 @@
         </ul>
       </nav>
       <div class="main-content">
-          <article>
-	<header>
-		<h1>Rosengren.me: ios web-clips pin webapp to homescreen</h1>
-		<time datetime="2012-10-11 11:33:00 +0200">11 Oct 2012</time>
-	</header>
-	<p>Guides for creating icons that are used when pinning a website to the iphone/ipad homescreen.</p>
+          <div class="container">
+	<article>
+		<header>
+			<h1>ios web-clips pin webapp to homescreen</h1>
+			<time datetime="2012-10-11 11:33:00 +0200">11 Oct 2012</time>
+		</header>
+		<p>Guides for creating icons that are used when pinning a website to the iphone/ipad homescreen.</p>
 
 <p><a href='http://developer.apple.com/library/safari/#documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html#//apple_ref/doc/uid/TP40002051-CH3-SW4'>Apple documentation</a></p>
-</article>
+	</article>
+</div>
       </div> <!-- /container -->
       <footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.

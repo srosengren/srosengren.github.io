@@ -12,19 +12,21 @@
               document.createElement('header');
               document.createElement('section');
               document.createElement('footer');
+              document.createElement('article');
+              document.createElement('time');
            </script>
         <![endif]-->
 
-        <link rel="stylesheet" href="./assets/styles/syntax.css">
+        <link rel="stylesheet" href="/assets/styles/syntax.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" href="./assets/styles/rosengren.css">
+        <link rel="stylesheet" href="/assets/styles/rosengren.css">
 
     </head>
     <body>
       <nav class="navbar">
         <ul class="navbar-menu">
           <li class="navbar-menu-item"><a href="/">Rosengren.me</a></li>
-          <li class="navbar-menu-item"><a href="/blog">blog</a></li>
+          <li class="navbar-menu-item"><a href="/blog"><i class="icon-edit"></i>blog</a></li>
         </ul>
         <ul class="navbar-menu right">
           <li class="navbar-menu-item spot">
@@ -54,17 +56,19 @@
         </ul>
       </nav>
       <div class="main-content">
-          <article>
-	<header>
-		<h1>Rosengren.me: sql server between is not zero based</h1>
-		<time datetime="2013-02-08 15:06:00 +0100">08 Feb 2013</time>
-	</header>
-	<p>A small gotcha that happened a colleague tody. A simple search for paginated content went wrong.</p>
+          <div class="container">
+	<article>
+		<header>
+			<h1>sql server between is not zero based</h1>
+			<time datetime="2013-02-08 15:06:00 +0100">08 Feb 2013</time>
+		</header>
+		<p>A small gotcha that happened a colleague tody. A simple search for paginated content went wrong.</p>
 
 <p>The first page searched for items BETWEEN 0 and 10 and the second page searched for items BETWEEN 10 and 20, the first page looked alright but the first item on the second page was the same as the last one on the first page.</p>
 
 <p>The reason for this is that the BETWEEN function is not zero based as most of our developer brains are, but instead it&#8217;s based on row numbers. meaning that the first hit is row 1 and this is of course included in a search for 0 - 10 and that&#8217;s why the first page seemed correct.</p>
-</article>
+	</article>
+</div>
       </div> <!-- /container -->
       <footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.

@@ -12,19 +12,21 @@
               document.createElement('header');
               document.createElement('section');
               document.createElement('footer');
+              document.createElement('article');
+              document.createElement('time');
            </script>
         <![endif]-->
 
-        <link rel="stylesheet" href="./assets/styles/syntax.css">
+        <link rel="stylesheet" href="/assets/styles/syntax.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" href="./assets/styles/rosengren.css">
+        <link rel="stylesheet" href="/assets/styles/rosengren.css">
 
     </head>
     <body>
       <nav class="navbar">
         <ul class="navbar-menu">
           <li class="navbar-menu-item"><a href="/">Rosengren.me</a></li>
-          <li class="navbar-menu-item"><a href="/blog">blog</a></li>
+          <li class="navbar-menu-item"><a href="/blog"><i class="icon-edit"></i>blog</a></li>
         </ul>
         <ul class="navbar-menu right">
           <li class="navbar-menu-item spot">
@@ -54,17 +56,19 @@
         </ul>
       </nav>
       <div class="main-content">
-          <article>
-	<header>
-		<h1>Rosengren.me: Limitation in Sitecore Multilist field</h1>
-		<time datetime="2013-01-27 21:01:09 +0100">27 Jan 2013</time>
-	</header>
-	<p>There seems to be a limitation on visible items in a multilist field when settings the source as a sitecore node such as /sitecore/content/mysite. I didn&#8217;t count but it seems to &#8220;only&#8221; show the first 50 subitems.</p>
+          <div class="container">
+	<article>
+		<header>
+			<h1>Limitation in Sitecore Multilist field</h1>
+			<time datetime="2013-01-27 21:01:09 +0100">27 Jan 2013</time>
+		</header>
+		<p>There seems to be a limitation on visible items in a multilist field when settings the source as a sitecore node such as /sitecore/content/mysite. I didn&#8217;t count but it seems to &#8220;only&#8221; show the first 50 subitems.</p>
 
 <p>A solution for this is to instead use a sitecore query as the field source, eg <strong>query:/sitecore/content/mysite/&#42;</strong></p>
 
 <p>But this is not a problem that anyone is likely to encounter that often.</p>
-</article>
+	</article>
+</div>
       </div> <!-- /container -->
       <footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.

@@ -12,19 +12,21 @@
               document.createElement('header');
               document.createElement('section');
               document.createElement('footer');
+              document.createElement('article');
+              document.createElement('time');
            </script>
         <![endif]-->
 
-        <link rel="stylesheet" href="./assets/styles/syntax.css">
+        <link rel="stylesheet" href="/assets/styles/syntax.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
-        <link rel="stylesheet" href="./assets/styles/rosengren.css">
+        <link rel="stylesheet" href="/assets/styles/rosengren.css">
 
     </head>
     <body>
       <nav class="navbar">
         <ul class="navbar-menu">
           <li class="navbar-menu-item"><a href="/">Rosengren.me</a></li>
-          <li class="navbar-menu-item"><a href="/blog">blog</a></li>
+          <li class="navbar-menu-item"><a href="/blog"><i class="icon-edit"></i>blog</a></li>
         </ul>
         <ul class="navbar-menu right">
           <li class="navbar-menu-item spot">
@@ -54,12 +56,13 @@
         </ul>
       </nav>
       <div class="main-content">
-          <article>
-	<header>
-		<h1>Rosengren.me: Removing zone div wrapper in Orchard</h1>
-		<time datetime="2012-08-31 22:51:00 +0200">31 Aug 2012</time>
-	</header>
-	<p>If you have ever tried building a new Orchard theme from scratch, and like me you like full control of your markup. Then perhaps you have noticed the extra &#8220;zone-name&#8221; div that Orchard adds around every zone.</p>
+          <div class="container">
+	<article>
+		<header>
+			<h1>Removing zone div wrapper in Orchard</h1>
+			<time datetime="2012-08-31 22:51:00 +0200">31 Aug 2012</time>
+		</header>
+		<p>If you have ever tried building a new Orchard theme from scratch, and like me you like full control of your markup. Then perhaps you have noticed the extra &#8220;zone-name&#8221; div that Orchard adds around every zone.</p>
 
 <p>This is great for creating a semantic markup, but it didn&#8217;t suit my needs for a minimal markup and I wanted them gone.</p>
 
@@ -86,7 +89,8 @@
 </code></pre></div></p>
 
 <p>Now this might look like code, but hey, it&#8217;s razor!</p>
-</article>
+	</article>
+</div>
       </div> <!-- /container -->
       <footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
