@@ -24,9 +24,10 @@
     </head>
     <body>
       <nav class="navbar">
-        <ul class="navbar-menu">
-          <li class="navbar-menu-item"><a href="/">Rosengren.me</a></li>
-          <li class="navbar-menu-item"><a href="/blog"><i class="icon-edit"></i>blog</a></li>
+        <ul class="navbar-menu collapse" id="navbar-menu">
+          <li class="navbar-menu-item navbar-menu-title"><a href="/">Rosengren.me</a></li>
+          <li class="navbar-menu-item"><a href="/blog">blog</a></li>
+          <li class="navbar-menu-toggle" id="menu-toggle"><i class="icon-ellipsis-vertical"></i></li>
         </ul>
         <ul class="navbar-menu right">
           <li class="navbar-menu-item spot">
@@ -97,6 +98,15 @@
           ga('send', 'pageview');
 
           document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+
+          document.getElementById('menu-toggle').addEventListener('click', function(){
+            var navbar = document.getElementById('navbar-menu');
+            if(navbar.className.indexOf('open') > 0){
+              navbar.className = navbar.className.replace('open','');
+            } else {
+              navbar.className = navbar.className + ' open';
+            }
+          });
 
         </script>
     </body>
