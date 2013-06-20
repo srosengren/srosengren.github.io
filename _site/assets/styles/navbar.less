@@ -12,11 +12,14 @@
 	margin: 0 0 10px 0;
 }
 
-.navbar-menu .navbar-menu-item, .navbar-menu .navbar-menu-item > a {
-	margin: 0;
-	padding: 6px 12px 6px 0;
-	color: @color-base;
+.navbar-menu .navbar-menu-item {
 	float: left;
+	margin: 0;
+	padding: 9px 12px 9px 0;
+}
+
+.navbar-menu .navbar-menu-item, .navbar-menu .navbar-menu-item > a {
+	color: @color-base;
 }
 
 .navbar-menu .navbar-menu-item.spot .spot-bubble {
@@ -95,23 +98,26 @@
 		padding: 0 20px;
 	}
 
-	.navbar-menu.collapse .navbar-menu-item, .navbar-menu.collapse .navbar-menu-item > a {
+	.navbar-menu.collapse .navbar-menu-item {
+		-webkit-transition: all 0.35s ease;
+		-moz-transition: all 0.35s ease;
+		-o-transition: all 0.35s ease;
+		transition: all 0.35s ease;
 		height: 0px;
-		color: white;
 		float: none;
 		display: block;
 		padding: 0;
 	}
 
-	.navbar-menu.collapse .navbar-menu-item.navbar-menu-title, .navbar-menu.collapse .navbar-menu-item.navbar-menu-title > a,
-	.navbar-menu.collapse.open .navbar-menu-item, .navbar-menu.collapse.open .navbar-menu-item > a,
-	.navbar-menu.collapse.open .navbar-menu-item.navbar-menu-title, .navbar-menu.collapse.open .navbar-menu-item.navbar-menu-title > a {
+	.navbar-menu.collapse .navbar-menu-item, .navbar-menu.collapse .navbar-menu-item > a {
+		color: white;
+	}
+
+	.navbar-menu.collapse .navbar-menu-item.navbar-menu-title,
+	.navbar-menu.collapse.open .navbar-menu-item,
+	.navbar-menu.collapse.open .navbar-menu-item.navbar-menu-title {
 		height: auto;
-		padding: 6px 12px 6px 0;
-		-webkit-transition: all 0.35s ease;
-		-moz-transition: all 0.35s ease;
-		-o-transition: all 0.35s ease;
-		transition: all 0.35s ease;
+		padding: 9px 12px 9px 0;
 	}
 
 	.navbar-menu.collapse .navbar-menu-toggle {
