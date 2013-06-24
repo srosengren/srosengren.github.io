@@ -6,6 +6,13 @@
         <title>Rosengren.me - RedirectToAction and the ViewBag</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
+
+        <meta property="og:type" content="article"/>
+        <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
+        <meta property="og:description" content="This should have been fairly obvious, but we cannot expect the ViewBag to persist since a RedirectToAction only serves the client with a 302 redirected HTTP response to the new route. A solution for this is to use "TempData["key"]", this is a dictionary that is persisted in the users session meaning that we can retrieve it in the new action or controller or wherever the recieving end is.
+
+"/>
+
         <!--[if lt IE 9]>
            <script>
               document.createElement('nav');
@@ -91,7 +98,7 @@
           document.getElementById('menu-toggle').addEventListener('click', function(){
             var navbar = document.getElementById('navbar-menu');
             if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace('open','');
+              navbar.className = navbar.className.replace(' open','');
             } else {
               navbar.className = navbar.className + ' open';
             }

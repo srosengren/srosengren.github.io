@@ -6,6 +6,13 @@
         <title>Rosengren.me - Limitation in Sitecore Multilist field</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
+
+        <meta property="og:type" content="article"/>
+        <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
+        <meta property="og:description" content="There seems to be a limitation on visible items in a multilist field when settings the source as a sitecore node such as /sitecore/content/mysite. I didn't count but it seems to "only" show the first 50 subitems.
+
+"/>
+
         <!--[if lt IE 9]>
            <script>
               document.createElement('nav');
@@ -95,7 +102,7 @@
           document.getElementById('menu-toggle').addEventListener('click', function(){
             var navbar = document.getElementById('navbar-menu');
             if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace('open','');
+              navbar.className = navbar.className.replace(' open','');
             } else {
               navbar.className = navbar.className + ' open';
             }

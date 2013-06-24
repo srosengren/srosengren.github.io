@@ -7,7 +7,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
 
+        <meta property="og:type" content="{% if page.type == "post" %}article{% else %}website{% endif %}"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
+        <meta property="og:description" content="{% if page.type == "post" %}{{ page.excerpt }}{% else %} I'm one of those guys that code thingamajigs, sometimes for mobile devices, but mostly for the web using Javascript and css/less. {% endif %}"/>
 
         <!--[if lt IE 9]>
            <script>

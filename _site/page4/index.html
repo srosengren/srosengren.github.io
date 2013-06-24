@@ -6,6 +6,11 @@
         <title>Rosengren.me</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
+
+        <meta property="og:type" content="website"/>
+        <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
+        <meta property="og:description" content=" I'm one of those guys that code thingamajigs, sometimes for mobile devices, but mostly for the web using Javascript and css/less. "/>
+
         <!--[if lt IE 9]>
            <script>
               document.createElement('nav');
@@ -116,7 +121,7 @@
           document.getElementById('menu-toggle').addEventListener('click', function(){
             var navbar = document.getElementById('navbar-menu');
             if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace('open','');
+              navbar.className = navbar.className.replace(' open','');
             } else {
               navbar.className = navbar.className + ' open';
             }
