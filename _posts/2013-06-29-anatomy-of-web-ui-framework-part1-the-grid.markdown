@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Building a web UI, Part1: the grid"
+title:  "Anatomy of a web UI framework, Part1: the grid"
 date:   2013-06-29 01:06:00
 tags: [web, framework, modernwebui, development, css, javascript]
 ---
@@ -12,7 +12,10 @@ I normally end up with a variation of the same grid when I'm building web applic
 -  It MUST be fluid, There's really not much to say here, a fluid grid is the way to go when building responsive applications.
 -  It MUST be nestable.
 -  It MUST be able to what I like to call "transform".
+-  It should also be mobile-first, It's time to ditch the old way of building the web, IE8 can always be polyfilled with [respond.js](https://github.com/scottjehl/Respond)
 
 What I've settled on at the time of writing is a variation of the fluid 960gs. I will have half a gutter width on each side, except on nested rows for "flushness". It will not require a regular `.container > .row > .span` hierarchy, it will instead only require rows with columns in them, I will also add a utility class for the width of the outer rows. It will be transformable by the `.col-screen-*` classes that makes elements take up a different amount of columns at different screen sizes/breakpoints.
 
 This grid (and the framework) will work in IE8 and up, I find that this is a reasonable baseline in 2013.
+
+[The grid code](https://github.com/srosengren/modernwebui/blob/wip/less/grid.less)
