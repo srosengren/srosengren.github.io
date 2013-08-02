@@ -71,12 +71,15 @@
       </nav>
       <div class="main-content">
           <div class="container">
-	<article>
+	<articlec class="post">
 		<header>
-			<h1>Object literal as property on a prototype object results can cause headaches</h1>
-			<time datetime="2012-10-18 15:36:00 +0200">18 Oct 2012</time>
+			<h1 class="post__title">Object literal as property on a prototype object results can cause headaches</h1>
+			<div class="post__byline">
+				<time datetime="2012-10-18 15:36:00 +0200">18 Oct 2012</time>
+				web, javascript, jquery, and development
+			</div>
 		</header>
-		<p>Part of today was to enable an object literal to be used as a prototype. This object in turn had an object literal of its own (along with a few methods).</p>
+		<div class="post__content"><p>Part of today was to enable an object literal to be used as a prototype. This object in turn had an object literal of its own (along with a few methods).</p>
 
 <p>Here is pseudo-code to display what happened:</p>
 
@@ -93,7 +96,7 @@
 </code></pre></div>
 <p>By doing this I instead replace the settings object alltogether which places the new settings object on my object instance instead of on my prototype.</p>
 
-<p>This is of course pseudo-code and there are prettier ways to replace the settings object with the new properties but this solution shows the problem.</p>
+<p>This is of course pseudo-code and there are prettier ways to replace the settings object with the new properties but this solution shows the problem.</p></div>
 	</article>
 </div>
       </div> <!-- /container -->

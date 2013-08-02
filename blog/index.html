@@ -7,9 +7,10 @@ title: "my blog"
   <h1>Blog Posts</h1>
   <section id="blogposts">
     {% for post in site.posts %}
-      <article>
-        <time datetime="{{ post.date }}">{{ post.date | date_to_string }}</time> &raquo; <a href="{{ post.url }}">{{ post.title }}</a>
-        <p>{{ post.excerpt }}</p>
+      <article class="post">
+        <a href="{{ post.url }}"  class="post__title">{{ post.title }}</a>
+        <p class="post__byline"><time datetime="{{ post.date }}">{{ post.date | date_to_string }}</time> {{ post.tags | array_to_sentence_string }}</p>
+        <div class="post__excerpt">{{ post.excerpt }}</div>
       </article>
     {% endfor %}
   </section>

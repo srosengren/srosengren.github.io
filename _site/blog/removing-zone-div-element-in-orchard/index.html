@@ -71,12 +71,15 @@
       </nav>
       <div class="main-content">
           <div class="container">
-	<article>
+	<articlec class="post">
 		<header>
-			<h1>Removing zone div wrapper in Orchard</h1>
-			<time datetime="2012-08-31 22:51:00 +0200">31 Aug 2012</time>
+			<h1 class="post__title">Removing zone div wrapper in Orchard</h1>
+			<div class="post__byline">
+				<time datetime="2012-08-31 22:51:00 +0200">31 Aug 2012</time>
+				web, orchard, and development
+			</div>
 		</header>
-		<p>If you have ever tried building a new Orchard theme from scratch, and like me you like full control of your markup. Then perhaps you have noticed the extra &#8220;zone-name&#8221; div that Orchard adds around every zone.</p>
+		<div class="post__content"><p>If you have ever tried building a new Orchard theme from scratch, and like me you like full control of your markup. Then perhaps you have noticed the extra &#8220;zone-name&#8221; div that Orchard adds around every zone.</p>
 
 <p>This is great for creating a semantic markup, but it didn&#8217;t suit my needs for a minimal markup and I wanted them gone.</p>
 
@@ -102,7 +105,7 @@
          <span class='p'>}</span>
 </code></pre></div></p>
 
-<p>Now this might look like code, but hey, it&#8217;s razor!</p>
+<p>Now this might look like code, but hey, it&#8217;s razor!</p></div>
 	</article>
 </div>
       </div> <!-- /container -->

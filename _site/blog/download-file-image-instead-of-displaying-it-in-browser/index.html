@@ -71,12 +71,15 @@
       </nav>
       <div class="main-content">
           <div class="container">
-	<article>
+	<articlec class="post">
 		<header>
-			<h1>Download file / image instead of displaying it in browser</h1>
-			<time datetime="2012-09-24 15:53:00 +0200">24 Sep 2012</time>
+			<h1 class="post__title">Download file / image instead of displaying it in browser</h1>
+			<div class="post__byline">
+				<time datetime="2012-09-24 15:53:00 +0200">24 Sep 2012</time>
+				web, image, file, MVC, HTTP, and development
+			</div>
 		</header>
-		<p>New day new requirements. Atleast this was an easy one.</p>
+		<div class="post__content"><p>New day new requirements. Atleast this was an easy one.</p>
 
 <p>The normal action when clicking an anchor tag with an href pointing to an image is to display the image in the browser. Today this was not the desired outcome, instead I wanted to put an &#8220;Download image&#8221; button next to the image. The solution to this is very simple if you have access to the http server response. This was no problem for me since I&#8217;m working with asp.NET MVC, all I had to to was to add an extra header to the response. The content-disposition header to be precise.</p>
 
@@ -85,7 +88,7 @@
 <p>This is the result (MVC example):</p>
 <div class='highlight'><pre><code class='c#'><span class='n'>Response</span><span class='p'>.</span><span class='n'>AppendHeader</span><span class='p'>(</span><span class='s'>&quot;content-disposition&quot;</span><span class='p'>,</span> <span class='s'>&quot;attachment;filename=&quot;</span> <span class='p'>+</span> <span class='n'>myfile</span><span class='p'>.</span><span class='n'>Name</span><span class='p'>);</span>
 </code></pre></div>
-<p>And this is really all there is to it.</p>
+<p>And this is really all there is to it.</p></div>
 	</article>
 </div>
       </div> <!-- /container -->
