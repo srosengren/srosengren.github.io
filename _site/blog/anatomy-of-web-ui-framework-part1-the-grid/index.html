@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Rosengren.me - Anatomy of a web UI framework, Part1: the grid</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+
+        <meta property="og:type" content="article"/>
+        <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
+        <meta property="og:description" content="After a year of thoughts and a few projects regarding modern UI in web applications I now feel that I've got enough material to assemble a new web framework. There might be a few other ones out there trying to accomplish the same task, but I feel that most of them are a bit to static and not responsive enought to fit all devices which is what I'm trying to create. I created [Tily](https://github.com/srosengren/tily) a while back, trying to build an incredible flexible/fluid tile system. And I feel that I did just that, but a tile system no modern UI make. This time around I'll take my time trying to get it right, starting with the basic grid.
+
+"/>
+
+        <!--[if lt IE 9]>
+           <script>
+              document.createElement('nav');
+              document.createElement('header');
+              document.createElement('section');
+              document.createElement('footer');
+              document.createElement('article');
+              document.createElement('time');
+           </script>
+        <![endif]-->
+
+        <link rel="stylesheet" href="/assets/styles/syntax.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/styles/rosengren.css">
+
+    </head>
+    <body>
+      <nav class="navbar">
+        <ul class="navbar-menu collapse" id="navbar-menu">
+          <li class="navbar-menu-item navbar-menu-title"><a href="/">Rosengren.me</a></li>
+          <li class="navbar-menu-item"><a href="/blog">blog</a></li>
+          <li class="navbar-menu-toggle" id="menu-toggle"><i class="icon-ellipsis-vertical"></i></li>
+        </ul>
+        <ul class="navbar-menu navbar-spots right">
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="icon-linkedin"></a>
+            </div>
+            <span class="spot-title">Linkedin</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://twitter.com/srrosengren" target="_blank" class="icon-twitter"></a>
+            </div>
+            <span class="spot-title">Twitter</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://github.com/srosengren" target="_blank" class="icon-github"></a>
+            </div>
+            <span class="spot-title">Github</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://plus.google.com/100467627792652344906/posts?rel=author" target="_blank" class="icon-google-plus"></a>
+            </div>
+            <span class="spot-title">G+</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="javascript:;" id="mail-link" class="icon-envelope"></a>
+            </div>
+            <span class="spot-title">Mail</span>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-content">
+          <div class="container">
+	<articlec class="post">
+		<header>
+			<h1 class="post__title">Anatomy of a web UI framework, Part1: the grid</h1>
+			<div class="post__byline">
+				<time datetime="2013-06-29 03:06:00 +0200">29 Jun 2013</time>
+				web, framework, modernwebui, development, css, and javascript
+			</div>
+		</header>
+		<div class="post__content"><p>After a year of thoughts and a few projects regarding modern UI in web applications I now feel that I&#8217;ve got enough material to assemble a new web framework. There might be a few other ones out there trying to accomplish the same task, but I feel that most of them are a bit to static and not responsive enought to fit all devices which is what I&#8217;m trying to create. I created <a href='https://github.com/srosengren/tily'>Tily</a> a while back, trying to build an incredible flexible/fluid tile system. And I feel that I did just that, but a tile system no modern UI make. This time around I&#8217;ll take my time trying to get it right, starting with the basic grid.</p>
+
+<p>I normally end up with a variation of the same grid when I&#8217;m building web applications since I usually require a high grade of flexiblity. My usual grid requirements, and the ones that I&#8217;ll be using in this project are as follows.</p>
+
+<ul>
+<li>It MUST be fluid, There&#8217;s really not much to say here, a fluid grid is the way to go when building responsive applications.</li>
+
+<li>It MUST be nestable.</li>
+
+<li>It MUST be able to what I like to call &#8220;transform&#8221;.</li>
+
+<li>It should also be mobile-first, It&#8217;s time to ditch the old way of building the web, IE8 can always be polyfilled with <a href='https://github.com/scottjehl/Respond'>respond.js</a></li>
+</ul>
+
+<p>What I&#8217;ve settled on at the time of writing is a variation of the fluid 960gs. I will have half a gutter width on each side, except on nested rows for &#8220;flushness&#8221;. It will not require a regular <code>.container &gt; .row &gt; .span</code> hierarchy, it will instead only require rows with columns in them, I will also add a utility class for the width of the outer rows. It will be transformable by the <code>.col-screen-*</code> classes that makes elements take up a different amount of columns at different screen sizes/breakpoints.</p>
+
+<p>This grid (and the framework) will work in IE8 and up, I find that this is a reasonable baseline in 2013.</p>
+
+<p><a href='https://github.com/srosengren/modernwebui/blob/wip/less/grid.less'>The grid code</a></p></div>
+	</article>
+</div>
+      </div> <!-- /container -->
+      <footer class="container footer-content">
+        Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+      </footer>
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-41772613-1', 'rosengren.me');
+          ga('send', 'pageview');
+
+          document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+
+          document.getElementById('menu-toggle').addEventListener('click', function(){
+            var navbar = document.getElementById('navbar-menu');
+            if(navbar.className.indexOf('open') > 0){
+              navbar.className = navbar.className.replace(' open','');
+            } else {
+              navbar.className = navbar.className + ' open';
+            }
+          });
+        </script>
+    </body>
+</html>
