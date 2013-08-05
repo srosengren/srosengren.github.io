@@ -30,47 +30,25 @@
 
     </head>
     <body>
-      <nav class="navbar">
-        <ul class="navbar-menu collapse" id="navbar-menu">
-          <li class="navbar-menu-item navbar-menu-title"><a href="/">Rosengren.me</a></li>
-          <li class="navbar-menu-item"><a href="/blog">blog</a></li>
-          <li class="navbar-menu-toggle" id="menu-toggle"><i class="icon-ellipsis-vertical"></i></li>
-        </ul>
-        <ul class="navbar-menu navbar-spots right">
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="icon-linkedin"></a>
-            </div>
-            <span class="spot-title">Linkedin</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://twitter.com/srrosengren" target="_blank" class="icon-twitter"></a>
-            </div>
-            <span class="spot-title">Twitter</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://github.com/srosengren" target="_blank" class="icon-github"></a>
-            </div>
-            <span class="spot-title">Github</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://plus.google.com/100467627792652344906/posts?rel=author" target="_blank" class="icon-google-plus"></a>
-            </div>
-            <span class="spot-title">G+</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="javascript:;" id="mail-link" class="icon-envelope"></a>
-            </div>
-            <span class="spot-title">Mail</span>
-          </li>
-        </ul>
+      <nav class="social-nav" id="site-social">
+        <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="icon-linkedin social-nav__item"></a>
+        <a href="https://twitter.com/srrosengren" target="_blank" class="icon-twitter social-nav__item"></a>
+        <a href="https://github.com/srosengren" target="_blank" class="icon-github social-nav__item"></a>
+        <a href="https://plus.google.com/100467627792652344906/posts?rel=author" target="_blank" class="icon-google-plus social-nav__item"></a>
+        <a href="javascript:;" id="mail-link" class="icon-envelope social-nav__item"></a>
       </nav>
-      <div class="main-content">
-          <div class="container">
+      <header class="site-header" id="site-header">
+        <div class="site-header__content">
+          <p class="site-header__excerpt" id="site-description">Hi I'm <em>Sebastian Rosengren</em>, I'm one of those guys that code thingamajigs, sometimes for mobile devices, but mostly for the web using <em>Javascript</em> and <em>css/less</em>.</p>
+          <a href="/" class="site-header__image" title="home"></a>
+          <!--<nav class="site-nav">
+            <a href="/" class="site-nav__item">Home</a>
+            <a href="/blog" class="site-nav__item">Blog</a>
+          </nav>-->
+        </div>
+      </header>
+      <div class="container">
+        <div class="container">
 	<articlec class="post">
 		<header>
 			<h1 class="post__title">RedirectToAction and the ViewBag</h1>
@@ -82,10 +60,10 @@
 		<div class="post__content"><p>This should have been fairly obvious, but we cannot expect the ViewBag to persist since a RedirectToAction only serves the client with a 302 redirected HTTP response to the new route. A solution for this is to use &#8220;TempData<span>&#8220;key&#8221;</span>&#8221;, this is a dictionary that is persisted in the users session meaning that we can retrieve it in the new action or controller or wherever the recieving end is.</p></div>
 	</article>
 </div>
-      </div> <!-- /container -->
-      <footer class="container footer-content">
+      </div>
+      <!--<footer class="container footer-content">
         Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
-      </footer>
+      </footer>-->
 
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -98,14 +76,17 @@
 
           document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
 
-          document.getElementById('menu-toggle').addEventListener('click', function(){
-            var navbar = document.getElementById('navbar-menu');
-            if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace(' open','');
-            } else {
-              navbar.className = navbar.className + ' open';
-            }
-          });
+          window.onscroll = function(e){
+            var socialBar = document.getElementById('site-social'),
+                siteDescription = document.getElementById('site-description'),
+                siteHeader = document.getElementById('site-header');
+
+                if(window.scrollY >= (siteHeader.clientHeight - socialBar.clientHeight)){
+                  
+                } else {
+                }
+
+          }
         </script>
     </body>
 </html>
