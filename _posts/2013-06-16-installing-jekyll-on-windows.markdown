@@ -6,6 +6,6 @@ tags: [development,web,python,ruby,jekyll]
 ---
 
 [DRAFT]
-Use Ror for painless installation.
+Use Ror for painless installation. http://railsinstaller.org/en
 Python 2.7.5 for Pygments.
 Don't forget to set HOME PATH if it's currently set to a network drive. SET HOME=%USERPROFILE%
