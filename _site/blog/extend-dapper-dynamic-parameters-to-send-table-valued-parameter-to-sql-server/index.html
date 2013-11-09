@@ -25,51 +25,51 @@
         <![endif]-->
 
         <link rel="stylesheet" href="/assets/styles/syntax.css">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" href="/assets/styles/rosengren.css">
 
     </head>
     <body>
-      <nav class="navbar">
-        <ul class="navbar-menu collapse" id="navbar-menu">
-          <li class="navbar-menu-item navbar-menu-title"><a href="/">Rosengren.me</a></li>
-          <li class="navbar-menu-item"><a href="/blog">blog</a></li>
-          <li class="navbar-menu-toggle" id="menu-toggle"><i class="icon-ellipsis-vertical"></i></li>
-        </ul>
-        <ul class="navbar-menu navbar-spots right">
+      <div class="navbar-menu-toggle" id="menu-toggle"></div>
+      <nav class="navbar" id="navbar-menu">
+        <div class="navbar-menu collapse">
+          <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+          <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+        </div>
+        <ul class="navbar-menu navbar-spots right collapse">
           <li class="navbar-menu-item spot">
             <div class="spot-bubble">
-              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="icon-linkedin"></a>
+              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="fa fa-linkedin"></a>
             </div>
             <span class="spot-title">Linkedin</span>
           </li>
           <li class="navbar-menu-item spot">
             <div class="spot-bubble">
-              <a href="https://twitter.com/srrosengren" target="_blank" class="icon-twitter"></a>
+              <a href="https://twitter.com/srrosengren" target="_blank" class="fa fa-twitter"></a>
             </div>
             <span class="spot-title">Twitter</span>
           </li>
           <li class="navbar-menu-item spot">
             <div class="spot-bubble">
-              <a href="https://github.com/srosengren" target="_blank" class="icon-github"></a>
+              <a href="https://github.com/srosengren" target="_blank" class="fa fa-github"></a>
             </div>
             <span class="spot-title">Github</span>
           </li>
           <li class="navbar-menu-item spot">
             <div class="spot-bubble">
-              <a href="https://plus.google.com/100467627792652344906/posts?rel=author" target="_blank" class="icon-google-plus"></a>
+              <a href="https://plus.google.com/100467627792652344906/posts?rel=author" target="_blank" class="fa fa-google-plus"></a>
             </div>
             <span class="spot-title">G+</span>
           </li>
           <li class="navbar-menu-item spot">
             <div class="spot-bubble">
-              <a href="javascript:;" id="mail-link" class="icon-envelope"></a>
+              <a href="javascript:;" id="mail-link" class="fa fa-envelope"></a>
             </div>
             <span class="spot-title">Mail</span>
           </li>
         </ul>
       </nav>
-      <div class="main-content">
+      <div class="main-content" id="content">
           <div class="container">
 	<articlec class="post">
 		<header>
@@ -167,6 +167,13 @@
               navbar.className = navbar.className + ' open';
             }
           });
+
+          document.getElementById('content').addEventListener('click',function(){
+            var navbar = document.getElementById('navbar-menu');
+            if(navbar.className.indexOf('open') > 0){
+              navbar.className = navbar.className.replace(' open','');
+            }
+          })
         </script>
     </body>
 </html>

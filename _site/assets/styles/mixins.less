@@ -4,6 +4,18 @@
 	border-radius: @radius;
 }
 
+.transition(@transition){
+  -webkit-transitition: @transition;
+  -moz-transition: @transition;
+  -o-transition: @transition;
+  transition: @transition;
+}
+
+.border-box {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 .clearfix() {
   *zoom: 1;
   &:before,
@@ -17,4 +29,62 @@
   &:after {
     clear: both;
   }
+}
+
+.animation(@animation) {
+  -webkit-animation: @animation;
+  -moz-animation:    @animation;
+  -ms-animation:     @animation;
+  -o-animation:      @animation;
+}
+
+@-webkit-keyframes opacityanimation {
+  0%   { opacity: 0; }
+  30%   { opacity: 0; }
+  40%   { opacity: 0.2; }
+  50%   { opacity: 0.4; }
+  60%   { opacity: 0.5; }
+  70%   { opacity: 0.4; }
+  70%   { opacity: 0.2; }
+  80%   { opacity: 0; }
+  100%  { opacity: 0; }
+}
+@-moz-keyframes opacityanimation {
+  0%   { opacity: 0; }
+  10%   { opacity: 0.2; }
+  20%   { opacity: 0.4; }
+  30%   { opacity: 0.6; }
+  40%   { opacity: 0.8; }
+  50%   { opacity: 1; }
+  60%   { opacity: 0.8; }
+  70%   { opacity: 0.6; }
+  80%   { opacity: 0.4; }
+  90%   { opacity: 0.2; }
+  100%  { opacity: 0; }
+}
+@-ms-keyframes opacityanimation {
+  0%   { opacity: 0; }
+  10%   { opacity: 0.2; }
+  20%   { opacity: 0.4; }
+  30%   { opacity: 0.6; }
+  40%   { opacity: 0.8; }
+  50%   { opacity: 1; }
+  60%   { opacity: 0.8; }
+  70%   { opacity: 0.6; }
+  80%   { opacity: 0.4; }
+  90%   { opacity: 0.2; }
+  100%  { opacity: 0; }
+}
+@-o-keyframes opacityanimation {
+  0%   { opacity: 0; }
+  10%   { opacity: 0.2; }
+  20%   { opacity: 0.4; }
+  30%   { opacity: 0.6; }
+  40%   { opacity: 0.8; }
+  50%   { opacity: 1; }
+  60%   { opacity: 0.8; }
+  70%   { opacity: 0.6; }
+  80%   { opacity: 0.4; }
+  90%   { opacity: 0.2; }
+  100%  { opacity: 0; }
 }
