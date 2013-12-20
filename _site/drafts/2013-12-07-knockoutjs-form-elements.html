@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Rosengren.me - KnockoutJS and form elements</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+
+        <meta property="og:type" content="article"/>
+        <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
+        <meta property="og:description" content=""/>
+
+        <!--[if lt IE 9]>
+           <script>
+              document.createElement('nav');
+              document.createElement('header');
+              document.createElement('section');
+              document.createElement('footer');
+              document.createElement('article');
+              document.createElement('time');
+           </script>
+        <![endif]-->
+
+        <link rel="stylesheet" href="/assets/styles/syntax.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/styles/rosengren.css">
+
+    </head>
+    <body>
+      <div class="navbar-menu-toggle" id="menu-toggle"></div>
+      <nav class="navbar" id="navbar-menu">
+        <div class="navbar-menu collapse">
+          <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+          <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+        </div>
+        <ul class="navbar-menu navbar-spots right collapse">
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="fa fa-linkedin"></a>
+            </div>
+            <span class="spot-title">Linkedin</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://twitter.com/srrosengren" target="_blank" class="fa fa-twitter"></a>
+            </div>
+            <span class="spot-title">Twitter</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://github.com/srosengren" target="_blank" class="fa fa-github"></a>
+            </div>
+            <span class="spot-title">Github</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://plus.google.com/100467627792652344906/posts?rel=author" target="_blank" class="fa fa-google-plus"></a>
+            </div>
+            <span class="spot-title">G+</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="javascript:;" id="mail-link" class="fa fa-envelope"></a>
+            </div>
+            <span class="spot-title">Mail</span>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-content" id="content">
+          <div class="container">
+	<articlec class="post">
+		<header>
+			<h1 class="post__title">KnockoutJS and form elements</h1>
+			<div class="post__byline">
+				<time datetime="2013-12-07 11:28:00 +0100">07 Dec 2013</time>
+				web, knockoutjs, javascript, frontend, and stratiteq
+			</div>
+		</header>
+		<div class="post__content"><p>One of the latest projects that i&#8217;ve been involved with at Stratiteq was a form designer web application where I was tasked with setting up the frontend architecture and building the form designer itself. I decided on using <a href='http://knockoutjs.com/'>KnockoutJS</a> since i&#8217;ve built applications with it before and find it to be an extremely competent MV* framework.</p>
+
+<p>One of the reasons for choosing Knockout is because of their great documentation which can be found <a href='http://knockoutjs.com/documentation/introduction.html'>here</a>, the documentation for working with form elements is excellent and they cover things like enable, value, checked and lots of bindings for options in select elements. But us developers have a way of trying to build things that the documentation doesn&#8217;t cover explicitly and I think that&#8217;s part of the beauty of our work.</p>
+
+<h2 id='html_select'>HTML select</h2>
+
+<h4 id='dynamically_switch_between_multiple_or_not'>Dynamically switch between multiple or not</h4>
+
+<p>One of the elements that the user should be able to create is a listbox, i.e., a select element with either a multiple attribute or size attribute &gt; 1, the form creator should also be able to switch between multiple or not. The issue here was that only the last item was rendered as selected when I tried to render a list that was set to allow multiple and had multiple items set as selected. Here&#8217;s the code that I had when this issue presented itself</p>
+<div class='highlight'><pre><code class='html'><span class='nt'>&lt;select</span> <span class='na'>data-bind=</span><span class='s'>&quot;foreach: items,attr: { multiple: multiple}&quot;</span> <span class='na'>disabled</span><span class='nt'>&gt;</span>
+    <span class='nt'>&lt;option</span> <span class='na'>data-bind=</span><span class='s'>&quot;text:text,value:value,attr: {selected:selected }&quot;</span><span class='nt'>&gt;&lt;/option&gt;</span>
+<span class='nt'>&lt;/select&gt;</span>
+</code></pre></div>
+<p>The reason for not using the options* values that Knockout provides is that I also needed some more specific rendering control over the options that isn&#8217;t displayed in this snippet.</p>
+
+<p>This issue was fortunately very easy to find. Knockout renders the data-bind params from left to right, meaning that all the items with their selected attributes were written before the multiple attribute was set on the select itself. The browser interprets this as it usually would, that a new selected item will be the only selected one and any previous selected item will be rerendered as unselected. All I had to do to fix this was to move the attr bind parameter to come before the foreach param.</p>
+
+<h4 id='issues_with_optionsvalue_and_the_value_parameter_becoming_the_string_value'>Issues with optionsValue and the value parameter becoming the string value</h4></div>
+	</article>
+</div>
+      </div> <!-- /container -->
+      <footer class="container footer-content">
+        Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+      </footer>
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-41772613-1', 'rosengren.me');
+          ga('send', 'pageview');
+
+          document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+
+          document.getElementById('menu-toggle').addEventListener('click', function(){
+            var navbar = document.getElementById('navbar-menu');
+            if(navbar.className.indexOf('open') > 0){
+              navbar.className = navbar.className.replace(' open','');
+            } else {
+              navbar.className = navbar.className + ' open';
+            }
+          });
+
+          document.getElementById('content').addEventListener('click',function(){
+            var navbar = document.getElementById('navbar-menu');
+            if(navbar.className.indexOf('open') > 0){
+              navbar.className = navbar.className.replace(' open','');
+            }
+          })
+        </script>
+    </body>
+</html>
