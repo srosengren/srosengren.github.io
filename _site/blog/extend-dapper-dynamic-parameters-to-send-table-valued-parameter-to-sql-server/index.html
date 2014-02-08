@@ -9,9 +9,7 @@
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="So you want to pass a list of something to a SQL stored procedure/Query using Dapper? And you want to receive it as a [Table Valued Parameter](http://technet.microsoft.com/en-us/library/bb510489.aspx)? Sounds great, you might feel a little bummed that this isn't supported out of the box in Dapper, meaning that you can't simply put a IEnumerable as a param in the dynamic param object that a Dapper query accepts. But fear not, it's pretty easy to do yourself, depending on how thorough you want to be.
-
-"/>
+        <meta property="og:description" content="<p>So you want to pass a list of something to a SQL stored procedure/Query using Dapper? And you want to receive it as a <a href="http://technet.microsoft.com/en-us/library/bb510489.aspx">Table Valued Parameter</a>? Sounds great, you might feel a little bummed that this isn’t supported out of the box in Dapper, meaning that you can’t simply put a IEnumerable as a param in the dynamic param object that a Dapper query accepts. But fear not, it’s pretty easy to do yourself, depending on how thorough you want to be.</p>"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -75,15 +73,15 @@
 		<header>
 			<h1 class="post__title">Extend Dapper Dynamic Parameters to send Table Valued Parameter to SQL Server</h1>
 			<div class="post__byline">
-				<time datetime="2013-09-29 15:29:00 +0200">29 Sep 2013</time>
+				<time datetime="2013-09-29 13:29:00 UTC">29 Sep 2013</time>
 				sql, sql server, dapper, dynamic parameters, code, and stratiteq
 			</div>
 		</header>
-		<div class="post__content"><p>So you want to pass a list of something to a SQL stored procedure/Query using Dapper? And you want to receive it as a <a href='http://technet.microsoft.com/en-us/library/bb510489.aspx'>Table Valued Parameter</a>? Sounds great, you might feel a little bummed that this isn&#8217;t supported out of the box in Dapper, meaning that you can&#8217;t simply put a IEnumerable as a param in the dynamic param object that a Dapper query accepts. But fear not, it&#8217;s pretty easy to do yourself, depending on how thorough you want to be.</p>
+		<div class="post__content"><p>So you want to pass a list of something to a SQL stored procedure/Query using Dapper? And you want to receive it as a <a href="http://technet.microsoft.com/en-us/library/bb510489.aspx">Table Valued Parameter</a>? Sounds great, you might feel a little bummed that this isn’t supported out of the box in Dapper, meaning that you can’t simply put a IEnumerable as a param in the dynamic param object that a Dapper query accepts. But fear not, it’s pretty easy to do yourself, depending on how thorough you want to be.</p>
 
-<p>I&#8217;m simply going to create a one-off solution that you can easily expand on yourself.</p>
+<p>I’m simply going to create a one-off solution that you can easily expand on yourself.</p>
 
-<p>I will not pretend to be an expert on the inner workings of Dapper, but I do know that the <code>Query&lt;t&gt;</code> method takes a parameter called param that is of type <a href='http://msdn.microsoft.com/en-us/library/dd264736.aspx'>dynamic</a>, meaning that we can put an inline object initilazier here, or an object of any type. The magic that we&#8217;re after happens if we create a new type that implements Dappers <code>IDynamicParameters</code> interface.</p>
+<p>I will not pretend to be an expert on the inner workings of Dapper, but I do know that the <code>Query&lt;t&gt;</code> method takes a parameter called param that is of type <a href="http://msdn.microsoft.com/en-us/library/dd264736.aspx">dynamic</a>, meaning that we can put an inline object initilazier here, or an object of any type. The magic that we’re after happens if we create a new type that implements Dappers <code>IDynamicParameters</code> interface.</p>
 
 <p>But first things first, let us assume that you have a stored procedure that takes a TVP parameter of ids for filtering on. It might look like this:</p>
 <div class='highlight'><pre><code class='sql'><span class='c1'>-- CREATE THE TYPE TO USE AS A PARAMETER FOR YOUR STORED PROCEDURE</span>
@@ -102,10 +100,10 @@
 
 <span class='k'>END</span>
 </code></pre></div>
-<p>You might try to call it like this, using the basic Dapper functionality that you&#8217;re used to:</p>
+<p>You might try to call it like this, using the basic Dapper functionality that you’re used to:</p>
 <div class='highlight'><pre><code class='c#'><span class='n'>myConnection</span><span class='p'>.</span><span class='n'>Query</span><span class='p'>&lt;</span><span class='n'>returnType</span><span class='p'>&gt;(</span><span class='s'>&quot;dbo.filterOnIds&quot;</span><span class='p'>,</span><span class='k'>new</span> <span class='p'>{</span> <span class='n'>ids</span> <span class='p'>=</span> <span class='n'>myList</span> <span class='p'>});</span>
 </code></pre></div>
-<p>But this will of course not work, and that&#8217;s why you&#8217;re reading this. The solution isn&#8217;t that hard but finding Dapper examples on the internet can be quite time consuming/frustrating. So lets write some code:</p>
+<p>But this will of course not work, and that’s why you’re reading this. The solution isn’t that hard but finding Dapper examples on the internet can be quite time consuming/frustrating. So lets write some code:</p>
 <div class='highlight'><pre><code class='c#'><span class='k'>public</span> <span class='k'>class</span> <span class='nc'>IdListParam</span> <span class='p'>:</span> <span class='n'>Dapper</span><span class='p'>.</span><span class='n'>SqlMapper</span><span class='p'>.</span><span class='n'>IDynamicParameters</span>
 <span class='p'>{</span>
 	<span class='k'>private</span> <span class='n'>IEnumerable</span><span class='p'>&lt;</span><span class='kt'>int</span><span class='p'>&gt;</span> <span class='n'>_ids</span><span class='p'>;</span>
@@ -140,7 +138,7 @@
   <span class='p'>}</span>
 <span class='p'>}</span>
 </code></pre></div>
-<p>But as I said, this is a one-off implementation with no dynamic input. If you&#8217;re okay with having maybe one or two implementations of this style in your code then that&#8217;s okay, simply add parameters to the constructor as needed and add them to the command in the <code>AddParameters</code> method. Or you could extend it to take a <code>Dynamic</code> object in the constructor and iterate over its properties, creating parameters on the fly. I would consider the second option if you use TVP a lot in your stored procedures and that most of your other params are of a few normal types such as INT and NVARCHAR. This could easibly be a project in itself if you want to catch every single use case in a single implementation.</p></div>
+<p>But as I said, this is a one-off implementation with no dynamic input. If you’re okay with having maybe one or two implementations of this style in your code then that’s okay, simply add parameters to the constructor as needed and add them to the command in the <code>AddParameters</code> method. Or you could extend it to take a <code>Dynamic</code> object in the constructor and iterate over its properties, creating parameters on the fly. I would consider the second option if you use TVP a lot in your stored procedures and that most of your other params are of a few normal types such as INT and NVARCHAR. This could easibly be a project in itself if you want to catch every single use case in a single implementation.</p></div>
 	</article>
 </div>
       </div> <!-- /container -->

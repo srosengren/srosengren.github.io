@@ -9,10 +9,7 @@
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="I'll be the first to admit it, my "workflow" is/was really ancient, my professional work is to 99% done in Visual Studio which has made me a bit spoiled since it handles almost anything you want it to do.
-Work that I do for fun on the other hand is mostly written with sublime text. This site for instance is built with jekyll and I use LESS as a preprocessor for its stylesheets.
-
-"/>
+        <meta property="og:description" content="<p>I’ll be the first to admit it, my “workflow” is/was really ancient, my professional work is to 99% done in Visual Studio which has made me a bit spoiled since it handles almost anything you want it to do. Work that I do for fun on the other hand is mostly written with sublime text. This site for instance is built with jekyll and I use LESS as a preprocessor for its stylesheets.</p>"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -76,21 +73,21 @@ Work that I do for fun on the other hand is mostly written with sublime text. Th
 		<header>
 			<h1 class="post__title">Automate and livereload a jekyll site with less using grunt</h1>
 			<div class="post__byline">
-				<time datetime="2013-12-20 16:25:00 +0100">20 Dec 2013</time>
+				<time datetime="2013-12-20 15:25:00 UTC">20 Dec 2013</time>
 				web, javascript, frontend, jekyll, gruntjs, less, and development
 			</div>
 		</header>
-		<div class="post__content"><p>I&#8217;ll be the first to admit it, my &#8220;workflow&#8221; is/was really ancient, my professional work is to 99% done in Visual Studio which has made me a bit spoiled since it handles almost anything you want it to do. Work that I do for fun on the other hand is mostly written with sublime text. This site for instance is built with jekyll and I use LESS as a preprocessor for its stylesheets.</p>
+		<div class="post__content"><p>I’ll be the first to admit it, my “workflow” is/was really ancient, my professional work is to 99% done in Visual Studio which has made me a bit spoiled since it handles almost anything you want it to do. Work that I do for fun on the other hand is mostly written with sublime text. This site for instance is built with jekyll and I use LESS as a preprocessor for its stylesheets.</p>
 
-<p>My old workflow for developing/writing posts for this site was pretty much non-existant. I used Winless for compilling LESS and it has the occasional hiccups where it wouldn&#8217;t listen to updates in imported files and recompile my main LESS file. I also ran <code>jekyll build</code> manually from a bash prompt. The Winless issue meant that I sometimes had to compile jekyll, realize that the LESS file wasn&#8217;t compiled and thus not updated in the new build so I had to manually compile LESS and then build jekyll again, a time consuming and headache inducing experience I can assure you.</p>
+<p>My old workflow for developing/writing posts for this site was pretty much non-existant. I used Winless for compilling LESS and it has the occasional hiccups where it wouldn’t listen to updates in imported files and recompile my main LESS file. I also ran <code>jekyll build</code> manually from a bash prompt. The Winless issue meant that I sometimes had to compile jekyll, realize that the LESS file wasn’t compiled and thus not updated in the new build so I had to manually compile LESS and then build jekyll again, a time consuming and headache inducing experience I can assure you.</p>
 
-<p>I&#8217;ve been interested in GruntJS for a while now but I didn&#8217;t realize that I could use it to solve my issue before reading Chris Coyiers <a href='http://24ways.org/2013/grunt-is-not-weird-and-hard/'>article</a>, I also feared that it would be hard since it runs on node. Turns out that setting up grunt on windows was a breeze and that creating a grunt file for this project wasn&#8217;t to hard, mainly because a lot of people has written about parts of what I tried to achieve. Chris&#8217;s article covered most of it but I also had to find some posts about jekyll and grunt, and then merge this information.</p>
+<p>I’ve been interested in GruntJS for a while now but I didn’t realize that I could use it to solve my issue before reading Chris Coyiers <a href="http://24ways.org/2013/grunt-is-not-weird-and-hard/">article</a>, I also feared that it would be hard since it runs on node. Turns out that setting up grunt on windows was a breeze and that creating a grunt file for this project wasn’t to hard, mainly because a lot of people has written about parts of what I tried to achieve. Chris’s article covered most of it but I also had to find some posts about jekyll and grunt, and then merge this information.</p>
 
-<p>I will try to make an abridged version of the information that I&#8217;ve compiled, referring back to the original content but also write my conclusions in case the original posts disappears.</p>
+<p>I will try to make an abridged version of the information that I’ve compiled, referring back to the original content but also write my conclusions in case the original posts disappears.</p>
 
-<h2 id='setting_it_up'>Setting it up</h2>
+<h2 id="setting_it_up">Setting it up</h2>
 
-<p><a href='http://24ways.org/2013/grunt-is-not-weird-and-hard/'>Chris Coyier</a> writes about the basics of setting up grunt, all you have to do is go to <a href='http://nodejs.org/'>http://nodejs.org/</a> and click the install button. You then create a file called &#8220;package.json&#8221; in your sites root folder with the following:</p>
+<p><a href="http://24ways.org/2013/grunt-is-not-weird-and-hard/">Chris Coyier</a> writes about the basics of setting up grunt, all you have to do is go to <a href="http://nodejs.org/">http://nodejs.org/</a> and click the install button. You then create a file called “package.json” in your sites root folder with the following:</p>
 <div class='highlight'><pre><code class='javascript'><span class='p'>{</span>
   <span class='s2'>&quot;name&quot;</span><span class='o'>:</span> <span class='s2'>&quot;My jekyll site&quot;</span><span class='p'>,</span>
   <span class='s2'>&quot;version&quot;</span><span class='o'>:</span> <span class='s2'>&quot;1.0.0&quot;</span><span class='p'>,</span>
@@ -105,9 +102,9 @@ Work that I do for fun on the other hand is mostly written with sublime text. Th
 </code></pre></div>
 <p>And then run <code>npm install</code> to install your dependencies.</p>
 
-<p>Now it&#8217;s time to write our gruntfile that will compile less and build jekyll, it should of course do this without us having to press reload in our browser.</p>
+<p>Now it’s time to write our gruntfile that will compile less and build jekyll, it should of course do this without us having to press reload in our browser.</p>
 
-<p>We will begin with this simple gruntfile that compiles our less on the fly, we don&#8217;t have to install livereload on our machines since this is built into <code>grunt-contrib-watch</code>, but we still have to install a <a href='http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-'>browser plugin</a></p>
+<p>We will begin with this simple gruntfile that compiles our less on the fly, we don’t have to install livereload on our machines since this is built into <code>grunt-contrib-watch</code>, but we still have to install a <a href="http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-">browser plugin</a></p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>module</span><span class='p'>.</span><span class='nx'>exports</span> <span class='o'>=</span> <span class='kd'>function</span><span class='p'>(</span><span class='nx'>grunt</span><span class='p'>)</span> <span class='p'>{</span>
   <span class='nx'>grunt</span><span class='p'>.</span><span class='nx'>loadNpmTasks</span><span class='p'>(</span><span class='s1'>&#39;grunt-contrib-less&#39;</span><span class='p'>);</span>
   <span class='nx'>grunt</span><span class='p'>.</span><span class='nx'>loadNpmTasks</span><span class='p'>(</span><span class='s1'>&#39;grunt-contrib-watch&#39;</span><span class='p'>);</span>
@@ -140,7 +137,7 @@ Work that I do for fun on the other hand is mostly written with sublime text. Th
 </code></pre></div>
 <p>What this does is that it listens to changes in any LESS file in my /assets/styles folder. It compiles and minifies <code>rosengren.less</code> to <code>rosengren.css</code> by running the <code>less:development</code> task from the <code>watch:less</code> task when it detects an update. It also notifies livereload in any browser and injects the new CSS without refreshing the page.</p>
 
-<p>I found a post by <a href='http://thanpol.as/jekyll/jekyll-and-livereload-flow/'>Thanasis Polychronakis</a> That describes how to get grunt to build jekyll through a shell task. And also added that we should have an additional task that copies compiled less directly to our _site folder without having to build jekyll since it takes a lot of time.</p>
+<p>I found a post by <a href="http://thanpol.as/jekyll/jekyll-and-livereload-flow/">Thanasis Polychronakis</a> That describes how to get grunt to build jekyll through a shell task. And also added that we should have an additional task that copies compiled less directly to our _site folder without having to build jekyll since it takes a lot of time.</p>
 
 <p>We do this by adding these tasks directly into the <code>grunt.initConfig</code> parameter object, they should be added right next to the <code>less</code> and <code>watch</code> tasks.</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>copy</span><span class='o'>:</span> <span class='p'>{</span>
@@ -159,7 +156,7 @@ Work that I do for fun on the other hand is mostly written with sublime text. Th
   <span class='p'>}</span>
 <span class='p'>}</span>
 </code></pre></div>
-<p>We should also add <code>&#39;copy:css&#39;</code> into the <code>watch:less</code> tasks array. and a secondary watch task that should be added next to the <code>watch:less</code> task</p>
+<p>We should also add <code>'copy:css'</code> into the <code>watch:less</code> tasks array. and a secondary watch task that should be added next to the <code>watch:less</code> task</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>jekyll</span><span class='o'>:</span> <span class='p'>{</span>
   <span class='nx'>files</span><span class='o'>:</span> <span class='p'>[</span>
     <span class='s1'>&#39;*.html&#39;</span><span class='p'>,</span> <span class='s1'>&#39;*.yml&#39;</span><span class='p'>,</span> <span class='s1'>&#39;assets/js/**.js&#39;</span><span class='p'>,</span>
@@ -179,13 +176,13 @@ Work that I do for fun on the other hand is mostly written with sublime text. Th
 
 <p>The new <code>watch:jekyll</code> task will listen to any change in files that should trigger a jekyll build, it will then trigger the <code>shell:jekyll</code> task and a livereload after it has finished.</p>
 
-<p>The new tasks that we&#8217;re loading should simply be added within the main function of the file, next to the previously loaded tasks.</p>
+<p>The new tasks that we’re loading should simply be added within the main function of the file, next to the previously loaded tasks.</p>
 
-<h2 id='finally'>Finally</h2>
+<h2 id="finally">Finally</h2>
 
 <p>Well there you have it, a jekyll site that builds when files are updated and compiles and injects LESS when it detects any change in a LESS file.</p>
 
-<p>The grunt file for this site as of writing can be found <a href='https://github.com/srosengren/srosengren.github.io/blob/bf3f4c50a3ccd853871fea8461128227887a933b/_site/gruntfile.js'>here</a></p></div>
+<p>The grunt file for this site as of writing can be found <a href="https://github.com/srosengren/srosengren.github.io/blob/bf3f4c50a3ccd853871fea8461128227887a933b/_site/gruntfile.js">here</a></p></div>
 	</article>
 </div>
       </div> <!-- /container -->

@@ -9,9 +9,7 @@
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="Say that you have a pretty standard app with the /home/index/id routing.
-
-"/>
+        <meta property="og:description" content="<p>Say that you have a pretty standard app with the /home/index/id routing.</p>"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -75,23 +73,20 @@
 		<header>
 			<h1 class="post__title">url.action and outbound url matching using current request parameters</h1>
 			<div class="post__byline">
-				<time datetime="2013-02-26 13:09:00 +0100">26 Feb 2013</time>
+				<time datetime="2013-02-26 12:09:00 UTC">26 Feb 2013</time>
 				development, MVC, asp.net, gotchas, and web
 			</div>
 		</header>
 		<div class="post__content"><p>Say that you have a pretty standard app with the /home/index/id routing.</p>
 
 <p>You have a page with the following <strong>route /home/index/1</strong> and on this page you want a link back to <strong>/home/index</strong> so you use</p>
-
-<p><div class='highlight'><pre><code class='c#'><span class='n'>@Url</span><span class='p'>.</span><span class='n'>Action</span><span class='p'>(</span><span class='s'>&quot;index,&quot;</span><span class='n'>home</span><span class='s'>&quot;)</span>
-</code></pre></div></p>
-
+<div class='highlight'><pre><code class='c#'><span class='n'>@Url</span><span class='p'>.</span><span class='n'>Action</span><span class='p'>(</span><span class='s'>&quot;index,&quot;</span><span class='n'>home</span><span class='s'>&quot;)</span>
+</code></pre></div>
 <p>to generate the correct link. But you notice that the generated link have the following href <strong>/home/index/</strong>, ie the same route that you are currently on, why is that?</p>
 
-<p>Well it turns out that Url.Action has a flow for generating your anchor tags. It first looks to the values that you explicitly provide, then to values from the current request (your id parameter) and lastly to defaults. This means that you can&#8217;t even override the id parameter by setting the routevalue object to null, you actually have to explicitly set the id parameter to an empty string.</p>
-
-<p><div class='highlight'><pre><code class='c#'><span class='n'>@Url</span><span class='p'>.</span><span class='n'>Action</span><span class='p'>(</span><span class='s'>&quot;index&quot;</span><span class='p'>,</span><span class='s'>&quot;home&quot;</span><span class='p'>,</span><span class='k'>new</span> <span class='p'>{</span> <span class='n'>id</span> <span class='p'>=</span> <span class='s'>&quot;&quot;</span> <span class='p'>})</span>
-</code></pre></div></p></div>
+<p>Well it turns out that Url.Action has a flow for generating your anchor tags. It first looks to the values that you explicitly provide, then to values from the current request (your id parameter) and lastly to defaults. This means that you can’t even override the id parameter by setting the routevalue object to null, you actually have to explicitly set the id parameter to an empty string.</p>
+<div class='highlight'><pre><code class='c#'><span class='n'>@Url</span><span class='p'>.</span><span class='n'>Action</span><span class='p'>(</span><span class='s'>&quot;index&quot;</span><span class='p'>,</span><span class='s'>&quot;home&quot;</span><span class='p'>,</span><span class='k'>new</span> <span class='p'>{</span> <span class='n'>id</span> <span class='p'>=</span> <span class='s'>&quot;&quot;</span> <span class='p'>})</span>
+</code></pre></div></div>
 	</article>
 </div>
       </div> <!-- /container -->

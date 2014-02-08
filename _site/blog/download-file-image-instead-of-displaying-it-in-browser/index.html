@@ -9,9 +9,7 @@
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="New day new requirements. Atleast this was an easy one.
-
-"/>
+        <meta property="og:description" content="<p>New day new requirements. Atleast this was an easy one.</p>"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -75,13 +73,13 @@
 		<header>
 			<h1 class="post__title">Download file / image instead of displaying it in browser</h1>
 			<div class="post__byline">
-				<time datetime="2012-09-24 15:53:00 +0200">24 Sep 2012</time>
+				<time datetime="2012-09-24 13:53:00 UTC">24 Sep 2012</time>
 				web, image, file, MVC, HTTP, and development
 			</div>
 		</header>
 		<div class="post__content"><p>New day new requirements. Atleast this was an easy one.</p>
 
-<p>The normal action when clicking an anchor tag with an href pointing to an image is to display the image in the browser. Today this was not the desired outcome, instead I wanted to put an &#8220;Download image&#8221; button next to the image. The solution to this is very simple if you have access to the http server response. This was no problem for me since I&#8217;m working with asp.NET MVC, all I had to to was to add an extra header to the response. The content-disposition header to be precise.</p>
+<p>The normal action when clicking an anchor tag with an href pointing to an image is to display the image in the browser. Today this was not the desired outcome, instead I wanted to put an “Download image” button next to the image. The solution to this is very simple if you have access to the http server response. This was no problem for me since I’m working with asp.NET MVC, all I had to to was to add an extra header to the response. The content-disposition header to be precise.</p>
 
 <p>This header has two parts that were important to me, the disposition-type and the filename parts. The default disposition-type is inline and this is what tells the browser to show content that it knows how to display, the type that I wanted was attachment that tells the browser to treat the image as a downloadable file. The filename part is only useful when using the attachment type. Simply include filename=my-filename in the header.</p>
 

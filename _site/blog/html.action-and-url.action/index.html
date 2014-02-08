@@ -9,9 +9,7 @@
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="Some headache last night just before going to bed.
-
-"/>
+        <meta property="og:description" content="<p>Some headache last night just before going to bed.</p>"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -75,13 +73,13 @@
 		<header>
 			<h1 class="post__title">html.action and url.action</h1>
 			<div class="post__byline">
-				<time datetime="2013-02-13 11:42:00 +0100">13 Feb 2013</time>
+				<time datetime="2013-02-13 10:42:00 UTC">13 Feb 2013</time>
 				development, MVC, gotchas, and web
 			</div>
 		</header>
 		<div class="post__content"><p>Some headache last night just before going to bed.</p>
 
-<p>I was trying to output two Uris to data attributes on a html element for navigating to different pages based on the current state of the page. I was getting weird crashes and the debugger kept hitting an action that I wasn&#8217;t trying to reach.</p>
+<p>I was trying to output two Uris to data attributes on a html element for navigating to different pages based on the current state of the page. I was getting weird crashes and the debugger kept hitting an action that I wasn’t trying to reach.</p>
 
 <p>Turns out that I was using Html.Action to render the result of invoking an action. This was of course not what I wanted, what I wanted was instead Url.Action, to render a qualified Uri to an action.</p></div>
 	</article>

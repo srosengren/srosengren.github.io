@@ -9,9 +9,7 @@
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="If you have ever tried building a new Orchard theme from scratch, and like me you like full control of your markup. Then perhaps you have noticed the extra "zone-name" div that Orchard adds around every zone.
-
-"/>
+        <meta property="og:description" content="<p>If you have ever tried building a new Orchard theme from scratch, and like me you like full control of your markup. Then perhaps you have noticed the extra “zone-name” div that Orchard adds around every zone.</p>"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -75,13 +73,13 @@
 		<header>
 			<h1 class="post__title">Removing zone div wrapper in Orchard</h1>
 			<div class="post__byline">
-				<time datetime="2012-08-31 22:51:00 +0200">31 Aug 2012</time>
+				<time datetime="2012-08-31 20:51:00 UTC">31 Aug 2012</time>
 				web, orchard, and development
 			</div>
 		</header>
-		<div class="post__content"><p>If you have ever tried building a new Orchard theme from scratch, and like me you like full control of your markup. Then perhaps you have noticed the extra &#8220;zone-name&#8221; div that Orchard adds around every zone.</p>
+		<div class="post__content"><p>If you have ever tried building a new Orchard theme from scratch, and like me you like full control of your markup. Then perhaps you have noticed the extra “zone-name” div that Orchard adds around every zone.</p>
 
-<p>This is great for creating a semantic markup, but it didn&#8217;t suit my needs for a minimal markup and I wanted them gone.</p>
+<p>This is great for creating a semantic markup, but it didn’t suit my needs for a minimal markup and I wanted them gone.</p>
 
 <p>It turns out that this is really easy to accomplish. There is a file in the Orchard.Core called CoreShapes.cs which, as you may have guessed, defines some of the basic shapes. For instance, the Zone shape looks like this:</p>
 <div class='highlight'><pre><code class='c#'><span class='na'>        [Shape]</span>
@@ -96,16 +94,14 @@
                                     <span class='n'>Output</span><span class='p'>.</span><span class='n'>Write</span><span class='p'>(</span><span class='n'>zoneWrapper</span><span class='p'>.</span><span class='n'>ToString</span><span class='p'>(</span><span class='n'>TagRenderMode</span><span class='p'>.</span><span class='n'>EndTag</span><span class='p'>));</span>
                                 <span class='p'>}</span>
 </code></pre></div>
-<p>As you can see this outputs a div tag around your items (content,widgets). The only thing that I really want keep here is the foreach loop. I could of course edit it right here but that wouldn&#8217;t be very flexible of me now would it?</p>
+<p>As you can see this outputs a div tag around your items (content,widgets). The only thing that I really want keep here is the foreach loop. I could of course edit it right here but that wouldn’t be very flexible of me now would it?</p>
 
-<p>Two of the great things about Orchard&#8217;s shapes is that Orchard always picks the one with the highest precedence, and that it doesn&#8217;t care if it&#8217;s defined in code or markup. This means that we can override the Zone shape in our theme by simply adding a Zone.cshtml file in the Views folder of the theme. The markup of this file would look like this:</p>
-
-<p><div class='highlight'><pre><code class='c#'>     <span class='n'>@foreach</span> <span class='p'>(</span><span class='kt'>var</span> <span class='n'>item</span> <span class='k'>in</span> <span class='n'>@Model</span><span class='p'>)</span> <span class='p'>{</span>
+<p>Two of the great things about Orchard’s shapes is that Orchard always picks the one with the highest precedence, and that it doesn’t care if it’s defined in code or markup. This means that we can override the Zone shape in our theme by simply adding a Zone.cshtml file in the Views folder of the theme. The markup of this file would look like this:</p>
+<div class='highlight'><pre><code class='c#'>     <span class='n'>@foreach</span> <span class='p'>(</span><span class='kt'>var</span> <span class='n'>item</span> <span class='k'>in</span> <span class='n'>@Model</span><span class='p'>)</span> <span class='p'>{</span>
              <span class='n'>@Display</span><span class='p'>(</span><span class='n'>item</span><span class='p'>)</span>
          <span class='p'>}</span>
-</code></pre></div></p>
-
-<p>Now this might look like code, but hey, it&#8217;s razor!</p></div>
+</code></pre></div>
+<p>Now this might look like code, but hey, it’s razor!</p></div>
 	</article>
 </div>
       </div> <!-- /container -->

@@ -9,9 +9,7 @@
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="We sometimes find ourselves in the position that we have a single project that exposes several sites, most commonly a large brand with several smaller brands in the same corporation. This is yet another way in which LESS shines in comparission to writing plain old CSS. What we can do here is modify the pattern of having a "main" or "master" less file that includes other LESS "modules", the easiest thing to do here is to have several "main/master" files, one for each brand. These in turn will look the same but include different brand specific LESS files, among other LESS files that they share between them. For instance a brand(a)(b)(c)colors.less that each define the `@color-primary` variable, with different colors.
-
-"/>
+        <meta property="og:description" content="<p>We sometimes find ourselves in the position that we have a single project that exposes several sites, most commonly a large brand with several smaller brands in the same corporation. This is yet another way in which LESS shines in comparission to writing plain old CSS. What we can do here is modify the pattern of having a “main” or “master” less file that includes other LESS “modules”, the easiest thing to do here is to have several “main/master” files, one for each brand. These in turn will look the same but include different brand specific LESS files, among other LESS files that they share between them. For instance a brand(a)(b)(c)colors.less that each define the <code>@color-primary</code> variable, with different colors.</p>"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -75,13 +73,13 @@
 		<header>
 			<h1 class="post__title">Structuring less for multi-site projects</h1>
 			<div class="post__byline">
-				<time datetime="2013-09-11 20:22:00 +0200">11 Sep 2013</time>
+				<time datetime="2013-09-11 18:22:00 UTC">11 Sep 2013</time>
 				web, frontend, less, css, code, and stratiteq
 			</div>
 		</header>
-		<div class="post__content"><p>We sometimes find ourselves in the position that we have a single project that exposes several sites, most commonly a large brand with several smaller brands in the same corporation. This is yet another way in which LESS shines in comparission to writing plain old CSS. What we can do here is modify the pattern of having a &#8220;main&#8221; or &#8220;master&#8221; less file that includes other LESS &#8220;modules&#8221;, the easiest thing to do here is to have several &#8220;main/master&#8221; files, one for each brand. These in turn will look the same but include different brand specific LESS files, among other LESS files that they share between them. For instance a brand(a)(b)(c)colors.less that each define the <code>@color-primary</code> variable, with different colors.</p>
+		<div class="post__content"><p>We sometimes find ourselves in the position that we have a single project that exposes several sites, most commonly a large brand with several smaller brands in the same corporation. This is yet another way in which LESS shines in comparission to writing plain old CSS. What we can do here is modify the pattern of having a “main” or “master” less file that includes other LESS “modules”, the easiest thing to do here is to have several “main/master” files, one for each brand. These in turn will look the same but include different brand specific LESS files, among other LESS files that they share between them. For instance a brand(a)(b)(c)colors.less that each define the <code>@color-primary</code> variable, with different colors.</p>
 
-<p>Here&#8217;s an example folder structure that you might use for this, you could of course put all of the files in the same directory but it could get confusing quite fast.</p>
+<p>Here’s an example folder structure that you might use for this, you could of course put all of the files in the same directory but it could get confusing quite fast.</p>
 <div class='highlight'><pre><code class='bash'>.
 |-- BrandA/
 |   |── branda.less
@@ -115,16 +113,14 @@
 <p>Most of these are self explaining but one thing to take note of is the ability to have variables with the same name in the brandavariables.less files. This is were we would put our <code>@color-primary</code> variable.</p>
 
 <p>This is what the branda.less would look like:</p>
-
-<p><div class='highlight'><pre><code class='css'><span class='k'>@import</span> <span class='s2'>&quot;../variables.less&quot;</span><span class='p'>;</span>
+<div class='highlight'><pre><code class='css'><span class='k'>@import</span> <span class='s2'>&quot;../variables.less&quot;</span><span class='p'>;</span>
 <span class='k'>@import</span> <span class='s2'>&quot;brandavariables.less&quot;</span><span class='p'>;</span>
 <span class='k'>@import</span> <span class='s2'>&quot;../mixins.less&quot;</span><span class='p'>;</span>
 <span class='k'>@import</span> <span class='s2'>&quot;../grid.less&quot;</span><span class='p'>;</span>
 <span class='k'>@import</span> <span class='s2'>&quot;../content.less&quot;</span><span class='p'>;</span>
 <span class='k'>@import</span> <span class='s2'>&quot;brandacontent.less&quot;</span><span class='p'>;</span>
-</code></pre></div></p>
-
-<p>The important thing to note here is the precedence since LESS is parsed top to bottom and it parses @import&#8217;s when it finds them. This precedence allows us to create modules inside of content.less that uses <code>@color-primary</code>, this module would then have different color schemes depending on which site you viewed, all with very minimal code duplication.</p></div>
+</code></pre></div>
+<p>The important thing to note here is the precedence since LESS is parsed top to bottom and it parses @import’s when it finds them. This precedence allows us to create modules inside of content.less that uses <code>@color-primary</code>, this module would then have different color schemes depending on which site you viewed, all with very minimal code duplication.</p></div>
 	</article>
 </div>
       </div> <!-- /container -->

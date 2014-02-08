@@ -9,9 +9,7 @@
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="Todays funny bug, no ajax request would return data in a real IE8 (not effecting ie10 in ie8 mode).
-
-"/>
+        <meta property="og:description" content="<p>Todays funny bug, no ajax request would return data in a real IE8 (not effecting ie10 in ie8 mode).</p>"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -75,13 +73,13 @@
 		<header>
 			<h1 class="post__title">dont check for case sensitive request headers in your serverside code</h1>
 			<div class="post__byline">
-				<time datetime="2013-02-22 15:32:00 +0100">22 Feb 2013</time>
+				<time datetime="2013-02-22 14:32:00 UTC">22 Feb 2013</time>
 				development, asp.net, MVC, web, and gotchas
 			</div>
 		</header>
 		<div class="post__content"><p>Todays funny bug, no ajax request would return data in a real IE8 (not effecting ie10 in ie8 mode).</p>
 
-<p>We&#8217;re building a MVC4 + WebApi app and are heavy users of ajax that we setup using $.ajaxSetup and setting custom AuthToken and AuthTokenSalt headers in the beforeSend function.</p>
+<p>We’re building a MVC4 + WebApi app and are heavy users of ajax that we setup using $.ajaxSetup and setting custom AuthToken and AuthTokenSalt headers in the beforeSend function.</p>
 
 <p>Everything works perfectly fine in every other browser but IE8 kept complaining. Turns out that someone had implemented a simple first line check for testing if the required headers were present in the request, only thing was that the check looked something like this:</p>
 <div class='highlight'><pre><code class='c#'><span class='n'>HttpContext</span><span class='p'>.</span><span class='n'>Current</span><span class='p'>.</span><span class='n'>Request</span><span class='p'>.</span><span class='n'>Headers</span><span class='p'>.</span><span class='n'>AllKeys</span><span class='p'>.</span><span class='n'>Contains</span><span class='p'>(</span><span class='s'>&quot;AuthToken&quot;</span><span class='p'>)</span> <span class='p'>==</span> <span class='k'>null</span>

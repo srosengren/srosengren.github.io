@@ -9,9 +9,7 @@
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="It was a real easy task. Display the ImageField and GeneralLinkField for every item that was selected in a MultiListField.
-
-"/>
+        <meta property="og:description" content="<p>It was a real easy task. Display the ImageField and GeneralLinkField for every item that was selected in a MultiListField.</p>"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -75,20 +73,20 @@
 		<header>
 			<h1 class="post__title">XSLT rendering with sc:image in for-each</h1>
 			<div class="post__byline">
-				<time datetime="2012-08-29 10:55:00 +0200">29 Aug 2012</time>
+				<time datetime="2012-08-29 08:55:00 UTC">29 Aug 2012</time>
 				web, sitecore, xsl, and development
 			</div>
 		</header>
 		<div class="post__content"><p>It was a real easy task. Display the ImageField and GeneralLinkField for every item that was selected in a MultiListField.</p>
 
-<p>So I took a look at the code, crap, it&#8217;s XSLT and I&#8217;m mostly a .NET guy who never touches the stuff. It wasn&#8217;t easy to find a clear answer to this question, the closest I came was this blog by John West, <a href='http://www.sitecore.net/Community/Technical-Blogs/John-West-Sitecore-Blog/Posts/2010/11/Select-and-Link-to-Media-Items-with-XSLT-Using-the-Sitecore-Web-Content-Management-System.aspx'>http://www.sitecore.net/Community/Technical-Blogs/John-West-Sitecore-Blog/Posts/2010/11/Select-and-Link-to-Media-Items-with-XSLT-Using-the-Sitecore-Web-Content-Management-System.aspx</a></p>
+<p>So I took a look at the code, crap, it’s XSLT and I’m mostly a .NET guy who never touches the stuff. It wasn’t easy to find a clear answer to this question, the closest I came was this blog by John West, <a href="http://www.sitecore.net/Community/Technical-Blogs/John-West-Sitecore-Blog/Posts/2010/11/Select-and-Link-to-Media-Items-with-XSLT-Using-the-Sitecore-Web-Content-Management-System.aspx">http://www.sitecore.net/Community/Technical-Blogs/John-West-Sitecore-Blog/Posts/2010/11/Select-and-Link-to-Media-Items-with-XSLT-Using-the-Sitecore-Web-Content-Management-System.aspx</a></p>
 
-<p>It goes a bit deeper than I needed but the info was good for learning about working with XSLT in sitecore. I would&#8217;ve never thought of nesting for-each&#8217;s to account for broken Sitecore links.</p>
+<p>It goes a bit deeper than I needed but the info was good for learning about working with XSLT in sitecore. I would’ve never thought of nesting for-each’s to account for broken Sitecore links.</p>
 
 <p>In the end, this is what it all came to.</p>
 <div class='highlight'><pre><code class='xslt'> <span class='ni'>&amp;#x9;&amp;#x9;&amp;amp;</span>lt;xsl:variable name=<span class='ni'>&amp;quot;</span>socialHeader<span class='ni'>&amp;quot;</span> select=<span class='ni'>&amp;quot;</span>sc:item(&#39;/sitecore/content/site/Site settings/Social/HeaderSocialSettings&#39;,.)<span class='ni'>&amp;quot;</span> /<span class='ni'>&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>        <span class='ni'>&amp;amp;</span>lt;xsl:for-each select=<span class='ni'>&amp;quot;</span>sc:Split(&#39;SocialImageLinks&#39;,$socialHeader)<span class='ni'>&amp;quot;&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>          <span class='ni'>&amp;amp;</span>lt;xsl:for-each select=<span class='ni'>&amp;quot;</span>sc:item(text(),.)<span class='ni'>&amp;quot;&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>            <span class='ni'>&amp;amp;</span>lt;sc:link field=<span class='ni'>&amp;quot;</span>linkforimage<span class='ni'>&amp;quot;&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>              <span class='ni'>&amp;amp;</span>lt;sc:image field=<span class='ni'>&amp;quot;</span>linkimage<span class='ni'>&amp;quot;</span> w=<span class='ni'>&amp;quot;</span>16<span class='ni'>&amp;quot;</span> h=<span class='ni'>&amp;quot;</span>16<span class='ni'>&amp;quot;</span> class=<span class='ni'>&amp;quot;</span>ImageSocial<span class='ni'>&amp;quot;</span> /<span class='ni'>&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>            <span class='ni'>&amp;amp;</span>lt;/sc:link<span class='ni'>&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>          <span class='ni'>&amp;amp;</span>lt;/xsl:for-each<span class='ni'>&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>        <span class='ni'>&amp;amp;</span>lt;/xsl:for-each<span class='ni'>&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span> 
 </code></pre></div>
-<p>The first line takes the value of my MultiListField &#8220;SocialImageLinks&#8221; on the item contained in the xsl variable &#8220;$socialHeader&#8221;, it then uses the SC extension &#8220;Split&#8221; to split it to separate IDs. The next line might seem odd since it&#8217;s a for-each on what should only be a single item. But according to John this to prevent broken links since the for-each will simply step over empty values returned by the &#8220;item&#8221; extension. Text in this context is the current value returned by the split. I then simply use a sc:link control and tell it to use the GeneralLinkField &#8220;linkforimage&#8221; on the current item that was returned by the sc:item extension. The same goes for the sc:image control that uses the &#8220;linkimage&#8221; ImageField.</p>
+<p>The first line takes the value of my MultiListField “SocialImageLinks” on the item contained in the xsl variable “$socialHeader”, it then uses the SC extension “Split” to split it to separate IDs. The next line might seem odd since it’s a for-each on what should only be a single item. But according to John this to prevent broken links since the for-each will simply step over empty values returned by the “item” extension. Text in this context is the current value returned by the split. I then simply use a sc:link control and tell it to use the GeneralLinkField “linkforimage” on the current item that was returned by the sc:item extension. The same goes for the sc:image control that uses the “linkimage” ImageField.</p>
 
 <p>This outputs every image wrapped in an anchortag just the way I wanted it to.</p></div>
 	</article>

@@ -9,9 +9,7 @@
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="Part of today was to enable an object literal to be used as a prototype. This object in turn had an object literal of its own (along with a few methods).
-
-"/>
+        <meta property="og:description" content="<p>Part of today was to enable an object literal to be used as a prototype. This object in turn had an object literal of its own (along with a few methods).</p>"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -75,7 +73,7 @@
 		<header>
 			<h1 class="post__title">Object literal as property on a prototype object results can cause headaches</h1>
 			<div class="post__byline">
-				<time datetime="2012-10-18 15:36:00 +0200">18 Oct 2012</time>
+				<time datetime="2012-10-18 13:36:00 UTC">18 Oct 2012</time>
 				web, javascript, jquery, and development
 			</div>
 		</header>
@@ -112,7 +110,7 @@
 	<span class='nx'>o</span><span class='o'>:</span> <span class='s1'>&#39;newValue&#39;</span>
 <span class='p'>});</span> 
 </code></pre></div>
-<p>Unfortunately, this doesn&#8217;t do what I wanted it to do. What I wanted is of course for the settings object of the newObject object to contain the properties that I put in the settingsObject parameter to the init function. What really happens is that I overwrite the properties of the Prototypes settings object. This means that when I create a second object with the baseObject as a prototype, I actually overwrite the prototypes properties again which of course reflects on my first object, not good.</p>
+<p>Unfortunately, this doesn’t do what I wanted it to do. What I wanted is of course for the settings object of the newObject object to contain the properties that I put in the settingsObject parameter to the init function. What really happens is that I overwrite the properties of the Prototypes settings object. This means that when I create a second object with the baseObject as a prototype, I actually overwrite the prototypes properties again which of course reflects on my first object, not good.</p>
 
 <p>Here is a working solution to this problem, I simply replace the whole settings object for my new objects.</p>
 <div class='highlight'><pre><code class='javascript'><span class='nx'>baseObject</span> <span class='o'>=</span> <span class='p'>{</span>
