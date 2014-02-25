@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Rosengren.me - Json.NET is awesome</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="srosengren">
+
+        <meta property="og:type" content="article"/>
+        <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
+        <meta property="og:description" content="<p>99% of the work that I do involve asp.net webapi and asp.net mvc in some way, I normally build applications using knockoutJS on the frontend and asp.net webapi as, well, a web api. Json.NET is the default javascript/json handling library in asp.net mvc and webapi. It normally perform its magic under the hood without us having to worry about it. For instance it’s responsible for serializing your c# object to json when you do <code>return Request.CreateResponse(object);</code> in webapi and the request has the contentType header set to <code>application/json</code>.</p>"/>
+
+        <!--[if lt IE 9]>
+           <script>
+              document.createElement('nav');
+              document.createElement('header');
+              document.createElement('section');
+              document.createElement('footer');
+              document.createElement('article');
+              document.createElement('time');
+           </script>
+        <![endif]-->
+
+        <link rel="stylesheet" href="/assets/styles/syntax.css">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/styles/rosengren.css">
+
+    </head>
+    <body>
+      <div class="navbar-menu-toggle" id="menu-toggle"></div>
+      <nav class="navbar" id="navbar-menu">
+        <div class="navbar-menu collapse">
+          <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+          <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+        </div>
+        <ul class="navbar-menu navbar-spots right collapse">
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="fa fa-linkedin"></a>
+            </div>
+            <span class="spot-title">Linkedin</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://twitter.com/srrosengren" target="_blank" class="fa fa-twitter"></a>
+            </div>
+            <span class="spot-title">Twitter</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://github.com/srosengren" target="_blank" class="fa fa-github"></a>
+            </div>
+            <span class="spot-title">Github</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="https://plus.google.com/100467627792652344906/posts?rel=author" target="_blank" class="fa fa-google-plus"></a>
+            </div>
+            <span class="spot-title">G+</span>
+          </li>
+          <li class="navbar-menu-item spot">
+            <div class="spot-bubble">
+              <a href="javascript:;" id="mail-link" class="fa fa-envelope"></a>
+            </div>
+            <span class="spot-title">Mail</span>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-content" id="content">
+          <div class="container">
+	<article class="post">
+		<header>
+			<h1 class="post__title">Json.NET is awesome</h1>
+			<div class="post__byline">
+				<time datetime="2014-02-25 10:41:00 UTC">25 Feb 2014</time>
+				asp.net, json.net, json, javascript, mvc, and webapi
+			</div>
+		</header>
+		<div class="post__content"><p>99% of the work that I do involve asp.net webapi and asp.net mvc in some way, I normally build applications using knockoutJS on the frontend and asp.net webapi as, well, a web api. Json.NET is the default javascript/json handling library in asp.net mvc and webapi. It normally perform its magic under the hood without us having to worry about it. For instance it’s responsible for serializing your c# object to json when you do <code>return Request.CreateResponse(object);</code> in webapi and the request has the contentType header set to <code>application/json</code>.</p>
+
+<p>This is all well and good but sometimes we want to controll how it serializes objects.</p>
+
+<h2 id="properties_in_c_are_normally_pascalcase_while_they_are_camelcase_in_javascript">Properties in c# are normally PascalCase while they are camelCase in javascript</h2>
+
+<p>This could be solved by having c# dto classes that have camelCase properties, or javascript objects that have PascalCase properties. It can also be solved by having javascript constructors or a factory that takes json data with PascalCase properties and creates objects with camelCase properties with the same data.</p>
+
+<p>But what if we want to use a mapper such as knockoutJSs ko.mapping that takes data and returns the same object but with observable proeprties, we could run a constructor/factory before this, or we could fork the mapping source and build our own. Or we could use the Json.NET <code>JsonProperty</code> attribute that can be applied to properties.</p>
+<div class='highlight'><pre><code class='c#'><span class='na'>[JsonProperty(PropertyName = &quot;ids&quot;)]</span>
+<span class='k'>public</span> <span class='n'>List</span><span class='p'>&lt;</span><span class='kt'>int</span><span class='p'>&gt;</span> <span class='n'>Ids</span>
+</code></pre></div>
+<p><small>The JsonProperty lives in the Newtonsoft.Json namespace</small></p>
+
+<p>This is then parsed when serializing our object to javascript/json and sets the property name to the one specified in the attribute. I have unfortunately not found a way to apply camelCase property names to all properties in a class, but you could probably write a class level attribute to handle this, or write a property snippet in visual studio that outputs the attribute.</p>
+
+<h2 id="i_sometimes_want_the_text_value_of_my_enums_to_be_serialized_instead_of_the_integer_value">I sometimes want the text value of my Enums to be serialized instead of the integer value</h2>
+
+<p>This can be accomplished by adding another attribute to the property.</p>
+<div class='highlight'><pre><code class='c#'><span class='na'>[JsonConverter(typeof(StringEnumConverter))]</span>
+<span class='k'>public</span> <span class='n'>UserType</span> <span class='n'>Type</span> <span class='p'>{</span> <span class='k'>get</span><span class='p'>;</span> <span class='k'>set</span><span class='p'>;</span> <span class='p'>}</span>
+</code></pre></div>
+<p><small>The JsonConverter lives in the Newtonsoft.Json namespace</small></p>
+
+<p>And yes, these can be stacked</p>
+<div class='highlight'><pre><code class='c#'><span class='na'>[JsonProperty(PropertyName = &quot;type&quot;)]</span>
+<span class='na'>[JsonConverter(typeof(StringEnumConverter))]</span>
+<span class='k'>public</span> <span class='n'>UserType</span> <span class='n'>Type</span> <span class='p'>{</span> <span class='k'>get</span><span class='p'>;</span> <span class='k'>set</span><span class='p'>;</span> <span class='p'>}</span>
+</code></pre></div>
+<h2 id="how_about_a_list_of_enums_as_string">How about a list of enums as string?</h2>
+<div class='highlight'><pre><code class='c#'><span class='na'>[JsonProperty(PropertyName = &quot;weekDays&quot;, ItemConverterType = typeof(StringEnumConverter))]</span>
+<span class='k'>public</span> <span class='n'>List</span><span class='p'>&lt;</span><span class='n'>Occurence</span><span class='p'>&gt;</span> <span class='n'>Weekdays</span>
+</code></pre></div>
+<p>We are now down to only using the <code>JsonProperty</code> attribute again.</p></div>
+	</article>
+</div>
+      </div> <!-- /container -->
+      <footer class="container footer-content">
+        Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+      </footer>
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-41772613-1', 'rosengren.me');
+          ga('send', 'pageview');
+
+          document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+
+          document.getElementById('menu-toggle').addEventListener('click', function(){
+            var navbar = document.getElementById('navbar-menu');
+            if(navbar.className.indexOf('open') > 0){
+              navbar.className = navbar.className.replace(' open','');
+            } else {
+              navbar.className = navbar.className + ' open';
+            }
+          });
+
+          document.getElementById('content').addEventListener('click',function(){
+            var navbar = document.getElementById('navbar-menu');
+            if(navbar.className.indexOf('open') > 0){
+              navbar.className = navbar.className.replace(' open','');
+            }
+          })
+        </script>
+    </body>
+</html>
