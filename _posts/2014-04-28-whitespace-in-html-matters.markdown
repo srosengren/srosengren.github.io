@@ -9,7 +9,7 @@ Inline elements in html are elements that flow in the documents direction (ltr/r
 
 This gives us two effects/issues depending on how we see it.
 
-#### Text-align justify on parent
+## Text-align justify on parent
 There's not much to say about this, but it's something that can really bite you in the ass, as it did with me. Text-align:justify will try to space out inline elements to hit both edges of the documents at the same time (except for the last line), similar to some magazine layouts. The issue here is that inline elements without any whitespace will simply not be justified since they are considered a continuous element. This is easy to forget if you're for instance concatenating html in javascript. The solution here is to always include whitespace in your markup, which you mostly likely will if you're using an editor with formatting. You should include either a space or '\r\n' after each element if you're appending elements to the DOM through javascript.
 
 BONUS: text-align:justify on a single line
@@ -27,7 +27,7 @@ BONUS: text-align:justify on a single line
 What we do here is to add a pseudo element to the parent with justify on it and use that element to create a new line (width: 100%) this makes sure that every "real" line is justified since only the last line is ignored.
 
 
-#### Width on inline-block elements
+## Width on inline-block elements
 You might have seen some fluid grid system or similar that uses display: inline-block on their spans/columns to avoid row collapse due to floating spans/columns in "regular" grid systems. The beauty of inline-block is its ability to flow like a inline element while having block like properties such as margins and the ability to adjust its dimensions.
 
 The issue here are those 0.25em that I wrote about in the first paragraph. You might for instance have your body font-size set to 16px and want to add a 4 column row where each column takes up 25% of the width.
@@ -58,7 +58,7 @@ Then you get a headache since the last col is on a new row. This happens since t
 
 You could solve this be writing your markup like this:
 {% highlight html %}
-<div class="row"><div class="col">col</div><div class="col">col</div><div class="col">col</div><div class="col">col</div></div>
+<div class="row"><div class="col"></div><div class="col"></div><div class="col"></div><div class="col"></div></div>
 {% endhighlight %}
 
 But this will become hard to maintain since auto formatting might break it or another developer might not know why it's formatted like this and add content of his own that is formatted in another way.
