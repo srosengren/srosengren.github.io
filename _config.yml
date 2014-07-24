@@ -1,5 +1,6 @@
 name: Rosengren.me
 pygments: true
+markdown: kramdown
 
 permalink: /blog/:title
 
