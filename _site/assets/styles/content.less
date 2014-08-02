@@ -69,15 +69,13 @@ img {
 }
 
 .spot .spot-image {
-	display: block;
+	display: inline-block;
 	.border-radius();
 	width: 70%;
 	padding-bottom: 70%;
-	margin: 0 auto;
 	background: url('../images/icons/large-spot-sprite.png') 0% no-repeat;
 	background-size: 300%;
 	max-width: 150px;
-	max-height: 150px;
 
 	&.actionable:hover {
 		opacity: 0.6;
@@ -180,13 +178,14 @@ img {
 		font-size: 0.8em;
 	}
 
-	.spot .spot-bubble {
-		font-size: 75px;
-	}
-
 }
 
 @media (max-width: 480px) {
+
+	.spot .spot-image {
+		padding-bottom: 0;
+		height: 150px;
+	}
 
 	.jumbotron-title .firstname, .jumbotron-title .lastname {
 		padding: 0;
@@ -212,15 +211,5 @@ img {
 			max-width: 100%;
 			width: 100%;
 		}
-	}
-
-	.spot .spot-bubble {
-		width: auto;
-		height: 100px;
-		padding-bottom: 40px;
-		border-top: none;
-		border-right: none;
-		border-left: none;
-		.border-radius(0);
 	}
 }

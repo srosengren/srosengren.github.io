@@ -2,14 +2,22 @@
 	display: inline-block;
 	vertical-align: top;
 	padding: 0;
-	margin: 0 0 10px 0;
 }
 
 .navbar-menu-item {
 	display: inline-block;
+	.border-box();
 	margin: 0;
-	padding: 9px 12px 9px 0;
+	padding: 0.5em 0.25em;
 	color: @color-base-light;
+
+	&:before {
+		display:block;
+		margin: 0 auto;
+		width: 24px;
+		height: 24px;
+		background: center no-repeat;
+	}
 
 	&.navbar-menu-item--linkedin:before {
 		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFzSURBVEhL7ZS/SsRAEMazSZOAhYWNpXCFpYWCpYWCpS8gGjAkYF7hKis7wSL/LO4BfAHxwMrOwuIKQQvLFBZXWuQSv9mdrJcTFBMRFX+wzMy3yczu7LLGr0ewlWRZ1ptMJpuWZQ09z3tguRMmWyOO44OyLO+FEBHZKIr2eaoTugAS++xKTNPcY7cTukBVVY2WIB6x2wldAH3vI+kZXEp8gh0cy4mfjr5FaZqu4AbNc0hnkPu+f0c+DnxDioxt27eu645xMbYRruL8Cvw7chxnCP1ZfaXQBZIkuYKZTjRAAZcczFVSeWUL7TxE4h2OJdBoQbtBENwoZeoMPgMSnc4mJ6Atw1xiQQtKaVmAExE5ijVbIgS1+UhF7XfwhLGGFi4WRbEE6VHNKDC3zm67AqBf9zkMwxyrPpcqg7jHbusdyNtVg/ia3Zo5tq130ABv15jdN3xJgff4L/Ah31rgAmNQj5mrp3Ua9BCSWMNx4xuMP4FhvACW8YZknlQdygAAAABJRU5ErkJggg==);
@@ -25,13 +33,8 @@
 	}
 }
 
-.navbar-menu-item--image:before {
+.navbar-menu-contact .navbar-menu-item:before {
 	content: '';
-	display:block;
-	margin: 0 auto;
-	width: 24px;
-	height: 24px;
-	background: center no-repeat;
 }
 
 .navbar-menu-toggle {
@@ -78,48 +81,27 @@
 
 	.navbar-menu {
 		margin-bottom: 2em;
-		 .navbar-menu-item.spot {
-			padding: 0;
-			width: 100%;
-			 .spot-bubble {
-				border:none;
-				&:before, &:after {
-					content: none;
-				}
-			}
-			.spot-title {
-				margin-top:0;
-				line-height: 1em;
-				margin-bottom: 1em;
-			}
-		}
+	}
 
-		.navbar-menu-item--home, .navbar-menu-item--blog {
-			padding: 0;
-			width: 100%;
-			text-align: center;
-			color: #eee;
-			margin-top: 18px;
-			&:before {
-				content:'';
-				display:block;
-				margin: 0 auto;
-				width: 32px;
-				height: 32px;
-				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIpSURBVFhH7ZehTgNBEIbbhgQEogKBqACH4AEQCAQSQ4KoIAGBRCAQFQgcOAQSQQgCwQMQgkAgkQgECBIEEoGAhKTw/dufC8teS9sUCEm/ZDK7M7Mze3ezd22x0CX1er2CWkYGkYNSqXQr+69A8Unk4c0wfkLN2P2zqJALRmB7RaoO+xlUQIVcMxf86w7vLSRec41vIXbHy3qDEjp3hOy6Yk8jsB+jBpyiO5TAiRJU2GFNHw22C9SwwzpDC50gQoVU0GEZuJo15zVq1GHtoQUsvAoZPuEC2XFjvoCseqp5dDw/wHaPmnBYaxToBRFKrAIOU7FVJNx29JbNslcQXXUEtkfUtMPyUYADI5RQiR2mIlt2ZWA7RIWmQ5eZ5z2+Z2QhJPmKHApwbIYTlRWDVlOqUC74zlCh6dBDzJMGxqYeWlNMBobsdn7GCYYUg1ZTngRHC4i5RIWmQ2vDzY5w47ExqNoWgX0X9XFL1ZRK3BbE3qCypmNcC46UmjaQdDvUvFaL1ZRK2BGs0WnImo75IhLdZeaPcux7LoOez6LXyDeFJMeqXVj7hMw5nS5mVraGN/jPZRxhsIHsIVOOVfE5JHmxdAo5dFErTqu8elfoFa7eGLM5RguQll+9Lth0+ojcX0SK9rDXjBeLxTuPAyXrP6O/gf4G/u0GdJwS7OuI/iPobyB3A3wKXjzsNUneZh+jZWTJ06+80PDzSJKML+gRKvc/APGnyLanplB4ByE3DDuQTgg/AAAAAElFTkSuQmCC);
-			}
+	.navbar-menu-item--home, .navbar-menu-item--blog {
+		color: #eee;
+		margin-top: 18px;
+		&:before {
+			content:'';
+			width: 32px;
+			height: 32px;
+			background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIpSURBVFhH7ZehTgNBEIbbhgQEogKBqACH4AEQCAQSQ4KoIAGBRCAQFQgcOAQSQQgCwQMQgkAgkQgECBIEEoGAhKTw/dufC8teS9sUCEm/ZDK7M7Mze3ezd22x0CX1er2CWkYGkYNSqXQr+69A8Unk4c0wfkLN2P2zqJALRmB7RaoO+xlUQIVcMxf86w7vLSRec41vIXbHy3qDEjp3hOy6Yk8jsB+jBpyiO5TAiRJU2GFNHw22C9SwwzpDC50gQoVU0GEZuJo15zVq1GHtoQUsvAoZPuEC2XFjvoCseqp5dDw/wHaPmnBYaxToBRFKrAIOU7FVJNx29JbNslcQXXUEtkfUtMPyUYADI5RQiR2mIlt2ZWA7RIWmQ5eZ5z2+Z2QhJPmKHApwbIYTlRWDVlOqUC74zlCh6dBDzJMGxqYeWlNMBobsdn7GCYYUg1ZTngRHC4i5RIWmQ2vDzY5w47ExqNoWgX0X9XFL1ZRK3BbE3qCypmNcC46UmjaQdDvUvFaL1ZRK2BGs0WnImo75IhLdZeaPcux7LoOez6LXyDeFJMeqXVj7hMw5nS5mVraGN/jPZRxhsIHsIVOOVfE5JHmxdAo5dFErTqu8elfoFa7eGLM5RguQll+9Lth0+ojcX0SK9rDXjBeLxTuPAyXrP6O/gf4G/u0GdJwS7OuI/iPobyB3A3wKXjzsNUneZh+jZWTJ06+80PDzSJKML+gRKvc/APGnyLanplB4ByE3DDuQTgg/AAAAAElFTkSuQmCC);
 		}
+	}
 
-		.navbar-menu-item--blog:before {
-			background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJFSURBVFhH7Zc/SyNREMB3F4sUlhYpLCJYWFwh6MEdXHEfwEJQweZAQUE5jktheWCa+wYHWgja+wUs7bSwFCwUTHFgBBsxkICS3G9eJs9s/uy+6FuEwx9MZt7s7Jt5Ly+zmzBIoNlsFlAiXmC+ehRFpzpMhxtKiDcajca1Tm2JVL8Z7wU4F8BXeIeUU+SvhrvDwdjvkjW9ZA8hvkPUiLoTIXZR7ukH13oOoSSJIUXopc4CTlBTSCFNiN1C9+XFBfiiXwGhXFDbwPCAZrGqdgm1jX5C74VheCv+JIhdIO6DDmNwrczcEzo0uBZwiu+z+NIgdgyZpYi6uiz4ezqhawEy2S6T3ot/EMRJoUfoeYbTLe9giDuSjxivPAMriBxWJ8j14LQDYrvQvpeJN9itvLoHQvy51wIE7vlI8ip6R12DqBK3JDfE8PAz/Mocy2qnUcjkWcDKKmqm8v89DdnWcTVdqHgvgO13emgJxNaz+ArKiFMR7NaI1wKY8IxVHaO/q8vAWHw/kCt1tfnlewfaCWJtmKJW6S1/0JvqMlDQTMRH92tyz0NkCL4w3yiJvqHlCWrA/onkENvUsCvErYsxT+OooQ3YnzRG3m6KyPWQYjogel+nNO8BKHlhseArmiQC4zEcc8gwP6FEmGsSedRksQIY36ByGpodJDK70KeA59VnCbnkHbHWWQD2JcquPos+YOGQSU/YbY1a4PuNvOagDwerzbPqC9kBXb1zp/QGiYtSALKiLkvi33NfkLj9nT+x/bY/BEEQ/ANM8BOBY5+qgAAAAABJRU5ErkJggg==);
-		}
+	.navbar-menu-item--blog:before {
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJFSURBVFhH7Zc/SyNREMB3F4sUlhYpLCJYWFwh6MEdXHEfwEJQweZAQUE5jktheWCa+wYHWgja+wUs7bSwFCwUTHFgBBsxkICS3G9eJs9s/uy+6FuEwx9MZt7s7Jt5Ly+zmzBIoNlsFlAiXmC+ehRFpzpMhxtKiDcajca1Tm2JVL8Z7wU4F8BXeIeUU+SvhrvDwdjvkjW9ZA8hvkPUiLoTIXZR7ukH13oOoSSJIUXopc4CTlBTSCFNiN1C9+XFBfiiXwGhXFDbwPCAZrGqdgm1jX5C74VheCv+JIhdIO6DDmNwrczcEzo0uBZwiu+z+NIgdgyZpYi6uiz4ezqhawEy2S6T3ot/EMRJoUfoeYbTLe9giDuSjxivPAMriBxWJ8j14LQDYrvQvpeJN9itvLoHQvy51wIE7vlI8ip6R12DqBK3JDfE8PAz/Mocy2qnUcjkWcDKKmqm8v89DdnWcTVdqHgvgO13emgJxNaz+ArKiFMR7NaI1wKY8IxVHaO/q8vAWHw/kCt1tfnlewfaCWJtmKJW6S1/0JvqMlDQTMRH92tyz0NkCL4w3yiJvqHlCWrA/onkENvUsCvErYsxT+OooQ3YnzRG3m6KyPWQYjogel+nNO8BKHlhseArmiQC4zEcc8gwP6FEmGsSedRksQIY36ByGpodJDK70KeA59VnCbnkHbHWWQD2JcquPos+YOGQSU/YbY1a4PuNvOagDwerzbPqC9kBXb1zp/QGiYtSALKiLkvi33NfkLj9nT+x/bY/BEEQ/ANM8BOBY5+qgAAAAABJRU5ErkJggg==);
 	}
 
 	#menu-toggle {
 		display: block;
 		position: absolute;
-		top: 0;
-		left: 0;
+		width: 5em;
 		font-size: 12px;
 		text-align: center;
 		padding: 1em;		
@@ -129,7 +111,7 @@
 
 		&:before {
 			content: '';
-			display: block;
+			display: inline-block;
 			font-size: 40px;
 			width: 1em;
 			height: 1em;
