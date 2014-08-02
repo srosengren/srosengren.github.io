@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Rosengren.me - Compact datatransfer experiment</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="I create a lot of different APIs in my work, several of them send out fairly large arrays of objects where the property names of these objects are the bulk of the data being transfered. This is mostly mitigated by compressing the data, but I figured, why not try and see if I can shrink it down a bit more. Most of the APIs are consumed on mobile devices and every second counts. This means that any byte we can save over the line has to be weighed against the cost of reconstructing the objects on the client.
+
+">
+
+        <meta property="og:type" content="article"/>
+        <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
+        <meta property="og:description" content="I create a lot of different APIs in my work, several of them send out fairly large arrays of objects where the property names of these objects are the bulk of the data being transfered. This is mostly mitigated by compressing the data, but I figured, why not try and see if I can shrink it down a bit more. Most of the APIs are consumed on mobile devices and every second counts. This means that any byte we can save over the line has to be weighed against the cost of reconstructing the objects on the client.
+
+"/>
+
+        <!--[if lt IE 9]>
+           <script>
+              document.createElement('nav');
+              document.createElement('header');
+              document.createElement('section');
+              document.createElement('footer');
+              document.createElement('article');
+              document.createElement('time');
+           </script>
+        <![endif]-->
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/styles/rosengren.css">
+
+    </head>
+    <body>
+      <div class="navbar-menu-toggle" id="menu-toggle">Menu</div>
+      <div class="page" id="page">
+        <nav class="navbar" id="navbar-menu">
+          <div class="navbar-menu collapse">
+            <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+            <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+          </div>
+          <span class="navbar-menu navbar-menu-contact collapse">
+            <a class="navbar-menu-item navbar-menu-item--linkedin" href="http://www.linkedin.com/in/srosengren" target="_blank">LinkedIn</a>
+            <a class="navbar-menu-item navbar-menu-item--twitter" href="https://twitter.com/srrosengren" target="_blank">Twitter</a>
+            <a class="navbar-menu-item navbar-menu-item--github" href="https://github.com/srosengren" target="_blank">Github</a>
+            <a class="navbar-menu-item navbar-menu-item--mail" href="javascript:;" id="mail-link">Mail</a>
+          </span>
+        </nav>
+        <div class="main-content" id="content">
+            <article class="post">
+	<header>
+		<h1 class="post__title">Compact datatransfer experiment</h1>
+		<div class="post__byline">
+			<time datetime="2014-06-21 23:17:00 +0200">21 Jun 2014</time>
+			javascript, json, http, api, web, and stratiteq
+		</div>
+	</header>
+	<div class="post__content"><p>I create a lot of different APIs in my work, several of them send out fairly large arrays of objects where the property names of these objects are the bulk of the data being transfered. This is mostly mitigated by compressing the data, but I figured, why not try and see if I can shrink it down a bit more. Most of the APIs are consumed on mobile devices and every second counts. This means that any byte we can save over the line has to be weighed against the cost of reconstructing the objects on the client.</p>
+
+<p>Lets try it out!
+I’m building this “on top” of JSON since this is a very well supported format with serializers written in any concievable language. The receiving client in this example is a web site and the parsing javascript code is no more than 11 lines long. The server is a ASP.NET web api that randomizes 5 thousand products and send out their nutritional values as integers that are at most 6 digits long.</p>
+
+<p>My proposed format is to send the definition of an object as the first item of an array, with every actual item being sent as a subarray with the data in the same order as the properties in the definition.
+Something like this:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">[[</span>
+<span class="s1">&#39;prop1&#39;</span><span class="p">,</span>
+<span class="s1">&#39;prop2&#39;</span>
+<span class="p">],[</span>
+<span class="s1">&#39;item1value1&#39;</span><span class="p">,</span>
+<span class="s1">&#39;item1value2&#39;</span>
+<span class="p">],[</span>
+<span class="s1">&#39;item2value1&#39;</span><span class="p">,</span>
+<span class="s1">&#39;item2value2&#39;</span>
+<span class="p">]]</span></code></pre></div>
+
+<p>Normal JSON server code:</p>
+
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="na">[HttpGet]</span>
+<span class="k">public</span> <span class="n">HttpResponseMessage</span> <span class="nf">Get</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">products</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Product</span><span class="p">&gt;();</span>
+    <span class="kt">var</span> <span class="n">r</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Random</span><span class="p">();</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5000</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+    <span class="p">{</span>
+        <span class="n">products</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="n">Product</span>
+        <span class="p">{</span>
+            <span class="n">Calories</span> <span class="p">=</span> <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">100000</span><span class="p">),</span>
+            <span class="n">Carbohydrates</span> <span class="p">=</span> <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">100000</span><span class="p">),</span>
+            <span class="n">Proteins</span> <span class="p">=</span> <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">100000</span><span class="p">),</span>
+            <span class="n">Fats</span> <span class="p">=</span> <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">100000</span><span class="p">),</span>
+            <span class="n">SaturatedFat</span> <span class="p">=</span> <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">100000</span><span class="p">),</span>
+            <span class="n">UnsaturatedFat</span> <span class="p">=</span> <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">100000</span><span class="p">)</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">Request</span><span class="p">.</span><span class="n">CreateResponse</span><span class="p">(</span><span class="n">products</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+
+<p>This is just a normal ASP.NET api where I create 5000 strongly typed objects and returns them as a list that is then serialized to JSON and sent to the client.</p>
+
+<p>Compact JSON server code:</p>
+
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="na">[HttpGet]</span>
+<span class="k">public</span> <span class="n">HttpResponseMessage</span> <span class="nf">GetAjson</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">products</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">object</span><span class="p">[]&gt;();</span>
+    <span class="kt">var</span> <span class="n">r</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Random</span><span class="p">();</span>
+
+    <span class="n">products</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="kt">string</span><span class="p">[]</span> <span class="p">{</span> <span class="s">&quot;Calories&quot;</span><span class="p">,</span> <span class="s">&quot;Carbohydrates&quot;</span><span class="p">,</span> <span class="s">&quot;Proteins&quot;</span><span class="p">,</span> 
+        <span class="s">&quot;Fats&quot;</span><span class="p">,</span> <span class="s">&quot;SaturatedFat&quot;</span><span class="p">,</span> <span class="s">&quot;UnsaturatedFat&quot;</span> <span class="p">});</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">var</span> <span class="n">i</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">&lt;</span> <span class="m">5000</span><span class="p">;</span> <span class="n">i</span><span class="p">++)</span>
+    <span class="p">{</span>
+        <span class="n">products</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">new</span> <span class="kt">object</span><span class="p">[]</span>
+        <span class="p">{</span>
+            <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">100000</span><span class="p">),</span> <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">100000</span><span class="p">),</span> <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">100000</span><span class="p">),</span> 
+            <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">100000</span><span class="p">),</span> <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">100000</span><span class="p">),</span> <span class="n">r</span><span class="p">.</span><span class="n">Next</span><span class="p">(</span><span class="m">100000</span><span class="p">)</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">Request</span><span class="p">.</span><span class="n">CreateResponse</span><span class="p">(</span><span class="n">products</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+
+<p>This code creates the same data but we send the object definition as the first item in the array, and every object as a subarray only containing the data.This means that we can only send objects with the same definition this way, but that covers 90% of my endpoints.
+The code shown here is only a mock that creates the data for measure, a live example would user a nice serializer that could take any type of object.</p>
+
+<p>Javascript deserializer:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">ajson</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">deserialize</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">ajsonArray</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">definition</span> <span class="o">=</span> <span class="nx">ajsonArray</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">ajsonArray</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{};</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">p</span> <span class="o">&lt;</span> <span class="nx">definition</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">p</span><span class="o">++</span><span class="p">)</span>
+                <span class="nx">o</span><span class="p">[</span><span class="nx">definition</span><span class="p">[</span><span class="nx">p</span><span class="p">]]</span> <span class="o">=</span> <span class="nx">ajsonArray</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">p</span><span class="p">];</span>
+            <span class="nx">ajsonArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">o</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
+
+<p>This code removes the definition from the received array and uses it to in place replace every subarray containing the objects data with real objects.</p>
+
+<h3 id="so-what-does-this-work-give-us">So what does this work give us?</h3>
+<p>I use fiddler to look at the requests and som javascript time checking to see how long the deserialization takes. The results are as follows:
+*	5000 items normal JSON, GZIPed ~118KB, no compression ~572KB
+*	5000 items compact JSON array, GZIPed ~88KB, no compression ~187KB</p>
+
+<p>I have tried a few different configurations and the saving is ~25% in most cases, this will not hold true if your objects contains lots of data as the property:data ratio will be different, but it produces significant savings in many of the APIs that I create.</p>
+
+<p>The overhead of deserializing it on the client? The 5000 items took 7ms to deserialize from normal JSON to a a javascript array. The same items took 7ms + 25ms to deserialize from compact JSON to a javascript array. This is tested on chrome on my ultrabook, and I believe that it will take a while longer to run on, for instance IE8, but so will deserializing it from normal JSON to.</p>
+
+<p>These tests show that serializing data like this can improve performance in applications that send out lots of items containing very small data.</p>
+</div>
+</article>
+        </div>
+        <footer class="footer-content">
+          Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+        </footer>
+      </div>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-41772613-1', 'rosengren.me');
+        ga('send', 'pageview');
+
+        document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+
+        document.getElementById('menu-toggle').addEventListener('click', function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          } else {
+            navbar.className = navbar.className + ' drawer--open';
+          }
+        });
+
+        document.getElementById('content').addEventListener('click',function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          }
+        })
+      </script>
+    </body>
+</html>

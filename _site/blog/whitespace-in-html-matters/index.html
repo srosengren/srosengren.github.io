@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Rosengren.me - Whitespace in HTML matters</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Inline elements in html are elements that flow in the documents direction (ltr/rtl) until they hit the edge, and then they line break, just as text in a book or a newspaper. When rendering such elements (spans or display: inline,inline-block etc) the browser will treat the whitespace between them as having a width of 0.25em of the parent elements font-size, assuming that they aren’t floated or taken out of the normal flow in any other way. Elements without any whitespace between them will be treated as a single continuous element (but keeping their individual applied styling), until hitting  the edge of the parent.
+
+">
+
+        <meta property="og:type" content="article"/>
+        <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
+        <meta property="og:description" content="Inline elements in html are elements that flow in the documents direction (ltr/rtl) until they hit the edge, and then they line break, just as text in a book or a newspaper. When rendering such elements (spans or display: inline,inline-block etc) the browser will treat the whitespace between them as having a width of 0.25em of the parent elements font-size, assuming that they aren’t floated or taken out of the normal flow in any other way. Elements without any whitespace between them will be treated as a single continuous element (but keeping their individual applied styling), until hitting  the edge of the parent.
+
+"/>
+
+        <!--[if lt IE 9]>
+           <script>
+              document.createElement('nav');
+              document.createElement('header');
+              document.createElement('section');
+              document.createElement('footer');
+              document.createElement('article');
+              document.createElement('time');
+           </script>
+        <![endif]-->
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="/assets/styles/rosengren.css">
+
+    </head>
+    <body>
+      <div class="navbar-menu-toggle" id="menu-toggle">Menu</div>
+      <div class="page" id="page">
+        <nav class="navbar" id="navbar-menu">
+          <div class="navbar-menu collapse">
+            <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+            <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+          </div>
+          <span class="navbar-menu navbar-menu-contact collapse">
+            <a class="navbar-menu-item navbar-menu-item--linkedin" href="http://www.linkedin.com/in/srosengren" target="_blank">LinkedIn</a>
+            <a class="navbar-menu-item navbar-menu-item--twitter" href="https://twitter.com/srrosengren" target="_blank">Twitter</a>
+            <a class="navbar-menu-item navbar-menu-item--github" href="https://github.com/srosengren" target="_blank">Github</a>
+            <a class="navbar-menu-item navbar-menu-item--mail" href="javascript:;" id="mail-link">Mail</a>
+          </span>
+        </nav>
+        <div class="main-content" id="content">
+            <article class="post">
+	<header>
+		<h1 class="post__title">Whitespace in HTML matters</h1>
+		<div class="post__byline">
+			<time datetime="2014-04-28 16:17:00 +0200">28 Apr 2014</time>
+			html and css
+		</div>
+	</header>
+	<div class="post__content"><p>Inline elements in html are elements that flow in the documents direction (ltr/rtl) until they hit the edge, and then they line break, just as text in a book or a newspaper. When rendering such elements (spans or display: inline,inline-block etc) the browser will treat the whitespace between them as having a width of 0.25em of the parent elements font-size, assuming that they aren’t floated or taken out of the normal flow in any other way. Elements without any whitespace between them will be treated as a single continuous element (but keeping their individual applied styling), until hitting  the edge of the parent.</p>
+
+<p>This gives us two effects/issues depending on how we see it.</p>
+
+<h2 id="text-align-justify-on-parent">Text-align justify on parent</h2>
+<p>There’s not much to say about this, but it’s something that can really bite you in the ass, as it did with me. Text-align:justify will try to space out inline elements to hit both edges of the documents at the same time (except for the last line), similar to some magazine layouts. The issue here is that inline elements without any whitespace will simply not be justified since they are considered a continuous element. This is easy to forget if you’re for instance concatenating html in javascript. The solution here is to always include whitespace in your markup, which you mostly likely will if you’re using an editor with formatting. You should include either a space or ‘\r\n’ after each element if you’re appending elements to the DOM through javascript.</p>
+
+<p>BONUS: text-align:justify on a single line</p>
+
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.justified</span> <span class="p">{</span>
+    <span class="k">text-align</span><span class="o">:</span> <span class="k">justify</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.justified</span><span class="nd">:after</span> <span class="p">{</span>
+    <span class="k">content</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<p>What we do here is to add a pseudo element to the parent with justify on it and use that element to create a new line (width: 100%) this makes sure that every “real” line is justified since only the last line is ignored.</p>
+
+<h2 id="width-on-inline-block-elements">Width on inline-block elements</h2>
+<p>You might have seen some fluid grid system or similar that uses display: inline-block on their spans/columns to avoid row collapse due to floating spans/columns in “regular” grid systems. The beauty of inline-block is its ability to flow like a inline element while having block like properties such as margins and the ability to adjust its dimensions.</p>
+
+<p>The issue here are those 0.25em that I wrote about in the first paragraph. You might for instance have your body font-size set to 16px and want to add a 4 column row where each column takes up 25% of the width.</p>
+
+<p>You might write your CSS along these lines</p>
+
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">body</span> <span class="p">{</span>
+    <span class="k">font-size</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>    
+<span class="p">}</span>
+
+<span class="nc">.col</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">25%</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<p>And then you create your HTML and you or your editor format it like this.</p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<p>Then you get a headache since the last col is on a new row. This happens since the full width of your 4 columns is 25% * 4 plus 0.25 * 16p * 3. Or 100% + 12px, there are 12px extra since the browser only calculates the whitespace between your 4 columns.</p>
+
+<p>You could solve this be writing your markup like this:</p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;row&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;col&quot;</span><span class="nt">&gt;&lt;/div&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;col&quot;</span><span class="nt">&gt;&lt;/div&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;col&quot;</span><span class="nt">&gt;&lt;/div&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;col&quot;</span><span class="nt">&gt;&lt;/div&gt;&lt;/div&gt;</span></code></pre></div>
+
+<p>But this will become hard to maintain since auto formatting might break it or another developer might not know why it’s formatted like this and add content of his own that is formatted in another way.</p>
+
+<p>The CSS way of solving this comes from the fact that the whitespace width is calcualted from the parents font-size, so we solve it by setting the font-size of the row to zero and add a font-size property to the col.</p>
+
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">body</span> <span class="p">{</span>
+    <span class="k">font-size</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>    
+<span class="p">}</span>
+
+<span class="nc">.row</span> <span class="p">{</span>
+    <span class="k">font-size</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.col</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">25%</span><span class="p">;</span>
+    <span class="k">font-size</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<p>This does have its own drawback, mainly that we lose the ability to use em for fontsizes since we reset it at each nested row. This could be solved by adding sizing classes that decides the fontsize of a specific row.</p>
+</div>
+</article>
+        </div>
+        <footer class="footer-content">
+          Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+        </footer>
+      </div>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-41772613-1', 'rosengren.me');
+        ga('send', 'pageview');
+
+        document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+
+        document.getElementById('menu-toggle').addEventListener('click', function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          } else {
+            navbar.className = navbar.className + ' drawer--open';
+          }
+        });
+
+        document.getElementById('content').addEventListener('click',function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          }
+        })
+      </script>
+    </body>
+</html>

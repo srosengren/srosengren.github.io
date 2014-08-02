@@ -5,11 +5,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Rosengren.me - XSLT rendering with sc:image in for-each</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="srosengren">
+        <meta name="description" content="It was a real easy task. Display the ImageField and GeneralLinkField for every item that was selected in a MultiListField.
+
+">
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="<p>It was a real easy task. Display the ImageField and GeneralLinkField for every item that was selected in a MultiListField.</p>"/>
+        <meta property="og:description" content="It was a real easy task. Display the ImageField and GeneralLinkField for every item that was selected in a MultiListField.
+
+"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -21,107 +25,80 @@
               document.createElement('time');
            </script>
         <![endif]-->
-
-        <link rel="stylesheet" href="/assets/styles/syntax.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" href="/assets/styles/rosengren.css">
 
     </head>
     <body>
-      <div class="navbar-menu-toggle" id="menu-toggle"></div>
-      <nav class="navbar" id="navbar-menu">
-        <div class="navbar-menu collapse">
-          <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
-          <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
-        </div>
-        <ul class="navbar-menu navbar-spots right collapse">
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="fa fa-linkedin"></a>
-            </div>
-            <span class="spot-title">Linkedin</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://twitter.com/srrosengren" target="_blank" class="fa fa-twitter"></a>
-            </div>
-            <span class="spot-title">Twitter</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://github.com/srosengren" target="_blank" class="fa fa-github"></a>
-            </div>
-            <span class="spot-title">Github</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://plus.google.com/100467627792652344906/posts?rel=author" target="_blank" class="fa fa-google-plus"></a>
-            </div>
-            <span class="spot-title">G+</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="javascript:;" id="mail-link" class="fa fa-envelope"></a>
-            </div>
-            <span class="spot-title">Mail</span>
-          </li>
-        </ul>
-      </nav>
-      <div class="main-content" id="content">
-          <div class="container">
-	<article class="post">
-		<header>
-			<h1 class="post__title">XSLT rendering with sc:image in for-each</h1>
-			<div class="post__byline">
-				<time datetime="2012-08-29 08:55:00 UTC">29 Aug 2012</time>
-				web, sitecore, xsl, and development
-			</div>
-		</header>
-		<div class="post__content"><p>It was a real easy task. Display the ImageField and GeneralLinkField for every item that was selected in a MultiListField.</p>
+      <div class="navbar-menu-toggle" id="menu-toggle">Menu</div>
+      <div class="page" id="page">
+        <nav class="navbar" id="navbar-menu">
+          <div class="navbar-menu collapse">
+            <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+            <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+          </div>
+          <span class="navbar-menu navbar-menu-contact collapse">
+            <a class="navbar-menu-item navbar-menu-item--linkedin" href="http://www.linkedin.com/in/srosengren" target="_blank">LinkedIn</a>
+            <a class="navbar-menu-item navbar-menu-item--twitter" href="https://twitter.com/srrosengren" target="_blank">Twitter</a>
+            <a class="navbar-menu-item navbar-menu-item--github" href="https://github.com/srosengren" target="_blank">Github</a>
+            <a class="navbar-menu-item navbar-menu-item--mail" href="javascript:;" id="mail-link">Mail</a>
+          </span>
+        </nav>
+        <div class="main-content" id="content">
+            <article class="post">
+	<header>
+		<h1 class="post__title">XSLT rendering with sc:image in for-each</h1>
+		<div class="post__byline">
+			<time datetime="2012-08-29 10:55:00 +0200">29 Aug 2012</time>
+			web, sitecore, xsl, and development
+		</div>
+	</header>
+	<div class="post__content"><p>It was a real easy task. Display the ImageField and GeneralLinkField for every item that was selected in a MultiListField.</p>
 
 <p>So I took a look at the code, crap, it’s XSLT and I’m mostly a .NET guy who never touches the stuff. It wasn’t easy to find a clear answer to this question, the closest I came was this blog by John West, <a href="http://www.sitecore.net/Community/Technical-Blogs/John-West-Sitecore-Blog/Posts/2010/11/Select-and-Link-to-Media-Items-with-XSLT-Using-the-Sitecore-Web-Content-Management-System.aspx">http://www.sitecore.net/Community/Technical-Blogs/John-West-Sitecore-Blog/Posts/2010/11/Select-and-Link-to-Media-Items-with-XSLT-Using-the-Sitecore-Web-Content-Management-System.aspx</a></p>
 
 <p>It goes a bit deeper than I needed but the info was good for learning about working with XSLT in sitecore. I would’ve never thought of nesting for-each’s to account for broken Sitecore links.</p>
 
 <p>In the end, this is what it all came to.</p>
-<div class='highlight'><pre><code class='xslt'> <span class='ni'>&amp;#x9;&amp;#x9;&amp;amp;</span>lt;xsl:variable name=<span class='ni'>&amp;quot;</span>socialHeader<span class='ni'>&amp;quot;</span> select=<span class='ni'>&amp;quot;</span>sc:item(&#39;/sitecore/content/site/Site settings/Social/HeaderSocialSettings&#39;,.)<span class='ni'>&amp;quot;</span> /<span class='ni'>&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>        <span class='ni'>&amp;amp;</span>lt;xsl:for-each select=<span class='ni'>&amp;quot;</span>sc:Split(&#39;SocialImageLinks&#39;,$socialHeader)<span class='ni'>&amp;quot;&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>          <span class='ni'>&amp;amp;</span>lt;xsl:for-each select=<span class='ni'>&amp;quot;</span>sc:item(text(),.)<span class='ni'>&amp;quot;&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>            <span class='ni'>&amp;amp;</span>lt;sc:link field=<span class='ni'>&amp;quot;</span>linkforimage<span class='ni'>&amp;quot;&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>              <span class='ni'>&amp;amp;</span>lt;sc:image field=<span class='ni'>&amp;quot;</span>linkimage<span class='ni'>&amp;quot;</span> w=<span class='ni'>&amp;quot;</span>16<span class='ni'>&amp;quot;</span> h=<span class='ni'>&amp;quot;</span>16<span class='ni'>&amp;quot;</span> class=<span class='ni'>&amp;quot;</span>ImageSocial<span class='ni'>&amp;quot;</span> /<span class='ni'>&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>            <span class='ni'>&amp;amp;</span>lt;/sc:link<span class='ni'>&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>          <span class='ni'>&amp;amp;</span>lt;/xsl:for-each<span class='ni'>&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span>        <span class='ni'>&amp;amp;</span>lt;/xsl:for-each<span class='ni'>&amp;amp;</span>gt;<span class='ni'>&amp;#xD;&amp;#xA;</span> 
-</code></pre></div>
+
+<div class="highlight"><pre><code class="language-xslt" data-lang="xslt"><span class="ni">&amp;#x9;&amp;#x9;&amp;amp;</span>lt;xsl:variable name=<span class="ni">&amp;quot;</span>socialHeader<span class="ni">&amp;quot;</span> select=<span class="ni">&amp;quot;</span>sc:item(&#39;/sitecore/content/site/Site settings/Social/HeaderSocialSettings&#39;,.)<span class="ni">&amp;quot;</span> /<span class="ni">&amp;amp;</span>gt;<span class="ni">&amp;#xD;&amp;#xA;</span>        <span class="ni">&amp;amp;</span>lt;xsl:for-each select=<span class="ni">&amp;quot;</span>sc:Split(&#39;SocialImageLinks&#39;,$socialHeader)<span class="ni">&amp;quot;&amp;amp;</span>gt;<span class="ni">&amp;#xD;&amp;#xA;</span>          <span class="ni">&amp;amp;</span>lt;xsl:for-each select=<span class="ni">&amp;quot;</span>sc:item(text(),.)<span class="ni">&amp;quot;&amp;amp;</span>gt;<span class="ni">&amp;#xD;&amp;#xA;</span>            <span class="ni">&amp;amp;</span>lt;sc:link field=<span class="ni">&amp;quot;</span>linkforimage<span class="ni">&amp;quot;&amp;amp;</span>gt;<span class="ni">&amp;#xD;&amp;#xA;</span>              <span class="ni">&amp;amp;</span>lt;sc:image field=<span class="ni">&amp;quot;</span>linkimage<span class="ni">&amp;quot;</span> w=<span class="ni">&amp;quot;</span>16<span class="ni">&amp;quot;</span> h=<span class="ni">&amp;quot;</span>16<span class="ni">&amp;quot;</span> class=<span class="ni">&amp;quot;</span>ImageSocial<span class="ni">&amp;quot;</span> /<span class="ni">&amp;amp;</span>gt;<span class="ni">&amp;#xD;&amp;#xA;</span>            <span class="ni">&amp;amp;</span>lt;/sc:link<span class="ni">&amp;amp;</span>gt;<span class="ni">&amp;#xD;&amp;#xA;</span>          <span class="ni">&amp;amp;</span>lt;/xsl:for-each<span class="ni">&amp;amp;</span>gt;<span class="ni">&amp;#xD;&amp;#xA;</span>        <span class="ni">&amp;amp;</span>lt;/xsl:for-each<span class="ni">&amp;amp;</span>gt;<span class="ni">&amp;#xD;&amp;#xA;</span></code></pre></div>
+
 <p>The first line takes the value of my MultiListField “SocialImageLinks” on the item contained in the xsl variable “$socialHeader”, it then uses the SC extension “Split” to split it to separate IDs. The next line might seem odd since it’s a for-each on what should only be a single item. But according to John this to prevent broken links since the for-each will simply step over empty values returned by the “item” extension. Text in this context is the current value returned by the split. I then simply use a sc:link control and tell it to use the GeneralLinkField “linkforimage” on the current item that was returned by the sc:item extension. The same goes for the sc:image control that uses the “linkimage” ImageField.</p>
 
-<p>This outputs every image wrapped in an anchortag just the way I wanted it to.</p></div>
-	</article>
+<p>This outputs every image wrapped in an anchortag just the way I wanted it to.</p>
 </div>
-      </div> <!-- /container -->
-      <footer class="container footer-content">
-        Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
-      </footer>
+</article>
+        </div>
+        <footer class="footer-content">
+          Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+        </footer>
+      </div>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-41772613-1', 'rosengren.me');
+        ga('send', 'pageview');
 
-          ga('create', 'UA-41772613-1', 'rosengren.me');
-          ga('send', 'pageview');
+        document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
 
-          document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+        document.getElementById('menu-toggle').addEventListener('click', function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          } else {
+            navbar.className = navbar.className + ' drawer--open';
+          }
+        });
 
-          document.getElementById('menu-toggle').addEventListener('click', function(){
-            var navbar = document.getElementById('navbar-menu');
-            if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace(' open','');
-            } else {
-              navbar.className = navbar.className + ' open';
-            }
-          });
-
-          document.getElementById('content').addEventListener('click',function(){
-            var navbar = document.getElementById('navbar-menu');
-            if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace(' open','');
-            }
-          })
-        </script>
+        document.getElementById('content').addEventListener('click',function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          }
+        })
+      </script>
     </body>
 </html>

@@ -5,11 +5,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Rosengren.me - Extend Dapper Dynamic Parameters to send Table Valued Parameter to SQL Server</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="srosengren">
+        <meta name="description" content="So you want to pass a list of something to a SQL stored procedure/Query using Dapper? And you want to receive it as a Table Valued Parameter? Sounds great, you might feel a little bummed that this isn’t supported out of the box in Dapper, meaning that you can’t simply put a IEnumerable as a param in the dynamic param object that a Dapper query accepts. But fear not, it’s pretty easy to do yourself, depending on how thorough you want to be.
+
+">
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="<p>So you want to pass a list of something to a SQL stored procedure/Query using Dapper? And you want to receive it as a <a href="http://technet.microsoft.com/en-us/library/bb510489.aspx">Table Valued Parameter</a>? Sounds great, you might feel a little bummed that this isn’t supported out of the box in Dapper, meaning that you can’t simply put a IEnumerable as a param in the dynamic param object that a Dapper query accepts. But fear not, it’s pretty easy to do yourself, depending on how thorough you want to be.</p>"/>
+        <meta property="og:description" content="So you want to pass a list of something to a SQL stored procedure/Query using Dapper? And you want to receive it as a Table Valued Parameter? Sounds great, you might feel a little bummed that this isn’t supported out of the box in Dapper, meaning that you can’t simply put a IEnumerable as a param in the dynamic param object that a Dapper query accepts. But fear not, it’s pretty easy to do yourself, depending on how thorough you want to be.
+
+"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -21,157 +25,132 @@
               document.createElement('time');
            </script>
         <![endif]-->
-
-        <link rel="stylesheet" href="/assets/styles/syntax.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" href="/assets/styles/rosengren.css">
 
     </head>
     <body>
-      <div class="navbar-menu-toggle" id="menu-toggle"></div>
-      <nav class="navbar" id="navbar-menu">
-        <div class="navbar-menu collapse">
-          <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
-          <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
-        </div>
-        <ul class="navbar-menu navbar-spots right collapse">
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="fa fa-linkedin"></a>
-            </div>
-            <span class="spot-title">Linkedin</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://twitter.com/srrosengren" target="_blank" class="fa fa-twitter"></a>
-            </div>
-            <span class="spot-title">Twitter</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://github.com/srosengren" target="_blank" class="fa fa-github"></a>
-            </div>
-            <span class="spot-title">Github</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://plus.google.com/100467627792652344906/posts?rel=author" target="_blank" class="fa fa-google-plus"></a>
-            </div>
-            <span class="spot-title">G+</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="javascript:;" id="mail-link" class="fa fa-envelope"></a>
-            </div>
-            <span class="spot-title">Mail</span>
-          </li>
-        </ul>
-      </nav>
-      <div class="main-content" id="content">
-          <div class="container">
-	<article class="post">
-		<header>
-			<h1 class="post__title">Extend Dapper Dynamic Parameters to send Table Valued Parameter to SQL Server</h1>
-			<div class="post__byline">
-				<time datetime="2013-09-29 13:29:00 UTC">29 Sep 2013</time>
-				sql, sql server, dapper, dynamic parameters, code, and stratiteq
-			</div>
-		</header>
-		<div class="post__content"><p>So you want to pass a list of something to a SQL stored procedure/Query using Dapper? And you want to receive it as a <a href="http://technet.microsoft.com/en-us/library/bb510489.aspx">Table Valued Parameter</a>? Sounds great, you might feel a little bummed that this isn’t supported out of the box in Dapper, meaning that you can’t simply put a IEnumerable as a param in the dynamic param object that a Dapper query accepts. But fear not, it’s pretty easy to do yourself, depending on how thorough you want to be.</p>
+      <div class="navbar-menu-toggle" id="menu-toggle">Menu</div>
+      <div class="page" id="page">
+        <nav class="navbar" id="navbar-menu">
+          <div class="navbar-menu collapse">
+            <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+            <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+          </div>
+          <span class="navbar-menu navbar-menu-contact collapse">
+            <a class="navbar-menu-item navbar-menu-item--linkedin" href="http://www.linkedin.com/in/srosengren" target="_blank">LinkedIn</a>
+            <a class="navbar-menu-item navbar-menu-item--twitter" href="https://twitter.com/srrosengren" target="_blank">Twitter</a>
+            <a class="navbar-menu-item navbar-menu-item--github" href="https://github.com/srosengren" target="_blank">Github</a>
+            <a class="navbar-menu-item navbar-menu-item--mail" href="javascript:;" id="mail-link">Mail</a>
+          </span>
+        </nav>
+        <div class="main-content" id="content">
+            <article class="post">
+	<header>
+		<h1 class="post__title">Extend Dapper Dynamic Parameters to send Table Valued Parameter to SQL Server</h1>
+		<div class="post__byline">
+			<time datetime="2013-09-29 15:29:00 +0200">29 Sep 2013</time>
+			sql, sql server, dapper, dynamic parameters, code, and stratiteq
+		</div>
+	</header>
+	<div class="post__content"><p>So you want to pass a list of something to a SQL stored procedure/Query using Dapper? And you want to receive it as a <a href="http://technet.microsoft.com/en-us/library/bb510489.aspx">Table Valued Parameter</a>? Sounds great, you might feel a little bummed that this isn’t supported out of the box in Dapper, meaning that you can’t simply put a IEnumerable as a param in the dynamic param object that a Dapper query accepts. But fear not, it’s pretty easy to do yourself, depending on how thorough you want to be.</p>
 
 <p>I’m simply going to create a one-off solution that you can easily expand on yourself.</p>
 
 <p>I will not pretend to be an expert on the inner workings of Dapper, but I do know that the <code>Query&lt;t&gt;</code> method takes a parameter called param that is of type <a href="http://msdn.microsoft.com/en-us/library/dd264736.aspx">dynamic</a>, meaning that we can put an inline object initilazier here, or an object of any type. The magic that we’re after happens if we create a new type that implements Dappers <code>IDynamicParameters</code> interface.</p>
 
 <p>But first things first, let us assume that you have a stored procedure that takes a TVP parameter of ids for filtering on. It might look like this:</p>
-<div class='highlight'><pre><code class='sql'><span class='c1'>-- CREATE THE TYPE TO USE AS A PARAMETER FOR YOUR STORED PROCEDURE</span>
-<span class='k'>CREATE</span> <span class='k'>TYPE</span> <span class='n'>IdsTableType</span> <span class='k'>AS</span> <span class='k'>TABLE</span> 
-  <span class='p'>(</span> <span class='n'>id</span> <span class='nb'>INT</span> <span class='p'>);</span>
-<span class='k'>GO</span>
 
-<span class='c1'>-- DECLARE PROCEDURE</span>
-<span class='k'>CREATE</span> <span class='k'>PROCEDURE</span> <span class='p'>[</span><span class='n'>dbo</span><span class='p'>].[</span><span class='n'>filterOnIds</span><span class='p'>]</span>
-	<span class='c1'>-- Add the parameters for the stored procedure here</span>
-	<span class='o'>@</span><span class='n'>Ids</span> <span class='n'>IdsTableType</span> <span class='n'>READONLY</span>
-<span class='k'>AS</span>
-<span class='k'>BEGIN</span>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="c1">-- CREATE THE TYPE TO USE AS A PARAMETER FOR YOUR STORED PROCEDURE</span>
+<span class="k">CREATE</span> <span class="k">TYPE</span> <span class="n">IdsTableType</span> <span class="k">AS</span> <span class="k">TABLE</span> 
+  <span class="p">(</span> <span class="n">id</span> <span class="nb">INT</span> <span class="p">);</span>
+<span class="k">GO</span>
 
-<span class='c1'>-- YOUR CODE</span>
+<span class="c1">-- DECLARE PROCEDURE</span>
+<span class="k">CREATE</span> <span class="k">PROCEDURE</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].[</span><span class="n">filterOnIds</span><span class="p">]</span>
+	<span class="c1">-- Add the parameters for the stored procedure here</span>
+	<span class="o">@</span><span class="n">Ids</span> <span class="n">IdsTableType</span> <span class="n">READONLY</span>
+<span class="k">AS</span>
+<span class="k">BEGIN</span>
 
-<span class='k'>END</span>
-</code></pre></div>
+<span class="c1">-- YOUR CODE</span>
+
+<span class="k">END</span></code></pre></div>
+
 <p>You might try to call it like this, using the basic Dapper functionality that you’re used to:</p>
-<div class='highlight'><pre><code class='c#'><span class='n'>myConnection</span><span class='p'>.</span><span class='n'>Query</span><span class='p'>&lt;</span><span class='n'>returnType</span><span class='p'>&gt;(</span><span class='s'>&quot;dbo.filterOnIds&quot;</span><span class='p'>,</span><span class='k'>new</span> <span class='p'>{</span> <span class='n'>ids</span> <span class='p'>=</span> <span class='n'>myList</span> <span class='p'>});</span>
-</code></pre></div>
+
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="n">myConnection</span><span class="p">.</span><span class="n">Query</span><span class="p">&lt;</span><span class="n">returnType</span><span class="p">&gt;(</span><span class="s">&quot;dbo.filterOnIds&quot;</span><span class="p">,</span><span class="k">new</span> <span class="p">{</span> <span class="n">ids</span> <span class="p">=</span> <span class="n">myList</span> <span class="p">});</span></code></pre></div>
+
 <p>But this will of course not work, and that’s why you’re reading this. The solution isn’t that hard but finding Dapper examples on the internet can be quite time consuming/frustrating. So lets write some code:</p>
-<div class='highlight'><pre><code class='c#'><span class='k'>public</span> <span class='k'>class</span> <span class='nc'>IdListParam</span> <span class='p'>:</span> <span class='n'>Dapper</span><span class='p'>.</span><span class='n'>SqlMapper</span><span class='p'>.</span><span class='n'>IDynamicParameters</span>
-<span class='p'>{</span>
-	<span class='k'>private</span> <span class='n'>IEnumerable</span><span class='p'>&lt;</span><span class='kt'>int</span><span class='p'>&gt;</span> <span class='n'>_ids</span><span class='p'>;</span>
 
-	<span class='k'>public</span> <span class='nf'>IdListParam</span><span class='p'>(</span><span class='n'>IEnumerable</span><span class='p'>&lt;</span><span class='kt'>int</span><span class='p'>&gt;</span> <span class='n'>ids</span><span class='p'>)</span>
-	<span class='p'>{</span>
-		<span class='n'>_ids</span> <span class='p'>=</span> <span class='n'>ids</span><span class='p'>;</span>
-	<span class='p'>}</span>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">public</span> <span class="k">class</span> <span class="nc">IdListParam</span> <span class="p">:</span> <span class="n">Dapper</span><span class="p">.</span><span class="n">SqlMapper</span><span class="p">.</span><span class="n">IDynamicParameters</span>
+<span class="p">{</span>
+	<span class="k">private</span> <span class="n">IEnumerable</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">_ids</span><span class="p">;</span>
 
-  <span class='c1'>//This is from the IDynamicParameters implementation</span>
-  <span class='k'>public</span> <span class='k'>void</span> <span class='nf'>AddParameters</span><span class='p'>(</span><span class='n'>System</span><span class='p'>.</span><span class='n'>Data</span><span class='p'>.</span><span class='n'>IDbCommand</span> <span class='n'>command</span><span class='p'>,</span> <span class='n'>Dapper</span><span class='p'>.</span><span class='n'>SqlMapper</span><span class='p'>.</span><span class='n'>Identity</span> <span class='n'>identity</span><span class='p'>)</span>
-  <span class='p'>{</span>
-    <span class='kt'>var</span> <span class='n'>sqlCommand</span> <span class='p'>=</span> <span class='p'>(</span><span class='n'>SqlCommand</span><span class='p'>)</span><span class='n'>command</span><span class='p'>;</span>
-    <span class='n'>sqlCommand</span><span class='p'>.</span><span class='n'>CommandType</span> <span class='p'>=</span> <span class='n'>System</span><span class='p'>.</span><span class='n'>Data</span><span class='p'>.</span><span class='n'>CommandType</span><span class='p'>.</span><span class='n'>StoredProcedure</span><span class='p'>;</span>
+	<span class="k">public</span> <span class="nf">IdListParam</span><span class="p">(</span><span class="n">IEnumerable</span><span class="p">&lt;</span><span class="kt">int</span><span class="p">&gt;</span> <span class="n">ids</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">_ids</span> <span class="p">=</span> <span class="n">ids</span><span class="p">;</span>
+	<span class="p">}</span>
 
-    <span class='n'>List</span><span class='p'>&lt;</span><span class='n'>SqlDataRecord</span><span class='p'>&gt;</span> <span class='n'>idList</span> <span class='p'>=</span> <span class='k'>new</span> <span class='n'>List</span><span class='p'>&lt;</span><span class='n'>SqlDataRecord</span><span class='p'>&gt;();</span>
+  <span class="c1">//This is from the IDynamicParameters implementation</span>
+  <span class="k">public</span> <span class="k">void</span> <span class="nf">AddParameters</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">IDbCommand</span> <span class="n">command</span><span class="p">,</span> <span class="n">Dapper</span><span class="p">.</span><span class="n">SqlMapper</span><span class="p">.</span><span class="n">Identity</span> <span class="n">identity</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="kt">var</span> <span class="n">sqlCommand</span> <span class="p">=</span> <span class="p">(</span><span class="n">SqlCommand</span><span class="p">)</span><span class="n">command</span><span class="p">;</span>
+    <span class="n">sqlCommand</span><span class="p">.</span><span class="n">CommandType</span> <span class="p">=</span> <span class="n">System</span><span class="p">.</span><span class="n">Data</span><span class="p">.</span><span class="n">CommandType</span><span class="p">.</span><span class="n">StoredProcedure</span><span class="p">;</span>
 
-    <span class='n'>SqlMetaData</span><span class='p'>[]</span> <span class='n'>tvp_definition</span> <span class='p'>=</span> <span class='p'>{</span> <span class='k'>new</span> <span class='n'>SqlMetaData</span><span class='p'>(</span><span class='s'>&quot;n&quot;</span><span class='p'>,</span> <span class='n'>SqlDbType</span><span class='p'>.</span><span class='n'>Int</span><span class='p'>)</span> <span class='p'>};</span>
+    <span class="n">List</span><span class="p">&lt;</span><span class="n">SqlDataRecord</span><span class="p">&gt;</span> <span class="n">idList</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">SqlDataRecord</span><span class="p">&gt;();</span>
 
-    <span class='k'>foreach</span> <span class='p'>(</span><span class='kt'>int</span> <span class='n'>n</span> <span class='k'>in</span> <span class='n'>_accountStructureIds</span><span class='p'>)</span>
-    <span class='p'>{</span>
-      <span class='c1'>// Create a new record, using the metadata array above.</span>
-      <span class='n'>SqlDataRecord</span> <span class='n'>rec</span> <span class='p'>=</span> <span class='k'>new</span> <span class='n'>SqlDataRecord</span><span class='p'>(</span><span class='n'>tvp_definition</span><span class='p'>);</span>
-      <span class='n'>rec</span><span class='p'>.</span><span class='n'>SetInt32</span><span class='p'>(</span><span class='m'>0</span><span class='p'>,</span> <span class='n'>n</span><span class='p'>);</span>    <span class='c1'>// Set the value.</span>
-      <span class='n'>idList</span><span class='p'>.</span><span class='n'>Add</span><span class='p'>(</span><span class='n'>rec</span><span class='p'>);</span>      <span class='c1'>// Add it to the list.</span>
-    <span class='p'>}</span>
+    <span class="n">SqlMetaData</span><span class="p">[]</span> <span class="n">tvp_definition</span> <span class="p">=</span> <span class="p">{</span> <span class="k">new</span> <span class="n">SqlMetaData</span><span class="p">(</span><span class="s">&quot;n&quot;</span><span class="p">,</span> <span class="n">SqlDbType</span><span class="p">.</span><span class="n">Int</span><span class="p">)</span> <span class="p">};</span>
 
-    <span class='kt'>var</span> <span class='n'>p</span> <span class='p'>=</span> <span class='n'>sqlCommand</span><span class='p'>.</span><span class='n'>Parameters</span><span class='p'>.</span><span class='n'>Add</span><span class='p'>(</span><span class='s'>&quot;@Ids&quot;</span><span class='p'>,</span> <span class='n'>SqlDbType</span><span class='p'>.</span><span class='n'>Structured</span><span class='p'>);</span>
-    <span class='n'>p</span><span class='p'>.</span><span class='n'>Direction</span> <span class='p'>=</span> <span class='n'>ParameterDirection</span><span class='p'>.</span><span class='n'>Input</span><span class='p'>;</span>
-    <span class='n'>p</span><span class='p'>.</span><span class='n'>TypeName</span> <span class='p'>=</span> <span class='s'>&quot;IdsTableType&quot;</span><span class='p'>;</span>
-    <span class='n'>p</span><span class='p'>.</span><span class='n'>Value</span> <span class='p'>=</span> <span class='n'>idList</span><span class='p'>;</span>
-  <span class='p'>}</span>
-<span class='p'>}</span>
-</code></pre></div>
-<p>But as I said, this is a one-off implementation with no dynamic input. If you’re okay with having maybe one or two implementations of this style in your code then that’s okay, simply add parameters to the constructor as needed and add them to the command in the <code>AddParameters</code> method. Or you could extend it to take a <code>Dynamic</code> object in the constructor and iterate over its properties, creating parameters on the fly. I would consider the second option if you use TVP a lot in your stored procedures and that most of your other params are of a few normal types such as INT and NVARCHAR. This could easibly be a project in itself if you want to catch every single use case in a single implementation.</p></div>
-	</article>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">int</span> <span class="n">n</span> <span class="k">in</span> <span class="n">_accountStructureIds</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="c1">// Create a new record, using the metadata array above.</span>
+      <span class="n">SqlDataRecord</span> <span class="n">rec</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlDataRecord</span><span class="p">(</span><span class="n">tvp_definition</span><span class="p">);</span>
+      <span class="n">rec</span><span class="p">.</span><span class="n">SetInt32</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>    <span class="c1">// Set the value.</span>
+      <span class="n">idList</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">rec</span><span class="p">);</span>      <span class="c1">// Add it to the list.</span>
+    <span class="p">}</span>
+
+    <span class="kt">var</span> <span class="n">p</span> <span class="p">=</span> <span class="n">sqlCommand</span><span class="p">.</span><span class="n">Parameters</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="s">&quot;@Ids&quot;</span><span class="p">,</span> <span class="n">SqlDbType</span><span class="p">.</span><span class="n">Structured</span><span class="p">);</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">Direction</span> <span class="p">=</span> <span class="n">ParameterDirection</span><span class="p">.</span><span class="n">Input</span><span class="p">;</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">TypeName</span> <span class="p">=</span> <span class="s">&quot;IdsTableType&quot;</span><span class="p">;</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">Value</span> <span class="p">=</span> <span class="n">idList</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+
+<p>But as I said, this is a one-off implementation with no dynamic input. If you’re okay with having maybe one or two implementations of this style in your code then that’s okay, simply add parameters to the constructor as needed and add them to the command in the <code>AddParameters</code> method. Or you could extend it to take a <code>Dynamic</code> object in the constructor and iterate over its properties, creating parameters on the fly. I would consider the second option if you use TVP a lot in your stored procedures and that most of your other params are of a few normal types such as INT and NVARCHAR. This could easibly be a project in itself if you want to catch every single use case in a single implementation.</p>
 </div>
-      </div> <!-- /container -->
-      <footer class="container footer-content">
-        Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
-      </footer>
+</article>
+        </div>
+        <footer class="footer-content">
+          Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+        </footer>
+      </div>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-41772613-1', 'rosengren.me');
+        ga('send', 'pageview');
 
-          ga('create', 'UA-41772613-1', 'rosengren.me');
-          ga('send', 'pageview');
+        document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
 
-          document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+        document.getElementById('menu-toggle').addEventListener('click', function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          } else {
+            navbar.className = navbar.className + ' drawer--open';
+          }
+        });
 
-          document.getElementById('menu-toggle').addEventListener('click', function(){
-            var navbar = document.getElementById('navbar-menu');
-            if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace(' open','');
-            } else {
-              navbar.className = navbar.className + ' open';
-            }
-          });
-
-          document.getElementById('content').addEventListener('click',function(){
-            var navbar = document.getElementById('navbar-menu');
-            if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace(' open','');
-            }
-          })
-        </script>
+        document.getElementById('content').addEventListener('click',function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          }
+        })
+      </script>
     </body>
 </html>

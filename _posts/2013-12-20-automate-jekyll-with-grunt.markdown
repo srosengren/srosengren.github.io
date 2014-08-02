@@ -32,11 +32,13 @@ I will try to make an abridged version of the information that I've compiled, re
 }
 {% endhighlight %}
 
-And then run ``npm install`` to install your dependencies.
+And then run ``npm install`` in your console of choice (I use the git bash) while "standing" in your site root folder e.g, `cd c:\myfolder` in cmd or `cd /c/myfolder` in the git bash to install your dependencies. UPDATE: I've had this step fail for me with the error `Error: ENOENT, stat c:\users\username\AppData\Roaming\npm`, I solved this by copying the `npm` file from my node js installation, in my case this was `C:\Program Files\nodejs` into my roaming folder.
+
+We must now install the Grunt CLI, this is what makes the grunt command that we will run later work. We do this by executing `npm install -g grunt-cli` in the console. UPDATE: My "copying npm file" fix seems to be causing issues with this, remove the npm file again since this command wants to create a directory called npm.
 
 Now it's time to write our gruntfile that will compile less and build jekyll, it should of course do this without us having to press reload in our browser. 
 
-We will begin with this simple gruntfile that compiles our less on the fly, we don't have to install livereload on our machines since this is built into ``grunt-contrib-watch``, but we still have to install a [browser plugin](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-)
+We will begin with this small gruntfile that compiles our less on the fly, we don't have to install livereload on our machines since this is built into ``grunt-contrib-watch``, but we still have to install a [browser plugin](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-)
 
 {% highlight javascript %}
 module.exports = function(grunt) {
@@ -66,11 +68,13 @@ module.exports = function(grunt) {
       }
     }
   });
-  grunt.registerTask('default', 'less');
+  grunt.registerTask('default', 'watch');
 }
 {% endhighlight %}
 
 What this does is that it listens to changes in any LESS file in my /assets/styles folder. It compiles and minifies ``rosengren.less`` to ``rosengren.css`` by running the ``less:development`` task from the ``watch:less`` task when it detects an update. It also notifies livereload in any browser and injects the new CSS without refreshing the page.
+
+Now is a good time to execute `grunt` in the console and make sure that everything is working so far. the console should answer with `Running "watch" task, Waiting. Make a change in one of your less files and the console window will come to life and tell you what it's doing.
 
 I found a post by [Thanasis Polychronakis](http://thanpol.as/jekyll/jekyll-and-livereload-flow/) That describes how to get grunt to build jekyll through a shell task. And also added that we should have an additional task that copies compiled less directly to our \_site folder without having to build jekyll since it takes a lot of time. 
 
@@ -116,11 +120,11 @@ We also have to tell grunt to load additional tasks for our config file to make 
   grunt.loadNpmTasks('grunt-shell');
 {% endhighlight %}
 
-The ``copy`` task simply copies the ``rosengren.css`` file into our \_site folder, this will be run when our ``watch:less`` detects a change since we added the task into the tasks array and it will be included in the livereload.
+The ``copy`` task copies the ``rosengren.css`` file into our \_site folder, this will be run when our ``watch:less`` detects a change since we added the task into the tasks array and it will be included in the livereload.
 
 The new ``watch:jekyll`` task will listen to any change in files that should trigger a jekyll build, it will then trigger the ``shell:jekyll`` task and a livereload after it has finished.
 
-The new tasks that we're loading should simply be added within the main function of the file, next to the previously loaded tasks.
+The new tasks that we're loading should be added within the main function of the file, next to the previously loaded tasks.
 
 ## Finally
 

@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Rosengren.me - Combine knockoutjs observablearray with jQuery UI draggable and sortable</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="srosengren">
+        <meta name="description" content="">
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
@@ -21,117 +21,100 @@
               document.createElement('time');
            </script>
         <![endif]-->
-
-        <link rel="stylesheet" href="/assets/styles/syntax.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" href="/assets/styles/rosengren.css">
 
     </head>
     <body>
-      <div class="navbar-menu-toggle" id="menu-toggle"></div>
-      <nav class="navbar" id="navbar-menu">
-        <div class="navbar-menu collapse">
-          <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
-          <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
-        </div>
-        <ul class="navbar-menu navbar-spots right collapse">
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="fa fa-linkedin"></a>
-            </div>
-            <span class="spot-title">Linkedin</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://twitter.com/srrosengren" target="_blank" class="fa fa-twitter"></a>
-            </div>
-            <span class="spot-title">Twitter</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://github.com/srosengren" target="_blank" class="fa fa-github"></a>
-            </div>
-            <span class="spot-title">Github</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://plus.google.com/100467627792652344906/posts?rel=author" target="_blank" class="fa fa-google-plus"></a>
-            </div>
-            <span class="spot-title">G+</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="javascript:;" id="mail-link" class="fa fa-envelope"></a>
-            </div>
-            <span class="spot-title">Mail</span>
-          </li>
-        </ul>
-      </nav>
-      <div class="main-content" id="content">
-          <div class="container">
-	<article class="post">
-		<header>
-			<h1 class="post__title">Combine knockoutjs observablearray with jQuery UI draggable and sortable</h1>
-			<div class="post__byline">
-				<time datetime="2013-11-23 16:50:00 UTC">23 Nov 2013</time>
-				web, knockoutjs, javascript, jquery, jqueryui, frontend, and stratiteq
-			</div>
-		</header>
-		<div class="post__content"><p>New project, new challanges. This was one of those things that obviously isn’t described in either projects documentation and some minor googling didn’t turn up anything that I really liked. Well, that just means more fun for me. What I had to accomplish was a draggable, actually a list of draggables but that’s removed for brevity in this post, and a sortable list that is bound to a observablearray that keeps its items in sync with how they’re visually sorted. I can honestly say that I’m not too pleased with jQuery UIs documentation. There seems to be a few missing features and the parameters for the events could use a few paragraphs that describes when certain properties are present or not.</p>
-<div class='row' id='demo'>
-<div class='fill'>
-<div id='draggable' style='cursor:pointer;color: black;border: solid 1px #ccc;display: inline-block;padding: 3px 6px;border-radius: 4px;margin: 6px 0;'>Drag me to the sortable</div>
+      <div class="navbar-menu-toggle" id="menu-toggle">Menu</div>
+      <div class="page" id="page">
+        <nav class="navbar" id="navbar-menu">
+          <div class="navbar-menu collapse">
+            <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+            <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+          </div>
+          <span class="navbar-menu navbar-menu-contact collapse">
+            <a class="navbar-menu-item navbar-menu-item--linkedin" href="http://www.linkedin.com/in/srosengren" target="_blank">LinkedIn</a>
+            <a class="navbar-menu-item navbar-menu-item--twitter" href="https://twitter.com/srrosengren" target="_blank">Twitter</a>
+            <a class="navbar-menu-item navbar-menu-item--github" href="https://github.com/srosengren" target="_blank">Github</a>
+            <a class="navbar-menu-item navbar-menu-item--mail" href="javascript:;" id="mail-link">Mail</a>
+          </span>
+        </nav>
+        <div class="main-content" id="content">
+            <article class="post">
+	<header>
+		<h1 class="post__title">Combine knockoutjs observablearray with jQuery UI draggable and sortable</h1>
+		<div class="post__byline">
+			<time datetime="2013-11-23 17:50:00 +0100">23 Nov 2013</time>
+			web, knockoutjs, javascript, jquery, jqueryui, frontend, and stratiteq
+		</div>
+	</header>
+	<div class="post__content"><p>New project, new challanges. This was one of those things that obviously isn’t described in either projects documentation and some minor googling didn’t turn up anything that I really liked. Well, that just means more fun for me.
+What I had to accomplish was a draggable, actually a list of draggables but that’s removed for brevity in this post, and a sortable list that is bound to a observablearray that keeps its items in sync with how they’re visually sorted. I can honestly say that I’m not too pleased with jQuery UIs documentation. There seems to be a few missing features and the parameters for the events could use a few paragraphs that describes when certain properties are present or not.</p>
+
+<div id="demo" class="row">
+<div class="fill">
+<div id="draggable" style="cursor:pointer;color: black;border: solid 1px #ccc;display: inline-block;padding: 3px 6px;border-radius: 4px;margin: 6px 0;">Drag me to the sortable</div>
 </div>
-<div class='half'>
+<div class="half">
 sortable
-<ul data-bind='foreach:elements()' id='sortable' style='padding: 20px 0;border-top: solid 1px #ccc;border-bottom: solid 1px #ccc;'>
-	<li data-bind='text:$index() + &apos;: &apos; +displayName() ,attr: { &apos;data-index&apos;: $index }' style='cursor:pointer' />
+<ul id="sortable" style="padding: 20px 0;border-top: solid 1px #ccc;border-bottom: solid 1px #ccc;" data-bind="foreach:elements()">
+	<li style="cursor:pointer" data-bind="text:$index() + ': ' +displayName() ,attr: { 'data-index': $index }"></li>
 </ul>
 </div>
-<div class='half'>
+<div class="half">
 sorted
-<ul data-bind='foreach:elements'>
-	<li data-bind='text: $index() + &apos;: &apos; +displayName()' />
+<ul data-bind="foreach:elements">
+	<li data-bind="text: $index() + ': ' +displayName()"></li>
 </ul>
 </div>
-</div><script src='http://code.jquery.com/jquery-1.10.1.min.js'>
-</script><script src='http://code.jquery.com/ui/1.10.3/jquery-ui.js'>
-</script><script src='http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js'>
-</script><script src='/assets/scripts/knockoutdemo.js'>	
-</script></div>
-	</article>
 </div>
-      </div> <!-- /container -->
-      <footer class="container footer-content">
-        Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
-      </footer>
 
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<script src="http://code.jquery.com/jquery-1.10.1.min.js">
+</script>
 
-          ga('create', 'UA-41772613-1', 'rosengren.me');
-          ga('send', 'pageview');
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js">
+</script>
 
-          document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+<script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js">
+</script>
 
-          document.getElementById('menu-toggle').addEventListener('click', function(){
-            var navbar = document.getElementById('navbar-menu');
-            if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace(' open','');
-            } else {
-              navbar.className = navbar.className + ' open';
-            }
-          });
+<script src="/assets/scripts/knockoutdemo.js">	
+</script>
 
-          document.getElementById('content').addEventListener('click',function(){
-            var navbar = document.getElementById('navbar-menu');
-            if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace(' open','');
-            }
-          })
-        </script>
+</div>
+</article>
+        </div>
+        <footer class="footer-content">
+          Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+        </footer>
+      </div>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-41772613-1', 'rosengren.me');
+        ga('send', 'pageview');
+
+        document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+
+        document.getElementById('menu-toggle').addEventListener('click', function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          } else {
+            navbar.className = navbar.className + ' drawer--open';
+          }
+        });
+
+        document.getElementById('content').addEventListener('click',function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          }
+        })
+      </script>
     </body>
 </html>

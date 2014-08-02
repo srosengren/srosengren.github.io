@@ -5,13 +5,17 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Rosengren.me - Transactional repository pattern</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="srosengren">
+        <meta name="description" content="Why a new pattern?
+I should probably begin by saying that I have no idea if there is any prior art for this, this is something that I just came up with while building the back-end for a new application. It is meant to simplify making a sequence of repository calls from your busines logic while still having it transactional. It is yet to be fully battle tested but initial tests looks like it’s working.
+
+">
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="<h3 id="why_a_new_pattern">Why a new pattern?</h3>
+        <meta property="og:description" content="Why a new pattern?
+I should probably begin by saying that I have no idea if there is any prior art for this, this is something that I just came up with while building the back-end for a new application. It is meant to simplify making a sequence of repository calls from your busines logic while still having it transactional. It is yet to be fully battle tested but initial tests looks like it’s working.
 
-<p>I should probably begin by saying that I have no idea if there is any prior art for this, this is something that I just came up with while building the back-end for a new application. It is meant to simplify making a sequence of repository calls from your busines logic while still having it transactional. It is yet to be fully battle tested but initial tests looks like it’s working.</p>"/>
+"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -23,184 +27,160 @@
               document.createElement('time');
            </script>
         <![endif]-->
-
-        <link rel="stylesheet" href="/assets/styles/syntax.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" href="/assets/styles/rosengren.css">
 
     </head>
     <body>
-      <div class="navbar-menu-toggle" id="menu-toggle"></div>
-      <nav class="navbar" id="navbar-menu">
-        <div class="navbar-menu collapse">
-          <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
-          <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
-        </div>
-        <ul class="navbar-menu navbar-spots right collapse">
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="fa fa-linkedin"></a>
-            </div>
-            <span class="spot-title">Linkedin</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://twitter.com/srrosengren" target="_blank" class="fa fa-twitter"></a>
-            </div>
-            <span class="spot-title">Twitter</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://github.com/srosengren" target="_blank" class="fa fa-github"></a>
-            </div>
-            <span class="spot-title">Github</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://plus.google.com/100467627792652344906/posts?rel=author" target="_blank" class="fa fa-google-plus"></a>
-            </div>
-            <span class="spot-title">G+</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="javascript:;" id="mail-link" class="fa fa-envelope"></a>
-            </div>
-            <span class="spot-title">Mail</span>
-          </li>
-        </ul>
-      </nav>
-      <div class="main-content" id="content">
-          <div class="container">
-	<article class="post">
-		<header>
-			<h1 class="post__title">Transactional repository pattern</h1>
-			<div class="post__byline">
-				<time datetime="2013-10-03 21:09:00 UTC">03 Oct 2013</time>
-				sql, code, architecture, pattern, back-end, n-tier, 3-tier, and stratiteq
-			</div>
-		</header>
-		<div class="post__content"><h3 id="why_a_new_pattern">Why a new pattern?</h3>
-
+      <div class="navbar-menu-toggle" id="menu-toggle">Menu</div>
+      <div class="page" id="page">
+        <nav class="navbar" id="navbar-menu">
+          <div class="navbar-menu collapse">
+            <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+            <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+          </div>
+          <span class="navbar-menu navbar-menu-contact collapse">
+            <a class="navbar-menu-item navbar-menu-item--linkedin" href="http://www.linkedin.com/in/srosengren" target="_blank">LinkedIn</a>
+            <a class="navbar-menu-item navbar-menu-item--twitter" href="https://twitter.com/srrosengren" target="_blank">Twitter</a>
+            <a class="navbar-menu-item navbar-menu-item--github" href="https://github.com/srosengren" target="_blank">Github</a>
+            <a class="navbar-menu-item navbar-menu-item--mail" href="javascript:;" id="mail-link">Mail</a>
+          </span>
+        </nav>
+        <div class="main-content" id="content">
+            <article class="post">
+	<header>
+		<h1 class="post__title">Transactional repository pattern</h1>
+		<div class="post__byline">
+			<time datetime="2013-10-03 23:09:00 +0200">03 Oct 2013</time>
+			sql, code, architecture, pattern, back-end, n-tier, 3-tier, and stratiteq
+		</div>
+	</header>
+	<div class="post__content"><h3 id="why-a-new-pattern">Why a new pattern?</h3>
 <p>I should probably begin by saying that I have no idea if there is any prior art for this, this is something that I just came up with while building the back-end for a new application. It is meant to simplify making a sequence of repository calls from your busines logic while still having it transactional. It is yet to be fully battle tested but initial tests looks like it’s working.</p>
 
 <p><a href="https://github.com/srosengren/transactionalrepositorypattern">Give me the code!</a></p>
 
-<h3 id="how_does_it_work">How does it work?</h3>
-
+<h3 id="how-does-it-work">How does it work?</h3>
 <p>The custom applications that we normally build at work are normal three layered applications with repository (Database), service (Business logic) and view layers, where the view layer is often built using the MVC pattern. The transactional repository pattern however is only concerned with the lower two layers of the application. When building CRUD apps it’s quite easy to build the service/repository layers almost identical, meaning that every method on the service has a method on the repository that it calls and handles the data from it. This is fine if you’re only doing CRUD and nothing else, but you will end up with lots of redundant repository code if you keep doing this when handling more complex scenarios on the service. What you would do here is probably to call several functions of the repository in a sequence from the service. You might get an uneasy feeling here about not handling your database commands on a transaction and are instead building business logic to handle failed DB calls. This is exactly what this pattern is meant to handle.</p>
 
-<p>Here is my proposal for what a base repository class might look like when using a sql database: We have a lazyloaded SqlConnection to our database and a lazyloaded SqlTransaction on this connection</p>
-<div class='highlight'><pre><code class='c#'><span class='k'>private</span> <span class='n'>SqlConnection</span> <span class='n'>_con</span><span class='p'>;</span>
-<span class='k'>private</span> <span class='n'>SqlTransaction</span> <span class='n'>_trans</span><span class='p'>;</span>
-<span class='k'>protected</span> <span class='n'>SqlConnection</span> <span class='n'>Con</span>
-<span class='p'>{</span>
-    <span class='k'>get</span>
-    <span class='p'>{</span>
-        <span class='k'>if</span> <span class='p'>(</span><span class='n'>_con</span> <span class='p'>==</span> <span class='k'>null</span><span class='p'>)</span>
-        <span class='p'>{</span>
-            <span class='n'>_con</span> <span class='p'>=</span> <span class='k'>new</span> <span class='n'>SqlConnection</span><span class='p'>(</span><span class='n'>ConfigurationManager</span><span class='p'>.</span><span class='n'>ConnectionStrings</span><span class='p'>[</span><span class='s'>&quot;DB&quot;</span><span class='p'>].</span><span class='n'>ConnectionString</span><span class='p'>);</span>
-            <span class='n'>_con</span><span class='p'>.</span><span class='n'>Open</span><span class='p'>();</span>
-        <span class='p'>}</span>
-        <span class='k'>return</span> <span class='n'>_con</span><span class='p'>;</span>
-    <span class='p'>}</span>
-<span class='p'>}</span>
-<span class='k'>protected</span> <span class='n'>SqlTransaction</span> <span class='n'>Trans</span>
-<span class='p'>{</span>
-    <span class='k'>get</span>
-    <span class='p'>{</span>
-        <span class='k'>if</span> <span class='p'>(</span><span class='n'>_trans</span> <span class='p'>==</span> <span class='k'>null</span><span class='p'>)</span>
-            <span class='n'>_trans</span> <span class='p'>=</span> <span class='n'>Con</span><span class='p'>.</span><span class='n'>BeginTransaction</span><span class='p'>();</span>
-        <span class='k'>return</span> <span class='n'>_trans</span><span class='p'>;</span>
-    <span class='p'>}</span>
-<span class='p'>}</span>
-</code></pre></div>
+<p>Here is my proposal for what a base repository class might look like when using a sql database:
+We have a lazyloaded SqlConnection to our database and a lazyloaded SqlTransaction on this connection</p>
+
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">private</span> <span class="n">SqlConnection</span> <span class="n">_con</span><span class="p">;</span>
+<span class="k">private</span> <span class="n">SqlTransaction</span> <span class="n">_trans</span><span class="p">;</span>
+<span class="k">protected</span> <span class="n">SqlConnection</span> <span class="n">Con</span>
+<span class="p">{</span>
+    <span class="k">get</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_con</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_con</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SqlConnection</span><span class="p">(</span><span class="n">ConfigurationManager</span><span class="p">.</span><span class="n">ConnectionStrings</span><span class="p">[</span><span class="s">&quot;DB&quot;</span><span class="p">].</span><span class="n">ConnectionString</span><span class="p">);</span>
+            <span class="n">_con</span><span class="p">.</span><span class="n">Open</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">_con</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">protected</span> <span class="n">SqlTransaction</span> <span class="n">Trans</span>
+<span class="p">{</span>
+    <span class="k">get</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">_trans</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+            <span class="n">_trans</span> <span class="p">=</span> <span class="n">Con</span><span class="p">.</span><span class="n">BeginTransaction</span><span class="p">();</span>
+        <span class="k">return</span> <span class="n">_trans</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+
 <p>The reason for this is to simplify making several transactional calls in sequence on the same repository isntance.</p>
 
 <p>We also have the major method, the ExecuteInTransaction method that we will later send actions to and have all repository calls in that action performed on a transaction.</p>
-<div class='highlight'><pre><code class='c#'><span class='k'>public</span> <span class='k'>void</span> <span class='nf'>ExecuteInTransaction</span><span class='p'>(</span><span class='n'>Action</span> <span class='n'>a</span><span class='p'>)</span>
-<span class='p'>{</span>
-  <span class='k'>try</span>
-  <span class='p'>{</span>
-    <span class='n'>a</span><span class='p'>.</span><span class='n'>Invoke</span><span class='p'>();</span>
-    <span class='n'>Trans</span><span class='p'>.</span><span class='n'>Commit</span><span class='p'>();</span>
-    <span class='n'>Trans</span><span class='p'>.</span><span class='n'>Dispose</span><span class='p'>();</span>
-    <span class='n'>_trans</span> <span class='p'>=</span> <span class='k'>null</span><span class='p'>;</span>
-  <span class='p'>}</span>
-  <span class='k'>catch</span>
-  <span class='p'>{</span>
-    <span class='n'>Trans</span><span class='p'>.</span><span class='n'>Rollback</span><span class='p'>();</span>
-    <span class='n'>Trans</span><span class='p'>.</span><span class='n'>Dispose</span><span class='p'>();</span>
-    <span class='n'>_trans</span> <span class='p'>=</span> <span class='k'>null</span><span class='p'>;</span>
-    <span class='k'>throw</span><span class='p'>;</span>
-  <span class='p'>}</span>
-<span class='p'>}</span>
-</code></pre></div>
+
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">public</span> <span class="k">void</span> <span class="nf">ExecuteInTransaction</span><span class="p">(</span><span class="n">Action</span> <span class="n">a</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">try</span>
+  <span class="p">{</span>
+    <span class="n">a</span><span class="p">.</span><span class="n">Invoke</span><span class="p">();</span>
+    <span class="n">Trans</span><span class="p">.</span><span class="n">Commit</span><span class="p">();</span>
+    <span class="n">Trans</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
+    <span class="n">_trans</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">catch</span>
+  <span class="p">{</span>
+    <span class="n">Trans</span><span class="p">.</span><span class="n">Rollback</span><span class="p">();</span>
+    <span class="n">Trans</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
+    <span class="n">_trans</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+    <span class="k">throw</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+
 <p>What we see here is the invokation of a action, the transaction is commited if the action invokes without any exceptions, but rollbacked if it doesn’t.</p>
 
 <p>We would call the method from our service like this:</p>
-<div class='highlight'><pre><code class='c#'><span class='k'>using</span> <span class='p'>(</span><span class='kt'>var</span> <span class='n'>repo</span> <span class='p'>=</span> <span class='k'>new</span> <span class='n'>PersonRepository</span><span class='p'>())</span>
-<span class='p'>{</span>
-  <span class='n'>repo</span><span class='p'>.</span><span class='n'>ExecuteInTransaction</span><span class='p'>(()</span> <span class='p'>=&gt;</span>
-  <span class='p'>{</span>
-    <span class='k'>foreach</span> <span class='p'>(</span><span class='kt'>var</span> <span class='n'>person</span> <span class='k'>in</span> <span class='n'>persons</span><span class='p'>)</span>
-    <span class='p'>{</span>
-      <span class='n'>repo</span><span class='p'>.</span><span class='n'>Add</span><span class='p'>(</span><span class='n'>person</span><span class='p'>);</span>
-    <span class='p'>}</span>
-  <span class='p'>});</span>
-<span class='p'>}</span>
-</code></pre></div>
-<p>The PersonRepository in this example is a subclass of the TransactionalRepository that exposes the Add(Person) method. We then send an action to the ExecuteInTransaction method where we iterate over a list of persons, none of these will be commited to the database if any of them fails. This is of course just an example and you would probably use it with any number of methods in sequence on the repository (update,delete,get,etc). We can also make any number of <code>ExecuteInTransaction</code> calls on the same Repository instance (remember the lazy loaded connection and transaction) since we dispose of the transaction after each call. You might have noticed that we’re using a using statement in this example, the reason for this is of course to clean up after us when we’re done, here’s the <code>Dispose</code> implementation for the TransactionalRepository:</p>
-<div class='highlight'><pre><code class='c#'><span class='k'>public</span> <span class='k'>void</span> <span class='nf'>Dispose</span><span class='p'>()</span>
-<span class='p'>{</span>
-  <span class='k'>if</span> <span class='p'>(</span><span class='n'>_trans</span> <span class='p'>!=</span> <span class='k'>null</span><span class='p'>)</span>
-    <span class='n'>_trans</span><span class='p'>.</span><span class='n'>Dispose</span><span class='p'>();</span>
-  <span class='k'>if</span> <span class='p'>(</span><span class='n'>_con</span> <span class='p'>!=</span> <span class='k'>null</span><span class='p'>)</span>
-  <span class='p'>{</span>
-    <span class='n'>_con</span><span class='p'>.</span><span class='n'>Close</span><span class='p'>();</span>
-    <span class='n'>_con</span><span class='p'>.</span><span class='n'>Dispose</span><span class='p'>();</span>
-  <span class='p'>}</span>
 
-  <span class='n'>GC</span><span class='p'>.</span><span class='n'>SuppressFinalize</span><span class='p'>(</span><span class='k'>this</span><span class='p'>);</span>
-<span class='p'>}</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">repo</span> <span class="p">=</span> <span class="k">new</span> <span class="n">PersonRepository</span><span class="p">())</span>
+<span class="p">{</span>
+  <span class="n">repo</span><span class="p">.</span><span class="n">ExecuteInTransaction</span><span class="p">(()</span> <span class="p">=&gt;</span>
+  <span class="p">{</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">person</span> <span class="k">in</span> <span class="n">persons</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">repo</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">person</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span></code></pre></div>
+
+<p>The PersonRepository in this example is a subclass of the TransactionalRepository that exposes the Add(Person) method. We then send an action to the ExecuteInTransaction method where we iterate over a list of persons, none of these will be commited to the database if any of them fails. This is of course just an example and you would probably use it with any number of methods in sequence on the repository (update,delete,get,etc). We can also make any number of <code>ExecuteInTransaction</code> calls on the same Repository instance (remember the lazy loaded connection and transaction) since we dispose of the transaction after each call.
+You might have noticed that we’re using a using statement in this example, the reason for this is of course to clean up after us when we’re done, here’s the <code>Dispose</code> implementation for the TransactionalRepository:</p>
+
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">public</span> <span class="k">void</span> <span class="nf">Dispose</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">_trans</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="n">_trans</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">_con</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">_con</span><span class="p">.</span><span class="n">Close</span><span class="p">();</span>
+    <span class="n">_con</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="n">GC</span><span class="p">.</span><span class="n">SuppressFinalize</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+
 <p>All we’re doing here is releasing the resources that we have.</p>
 
 <p>So that’s the pattern, all that’s left is trying it out!</p>
 
-<p><a href="https://github.com/srosengren/transactionalrepositorypattern">Full example code</a></p></div>
-	</article>
+<p><a href="https://github.com/srosengren/transactionalrepositorypattern">Full example code</a></p>
 </div>
-      </div> <!-- /container -->
-      <footer class="container footer-content">
-        Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
-      </footer>
+</article>
+        </div>
+        <footer class="footer-content">
+          Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+        </footer>
+      </div>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-41772613-1', 'rosengren.me');
+        ga('send', 'pageview');
 
-          ga('create', 'UA-41772613-1', 'rosengren.me');
-          ga('send', 'pageview');
+        document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
 
-          document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+        document.getElementById('menu-toggle').addEventListener('click', function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          } else {
+            navbar.className = navbar.className + ' drawer--open';
+          }
+        });
 
-          document.getElementById('menu-toggle').addEventListener('click', function(){
-            var navbar = document.getElementById('navbar-menu');
-            if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace(' open','');
-            } else {
-              navbar.className = navbar.className + ' open';
-            }
-          });
-
-          document.getElementById('content').addEventListener('click',function(){
-            var navbar = document.getElementById('navbar-menu');
-            if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace(' open','');
-            }
-          })
-        </script>
+        document.getElementById('content').addEventListener('click',function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          }
+        })
+      </script>
     </body>
 </html>

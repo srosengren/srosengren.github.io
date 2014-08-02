@@ -5,11 +5,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Rosengren.me - Download file / image instead of displaying it in browser</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="srosengren">
+        <meta name="description" content="New day new requirements. Atleast this was an easy one.
+
+">
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="<p>New day new requirements. Atleast this was an easy one.</p>"/>
+        <meta property="og:description" content="New day new requirements. Atleast this was an easy one.
+
+"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -21,105 +25,78 @@
               document.createElement('time');
            </script>
         <![endif]-->
-
-        <link rel="stylesheet" href="/assets/styles/syntax.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" href="/assets/styles/rosengren.css">
 
     </head>
     <body>
-      <div class="navbar-menu-toggle" id="menu-toggle"></div>
-      <nav class="navbar" id="navbar-menu">
-        <div class="navbar-menu collapse">
-          <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
-          <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
-        </div>
-        <ul class="navbar-menu navbar-spots right collapse">
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="fa fa-linkedin"></a>
-            </div>
-            <span class="spot-title">Linkedin</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://twitter.com/srrosengren" target="_blank" class="fa fa-twitter"></a>
-            </div>
-            <span class="spot-title">Twitter</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://github.com/srosengren" target="_blank" class="fa fa-github"></a>
-            </div>
-            <span class="spot-title">Github</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://plus.google.com/100467627792652344906/posts?rel=author" target="_blank" class="fa fa-google-plus"></a>
-            </div>
-            <span class="spot-title">G+</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="javascript:;" id="mail-link" class="fa fa-envelope"></a>
-            </div>
-            <span class="spot-title">Mail</span>
-          </li>
-        </ul>
-      </nav>
-      <div class="main-content" id="content">
-          <div class="container">
-	<article class="post">
-		<header>
-			<h1 class="post__title">Download file / image instead of displaying it in browser</h1>
-			<div class="post__byline">
-				<time datetime="2012-09-24 13:53:00 UTC">24 Sep 2012</time>
-				web, image, file, MVC, HTTP, and development
-			</div>
-		</header>
-		<div class="post__content"><p>New day new requirements. Atleast this was an easy one.</p>
+      <div class="navbar-menu-toggle" id="menu-toggle">Menu</div>
+      <div class="page" id="page">
+        <nav class="navbar" id="navbar-menu">
+          <div class="navbar-menu collapse">
+            <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+            <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+          </div>
+          <span class="navbar-menu navbar-menu-contact collapse">
+            <a class="navbar-menu-item navbar-menu-item--linkedin" href="http://www.linkedin.com/in/srosengren" target="_blank">LinkedIn</a>
+            <a class="navbar-menu-item navbar-menu-item--twitter" href="https://twitter.com/srrosengren" target="_blank">Twitter</a>
+            <a class="navbar-menu-item navbar-menu-item--github" href="https://github.com/srosengren" target="_blank">Github</a>
+            <a class="navbar-menu-item navbar-menu-item--mail" href="javascript:;" id="mail-link">Mail</a>
+          </span>
+        </nav>
+        <div class="main-content" id="content">
+            <article class="post">
+	<header>
+		<h1 class="post__title">Download file / image instead of displaying it in browser</h1>
+		<div class="post__byline">
+			<time datetime="2012-09-24 15:53:00 +0200">24 Sep 2012</time>
+			web, image, file, MVC, HTTP, and development
+		</div>
+	</header>
+	<div class="post__content"><p>New day new requirements. Atleast this was an easy one.</p>
 
 <p>The normal action when clicking an anchor tag with an href pointing to an image is to display the image in the browser. Today this was not the desired outcome, instead I wanted to put an “Download image” button next to the image. The solution to this is very simple if you have access to the http server response. This was no problem for me since I’m working with asp.NET MVC, all I had to to was to add an extra header to the response. The content-disposition header to be precise.</p>
 
 <p>This header has two parts that were important to me, the disposition-type and the filename parts. The default disposition-type is inline and this is what tells the browser to show content that it knows how to display, the type that I wanted was attachment that tells the browser to treat the image as a downloadable file. The filename part is only useful when using the attachment type. Simply include filename=my-filename in the header.</p>
 
 <p>This is the result (MVC example):</p>
-<div class='highlight'><pre><code class='c#'><span class='n'>Response</span><span class='p'>.</span><span class='n'>AppendHeader</span><span class='p'>(</span><span class='s'>&quot;content-disposition&quot;</span><span class='p'>,</span> <span class='s'>&quot;attachment;filename=&quot;</span> <span class='p'>+</span> <span class='n'>myfile</span><span class='p'>.</span><span class='n'>Name</span><span class='p'>);</span>
-</code></pre></div>
-<p>And this is really all there is to it.</p></div>
-	</article>
+
+<div class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="n">Response</span><span class="p">.</span><span class="n">AppendHeader</span><span class="p">(</span><span class="s">&quot;content-disposition&quot;</span><span class="p">,</span> <span class="s">&quot;attachment;filename=&quot;</span> <span class="p">+</span> <span class="n">myfile</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span></code></pre></div>
+
+<p>And this is really all there is to it.</p>
 </div>
-      </div> <!-- /container -->
-      <footer class="container footer-content">
-        Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
-      </footer>
+</article>
+        </div>
+        <footer class="footer-content">
+          Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+        </footer>
+      </div>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-41772613-1', 'rosengren.me');
+        ga('send', 'pageview');
 
-          ga('create', 'UA-41772613-1', 'rosengren.me');
-          ga('send', 'pageview');
+        document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
 
-          document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+        document.getElementById('menu-toggle').addEventListener('click', function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          } else {
+            navbar.className = navbar.className + ' drawer--open';
+          }
+        });
 
-          document.getElementById('menu-toggle').addEventListener('click', function(){
-            var navbar = document.getElementById('navbar-menu');
-            if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace(' open','');
-            } else {
-              navbar.className = navbar.className + ' open';
-            }
-          });
-
-          document.getElementById('content').addEventListener('click',function(){
-            var navbar = document.getElementById('navbar-menu');
-            if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace(' open','');
-            }
-          })
-        </script>
+        document.getElementById('content').addEventListener('click',function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          }
+        })
+      </script>
     </body>
 </html>

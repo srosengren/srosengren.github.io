@@ -5,11 +5,15 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Rosengren.me - Object literal as property on a prototype object results can cause headaches</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="srosengren">
+        <meta name="description" content="Part of today was to enable an object literal to be used as a prototype. This object in turn had an object literal of its own (along with a few methods).
+
+">
 
         <meta property="og:type" content="article"/>
         <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
-        <meta property="og:description" content="<p>Part of today was to enable an object literal to be used as a prototype. This object in turn had an object literal of its own (along with a few methods).</p>"/>
+        <meta property="og:description" content="Part of today was to enable an object literal to be used as a prototype. This object in turn had an object literal of its own (along with a few methods).
+
+"/>
 
         <!--[if lt IE 9]>
            <script>
@@ -21,149 +25,124 @@
               document.createElement('time');
            </script>
         <![endif]-->
-
-        <link rel="stylesheet" href="/assets/styles/syntax.css">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" href="/assets/styles/rosengren.css">
 
     </head>
     <body>
-      <div class="navbar-menu-toggle" id="menu-toggle"></div>
-      <nav class="navbar" id="navbar-menu">
-        <div class="navbar-menu collapse">
-          <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
-          <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
-        </div>
-        <ul class="navbar-menu navbar-spots right collapse">
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="http://www.linkedin.com/in/srosengren" target="_blank" class="fa fa-linkedin"></a>
-            </div>
-            <span class="spot-title">Linkedin</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://twitter.com/srrosengren" target="_blank" class="fa fa-twitter"></a>
-            </div>
-            <span class="spot-title">Twitter</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://github.com/srosengren" target="_blank" class="fa fa-github"></a>
-            </div>
-            <span class="spot-title">Github</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="https://plus.google.com/100467627792652344906/posts?rel=author" target="_blank" class="fa fa-google-plus"></a>
-            </div>
-            <span class="spot-title">G+</span>
-          </li>
-          <li class="navbar-menu-item spot">
-            <div class="spot-bubble">
-              <a href="javascript:;" id="mail-link" class="fa fa-envelope"></a>
-            </div>
-            <span class="spot-title">Mail</span>
-          </li>
-        </ul>
-      </nav>
-      <div class="main-content" id="content">
-          <div class="container">
-	<article class="post">
-		<header>
-			<h1 class="post__title">Object literal as property on a prototype object results can cause headaches</h1>
-			<div class="post__byline">
-				<time datetime="2012-10-18 13:36:00 UTC">18 Oct 2012</time>
-				web, javascript, jquery, and development
-			</div>
-		</header>
-		<div class="post__content"><p>Part of today was to enable an object literal to be used as a prototype. This object in turn had an object literal of its own (along with a few methods).</p>
+      <div class="navbar-menu-toggle" id="menu-toggle">Menu</div>
+      <div class="page" id="page">
+        <nav class="navbar" id="navbar-menu">
+          <div class="navbar-menu collapse">
+            <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+            <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+          </div>
+          <span class="navbar-menu navbar-menu-contact collapse">
+            <a class="navbar-menu-item navbar-menu-item--linkedin" href="http://www.linkedin.com/in/srosengren" target="_blank">LinkedIn</a>
+            <a class="navbar-menu-item navbar-menu-item--twitter" href="https://twitter.com/srrosengren" target="_blank">Twitter</a>
+            <a class="navbar-menu-item navbar-menu-item--github" href="https://github.com/srosengren" target="_blank">Github</a>
+            <a class="navbar-menu-item navbar-menu-item--mail" href="javascript:;" id="mail-link">Mail</a>
+          </span>
+        </nav>
+        <div class="main-content" id="content">
+            <article class="post">
+	<header>
+		<h1 class="post__title">Object literal as property on a prototype object results can cause headaches</h1>
+		<div class="post__byline">
+			<time datetime="2012-10-18 15:36:00 +0200">18 Oct 2012</time>
+			web, javascript, jquery, and development
+		</div>
+	</header>
+	<div class="post__content"><p>Part of today was to enable an object literal to be used as a prototype. This object in turn had an object literal of its own (along with a few methods).</p>
 
 <p>Here is pseudo-code to display what happened:</p>
 
-<p>The object to be used as a prototype</p>
-<div class='highlight'><pre><code class='javascript'><span class='nx'>baseObject</span> <span class='o'>=</span> <span class='p'>{</span>
-	<span class='nx'>settings</span><span class='o'>:</span> <span class='p'>{</span>
-		<span class='nx'>aSetting</span><span class='o'>:</span> <span class='s1'>&#39;value&#39;</span><span class='p'>,</span>
-		<span class='nx'>otherSetting</span><span class='o'>:</span> <span class='s1'>&#39;value&#39;</span>
-	<span class='p'>},</span>
-	<span class='nx'>aProperty</span><span class='o'>:</span> <span class='p'>[],</span>
-	<span class='nx'>init</span><span class='o'>:</span> <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>settingsObject</span><span class='p'>)</span> <span class='p'>{</span>
-		<span class='kd'>var</span> <span class='nx'>that</span> <span class='o'>=</span> <span class='k'>this</span>
-		<span class='nx'>that</span><span class='p'>.</span><span class='nx'>settings</span><span class='p'>.</span><span class='nx'>aSettings</span> <span class='o'>=</span> <span class='nx'>settingsObject</span><span class='p'>.</span><span class='nx'>a</span><span class='p'>;</span>
-		<span class='nx'>that</span><span class='p'>.</span><span class='nx'>settings</span><span class='p'>.</span><span class='nx'>otherSettings</span> <span class='o'>=</span> <span class='nx'>settingsObject</span><span class='p'>.</span><span class='nx'>o</span><span class='p'>;</span>
-	<span class='p'>}</span>
-<span class='p'>}</span> 
-</code></pre></div>
-<p>This object is then used as a prototype for a new object using a create method.</p>
-<div class='highlight'><pre><code class='javascript'><span class='k'>if</span> <span class='p'>(</span><span class='nb'>Object</span><span class='p'>.</span><span class='nx'>create</span> <span class='o'>!==</span> <span class='s1'>&#39;function&#39;</span><span class='p'>)</span> <span class='p'>{</span>
-	<span class='nb'>Object</span><span class='p'>.</span><span class='nx'>create</span> <span class='o'>=</span> <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>proto</span><span class='p'>)</span> <span class='p'>{</span>
-		<span class='kd'>var</span> <span class='nx'>obj</span> <span class='o'>=</span> <span class='kd'>function</span> <span class='p'>()</span> <span class='p'>{</span> <span class='p'>};</span>
-		<span class='nx'>obj</span><span class='p'>.</span><span class='nx'>prototype</span> <span class='o'>=</span> <span class='nx'>proto</span><span class='p'>;</span>
-		<span class='k'>return</span> <span class='k'>new</span> <span class='nx'>obj</span><span class='p'>();</span>
-	<span class='p'>}</span>
-<span class='p'>}</span>
+<p>The object to be used as a prototype </p>
 
-<span class='kd'>var</span> <span class='nx'>newObject</span> <span class='o'>=</span> <span class='nb'>Object</span><span class='p'>.</span><span class='nx'>create</span><span class='p'>(</span><span class='nx'>baseObject</span><span class='p'>);</span>
-<span class='nx'>newObject</span><span class='p'>.</span><span class='nx'>init</span><span class='p'>({</span>
-	<span class='nx'>a</span><span class='o'>:</span> <span class='s1'>&#39;newValue&#39;</span><span class='p'>,</span>
-	<span class='nx'>o</span><span class='o'>:</span> <span class='s1'>&#39;newValue&#39;</span>
-<span class='p'>});</span> 
-</code></pre></div>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">baseObject</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="nx">settings</span><span class="o">:</span> <span class="p">{</span>
+		<span class="nx">aSetting</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span>
+		<span class="nx">otherSetting</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span>
+	<span class="p">},</span>
+	<span class="nx">aProperty</span><span class="o">:</span> <span class="p">[],</span>
+	<span class="nx">init</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">settingsObject</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span>
+		<span class="nx">that</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">aSettings</span> <span class="o">=</span> <span class="nx">settingsObject</span><span class="p">.</span><span class="nx">a</span><span class="p">;</span>
+		<span class="nx">that</span><span class="p">.</span><span class="nx">settings</span><span class="p">.</span><span class="nx">otherSettings</span> <span class="o">=</span> <span class="nx">settingsObject</span><span class="p">.</span><span class="nx">o</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+
+<p>This object is then used as a prototype for a new object using a create method. </p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nb">Object</span><span class="p">.</span><span class="nx">create</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">proto</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="p">};</span>
+		<span class="nx">obj</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">proto</span><span class="p">;</span>
+		<span class="k">return</span> <span class="k">new</span> <span class="nx">obj</span><span class="p">();</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">baseObject</span><span class="p">);</span>
+<span class="nx">newObject</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
+	<span class="nx">a</span><span class="o">:</span> <span class="s1">&#39;newValue&#39;</span><span class="p">,</span>
+	<span class="nx">o</span><span class="o">:</span> <span class="s1">&#39;newValue&#39;</span>
+<span class="p">});</span></code></pre></div>
+
 <p>Unfortunately, this doesn’t do what I wanted it to do. What I wanted is of course for the settings object of the newObject object to contain the properties that I put in the settingsObject parameter to the init function. What really happens is that I overwrite the properties of the Prototypes settings object. This means that when I create a second object with the baseObject as a prototype, I actually overwrite the prototypes properties again which of course reflects on my first object, not good.</p>
 
-<p>Here is a working solution to this problem, I simply replace the whole settings object for my new objects.</p>
-<div class='highlight'><pre><code class='javascript'><span class='nx'>baseObject</span> <span class='o'>=</span> <span class='p'>{</span>
-	<span class='nx'>settings</span><span class='o'>:</span> <span class='p'>{</span>
-		<span class='nx'>aSetting</span><span class='o'>:</span> <span class='s1'>&#39;value&#39;</span><span class='p'>,</span>
-		<span class='nx'>otherSetting</span><span class='o'>:</span> <span class='s1'>&#39;value&#39;</span><span class='p'>,</span>
-	<span class='p'>},</span>
-	<span class='nx'>aProperty</span><span class='o'>:</span> <span class='p'>[],</span>
-	<span class='nx'>init</span><span class='o'>:</span> <span class='kd'>function</span> <span class='p'>(</span><span class='nx'>settingsObject</span><span class='p'>)</span> <span class='p'>{</span>
-		<span class='kd'>var</span> <span class='nx'>that</span> <span class='o'>=</span> <span class='k'>this</span><span class='p'>;</span>
-		<span class='nx'>that</span><span class='p'>.</span><span class='nx'>settings</span> <span class='o'>=</span> <span class='p'>{</span>
-			<span class='nx'>aSettings</span><span class='o'>:</span> <span class='nx'>settingsObject</span><span class='p'>.</span><span class='nx'>a</span><span class='p'>,</span>
-			<span class='nx'>otherSettings</span><span class='o'>:</span> <span class='nx'>settingsObject</span><span class='p'>.</span><span class='nx'>o</span>
-		<span class='p'>}</span>
-	<span class='p'>}</span>
-<span class='p'>}</span> 
-</code></pre></div>
+<p>Here is a working solution to this problem, I simply replace the whole settings object for my new objects. </p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">baseObject</span> <span class="o">=</span> <span class="p">{</span>
+	<span class="nx">settings</span><span class="o">:</span> <span class="p">{</span>
+		<span class="nx">aSetting</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span>
+		<span class="nx">otherSetting</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span><span class="p">,</span>
+	<span class="p">},</span>
+	<span class="nx">aProperty</span><span class="o">:</span> <span class="p">[],</span>
+	<span class="nx">init</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">settingsObject</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+		<span class="nx">that</span><span class="p">.</span><span class="nx">settings</span> <span class="o">=</span> <span class="p">{</span>
+			<span class="nx">aSettings</span><span class="o">:</span> <span class="nx">settingsObject</span><span class="p">.</span><span class="nx">a</span><span class="p">,</span>
+			<span class="nx">otherSettings</span><span class="o">:</span> <span class="nx">settingsObject</span><span class="p">.</span><span class="nx">o</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></div>
+
 <p>By doing this I instead replace the settings object alltogether which places the new settings object on my object instance instead of on my prototype.</p>
 
-<p>This is of course pseudo-code and there are prettier ways to replace the settings object with the new properties but this solution shows the problem.</p></div>
-	</article>
+<p>This is of course pseudo-code and there are prettier ways to replace the settings object with the new properties but this solution shows the problem.</p>
 </div>
-      </div> <!-- /container -->
-      <footer class="container footer-content">
-        Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
-      </footer>
+</article>
+        </div>
+        <footer class="footer-content">
+          Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+        </footer>
+      </div>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-41772613-1', 'rosengren.me');
+        ga('send', 'pageview');
 
-          ga('create', 'UA-41772613-1', 'rosengren.me');
-          ga('send', 'pageview');
+        document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
 
-          document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+        document.getElementById('menu-toggle').addEventListener('click', function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          } else {
+            navbar.className = navbar.className + ' drawer--open';
+          }
+        });
 
-          document.getElementById('menu-toggle').addEventListener('click', function(){
-            var navbar = document.getElementById('navbar-menu');
-            if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace(' open','');
-            } else {
-              navbar.className = navbar.className + ' open';
-            }
-          });
-
-          document.getElementById('content').addEventListener('click',function(){
-            var navbar = document.getElementById('navbar-menu');
-            if(navbar.className.indexOf('open') > 0){
-              navbar.className = navbar.className.replace(' open','');
-            }
-          })
-        </script>
+        document.getElementById('content').addEventListener('click',function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          }
+        })
+      </script>
     </body>
 </html>

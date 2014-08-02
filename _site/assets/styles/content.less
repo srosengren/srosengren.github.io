@@ -11,105 +11,97 @@ img {
 	max-width: 100%;
 }
 
-.main-content {
-	background-color: white;
-	.clearfix();
-	padding: 20px 0;
-}
-
-.container {
-	margin-bottom: 50px;
+.page {
+	position: relative;
+	max-width: 940px;
+	margin: 0 auto;
+	padding: 0 2em;
+	.border-box();
 }
 
 .jumbotron .jumbotron-content {
 	font-size: 1.5em;
-	margin-left: auto;
 	margin-right: auto;
+	margin-bottom: 50px;
+	margin-left: auto;
 	text-align: center;
 }
 
 .jumbotron .jumbotron-content .jumbotron-title {
 	margin: 0;
-	overflow: hidden;
 }
 
 .jumbotron-title .firstname, .jumbotron-title .lastname {
-	display: block;
-	float: left;
-	width: 50%;
-	text-align: right;
-	box-sizing: border-box;
-	-moz-box-sizing:border-box;
-	padding: 0 10px;
+    display: inline-block;
+    width: 50%;
+    text-align: right;
+    .border-box();
+    padding: 0 10px;
 }
 
 .jumbotron-title .lastname {
 	text-align: left;
 }
 
-.spot-bubble {
-	color: white;
+.navbar, .mainspots {
+	text-align: justify;
+	&:after {
+		content: "";
+		display: inline-block;
+		width: 100%;
+	}
+}
+
+.spot {
 	text-align: center;
-	line-height: 1.5em;	
+}
+
+.mainspots {
+	margin-bottom: 3em;
+
+	.spot {
+		display: inline-block;
+		max-width: 28%;
+		.border-box();
+		vertical-align: top;
+	}
+
+}
+
+.spot .spot-image {
+	display: block;
 	.border-radius();
-	display:block;
-	position: relative;
-}
-
-.spot .spot-bubble {
-	border: solid 1px @color-primary;
-	color: @color-primary;
-	font-size: 150px;
-	padding-bottom: 80%;
+	width: 70%;
+	padding-bottom: 70%;
 	margin: 0 auto;
+	background: url('../images/icons/large-spot-sprite.png') 0% no-repeat;
+	background-size: 300%;
+	max-width: 150px;
+	max-height: 150px;
+
+	&.actionable:hover {
+		opacity: 0.6;
+		-moz-transition: opacity 0.3s ease;
+		-o-transition: opacity 0.3s ease;
+		-webkit-transition: opacity 0.3s ease;
+		transition: opacity 0.3s ease;
+	}
 }
 
-.spot-bubble-image {
-	display:block !important;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-top: -0.5em;
-	margin-left: -0.5em;
-	width: 1em;
-	height: 1em;
+.spot--github .spot-image {
+	background-position: 50% 0%;
 }
 
-.spot .spot-bubble.actionable:hover .spot-bubble-image {
-	color: @color-primary-dark;
-	transition: color 0.3s ease;
-}
-
-.spot .spot-bubble:after, .spot .spot-bubble:before {
-	content:"";
-	position: absolute;
-	bottom: -8px;
-	left: 50%;
-	margin-left: -8px;
-
-	border-top: 8px solid @color-primary;
-	border-left: 8px solid transparent;
-	border-right: 8px solid transparent;
-}
-
-.spot .spot-bubble:after {
-	bottom: -6px;
-	margin-left: -8px;
-
-	border-top: 8px solid white;
-	border-left: 8px solid transparent;
-	border-right: 8px solid transparent;
+.spot--twitter .spot-image {
+	background-position: 100% 0%;
 }
 
 .spot .spot-title {
 	display: block;
-	text-align: center;
 	font-size: 2em;
 }
 
 .footer-content {
-	.clearfix();
-	padding-bottom: 100px;
 	text-align: center;
 	color: @color-base-light;
 	font-size: 0.9em;
@@ -140,42 +132,12 @@ img {
 	background-image: url('../images/badge.jpg');
 }
 
-.badge.map {
-background-image: url('../images/map-120.png');	
-}
-
 .badge.small.sebastian {
 	background-image: url('../images/badge-small.jpg');	
 }
 
 .badge.mini.sebastian {
 	background-image: url('../images/badge-mini.jpg');	
-}
-
-.footer-spot .spot-bubble {
-	font-size: 30px;
-	height: 1.5em;
-	width: 1.5em;
-	background-color: #333;
-	color:#555;
-	margin: auto;
-	float: left;
-}
-
-.footer-spot .spot-bubble.actionable:hover {
-	color: #666;
-}
-
-.footer-spot .spot-bubble:after {
-	content:"";
-	position: absolute;
-	top: 50%;
-	right: -8px;
-	margin-top: -8px;
-
-	border-left: 8px solid #333;
-	border-top: 8px solid transparent;
-	border-bottom: 8px solid transparent;
 }
 
 /* Posts in blog list */
@@ -186,6 +148,7 @@ background-image: url('../images/map-120.png');
 
 .post__title {
 	font-size: @font-size-large;
+	line-height: 1.25em;
 	padding-bottom: 8px;
 	display: block;
 }
@@ -196,14 +159,9 @@ background-image: url('../images/map-120.png');
 	display:block;
 }
 
-.post__excerpt, .post__content {
-	line-height: 1.5em;
-}
-
 
 /* Responsive overrides */
 @media (max-width: 767px) {
-
 	.jumbotron-title {
 		margin-bottom: 12px;
 	}
@@ -219,7 +177,6 @@ background-image: url('../images/map-120.png');
 	}
 
 	.spot {
-		text-align: center;
 		font-size: 0.8em;
 	}
 
@@ -247,6 +204,14 @@ background-image: url('../images/map-120.png');
 
 	.spot {
 		margin-bottom: 40px;
+	}
+
+	.mainspots {
+		text-align: center;
+		.spot {
+			max-width: 100%;
+			width: 100%;
+		}
 	}
 
 	.spot .spot-bubble {
