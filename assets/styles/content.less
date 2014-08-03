@@ -15,7 +15,7 @@ img {
 	position: relative;
 	max-width: 940px;
 	margin: 0 auto;
-	padding: 0 2em;
+	padding: 0 2em 2em 2em;
 	.border-box();
 }
 
@@ -36,7 +36,7 @@ img {
     width: 50%;
     text-align: right;
     .border-box();
-    padding: 0 10px;
+    padding: 0 0.2em;
 }
 
 .jumbotron-title .lastname {
@@ -69,29 +69,23 @@ img {
 }
 
 .spot .spot-image {
-	display: inline-block;
-	.border-radius();
-	width: 70%;
-	padding-bottom: 70%;
-	background: url('../images/icons/large-spot-sprite.png') 0% no-repeat;
-	background-size: 300%;
-	max-width: 150px;
-
-	&.actionable:hover {
-		opacity: 0.6;
-		-moz-transition: opacity 0.3s ease;
-		-o-transition: opacity 0.3s ease;
-		-webkit-transition: opacity 0.3s ease;
-		transition: opacity 0.3s ease;
+	display:inline-block;
+	&:before {
+		font-family: icons;
+		font-size: 100px;
 	}
 }
 
-.spot--github .spot-image {
-	background-position: 50% 0%;
+.spot--blog .spot-image:before {
+	content: '\e806';
 }
 
-.spot--twitter .spot-image {
-	background-position: 100% 0%;
+.spot--github .spot-image:before {
+	content: '\e800';
+}
+
+.spot--twitter .spot-image:before {
+	content: '\e801';
 }
 
 .spot .spot-title {
@@ -116,26 +110,8 @@ img {
 	display: inline-block;
 }
 
-.badge.small {
-	width: 80px;
-	height: 80px;
-}
-
-.badge.mini {
-	width: 55px;
-	height: 55px;
-}
-
 .badge.sebastian {
 	background-image: url('../images/badge.jpg');
-}
-
-.badge.small.sebastian {
-	background-image: url('../images/badge-small.jpg');	
-}
-
-.badge.mini.sebastian {
-	background-image: url('../images/badge-mini.jpg');	
 }
 
 /* Posts in blog list */
@@ -166,12 +142,10 @@ img {
 
 	.jumbotron-title .firstname, .jumbotron-title .lastname {
 		font-size: 25px;
-		padding: 0 5px;
 	}
 
 	.jumbotron .jumbotron-content {
 		font-size: 18px;
-		padding: 0 50px;
 	}
 
 	.spot {
@@ -181,11 +155,6 @@ img {
 }
 
 @media (max-width: 480px) {
-
-	.spot .spot-image {
-		padding-bottom: 0;
-		height: 150px;
-	}
 
 	.jumbotron-title .firstname, .jumbotron-title .lastname {
 		padding: 0;
