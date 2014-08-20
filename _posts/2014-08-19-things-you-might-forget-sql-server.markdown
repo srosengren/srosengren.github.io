@@ -18,7 +18,11 @@ CREATE TABLE [dbo].[Counter]
   )
 {% endhighlight %}
 
-You can run this to insert a new row into it
+And you might think, "How do I insert into this?" since you can't do it like this
+{% highlight sql %}
+INSERT INTO Counter(Id) VALUES(??)
+{% endhighlight %}
+But what you can do is this. This will insert a new row and increment the Id.
 {% highlight sql %}
 INSERT INTO Counter DEFAULT VALUES
 {% endhighlight %}
