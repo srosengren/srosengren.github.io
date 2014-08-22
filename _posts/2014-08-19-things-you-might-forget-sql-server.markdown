@@ -7,6 +7,39 @@ tags: [sql, sql server,stratiteq]
 
 My goal has always been to be a "full stack developer" and this is also something that is required of me in my current position. But there used to be a time when a spent most of my energy on the top layers of application, ie UX, APIs and business logic, and less time with SQL. The aim of this post is to document some of the things in SQL Server that I've had to learn more than once due to using it to seldom, it should hopefully be stuck in my head by now though. Remembering things I've have forgotten isn't the easiest task, meaning that I'll be updating this post when I remember something new.
 
+##Fieldnames in select is accessible from subquery
+This is generally a good thing, being able to use a fieldname from your select statement in a subquery. You could for instance write a select like this:
+
+{% highlight sql %}
+CREATE Table #Car (
+OwnerId INT,
+PlateNumber NVARCHAR(16))
+
+--Fill #Car
+
+SELECT p.PersonId,p.Name
+FROM Person p
+WHERE p.PersonId IN (SELECT OwnerId FROM #Car)
+{% endhighlight %}
+
+And you would get every person that owns a car.
+
+But this can also bite you in the ass if you're not carefull, or as in my case, assume too much about your fieldnames. We write the same query again but change the subquery since we assume that the OwnerId field is called PersonId in this table to.
+
+{% highlight sql %}
+CREATE Table #Car (
+OwnerId INT,
+PlateNumber NVARCHAR(16))
+
+--Fill #Car
+
+SELECT p.PersonId,p.Name
+FROM Person p
+WHERE p.PersonId IN (SELECT PersonId FROM #Car)
+{% endhighlight %}
+
+We will now get every row in the Person table since we're actually comparing Person.PersonId with itself. Not something that should happen too often, but it might if you have a lot of tables that follow a naming convention, and then one table where the fieldname differs.
+
 ##Insert row into table with only a IDENTITY column
 There might come a time when you have to do exactly this, it might not happen often, and you may have forgotten how to do it the next time you have to.
 
