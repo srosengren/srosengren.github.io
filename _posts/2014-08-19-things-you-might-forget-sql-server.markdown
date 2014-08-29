@@ -40,6 +40,17 @@ WHERE p.PersonId IN (SELECT PersonId FROM #Car)
 
 We will now get every row in the Person table since we're actually comparing Person.PersonId with itself. Not something that should happen too often, but it might if you have a lot of tables that follow a naming convention, and then one table where the fieldname differs.
 
+##Get a list of previously run queries.
+I thought I had lost half a days of work in the most stupid way. I had built a query that I was going to make into a stored procedure, I copied the code from SSMS into a new stored procedure created in Visual studio and saved it to disk, without publishing the DB project to a database. I then closed the query window in SSMS since I was done, I then somehow wrote over the stored procedure file from another query window in SSMS with code that was meant for another sproc, and I thought that was it. Luckily one of my coworkers showed me how to get the last executed queries from a database.
+{% highlight sql %}
+SELECT deqs.last_execution_time AS [Time], dest.text AS [Query], dest.*
+FROM sys.dm_exec_query_stats AS deqs
+CROSS APPLY sys.dm_exec_sql_text(deqs.sql_handle) AS dest
+WHERE dest.dbid = DB_ID('DBNAME')
+ORDER BY deqs.last_execution_time DESC
+{% endhighlight %}
+Just replace DBNAME with the name of the database you want to retrieve queries from, and then run it. This also shows that you should be honest about making mistakes, if I had decided to recreate the query without telling anyone then it might have cost me an hour, and might have been a sloppy recreation with hidden bugs, instead it took 5 minutes and I learned something new!
+
 ##Insert row into table with only a IDENTITY column
 There might come a time when you have to do exactly this, it might not happen often, and you may have forgotten how to do it the next time you have to.
 
