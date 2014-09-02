@@ -5,7 +5,7 @@ date:   2014-09-02 10:50:00
 tags: [patterns,factory,javascript,c#]
 ---
 
-The factory augmentation pattern is an extension of the normal factory pattern when working with dynamic languages. It can be thought of as a way to get interfaces into javascript, or a way to deal with inheritance without using any actual inheritance. I do not find it helpful when working with class based languages but I do use it extensively when writing javascript.
+The augmentation factory pattern is an extension of the normal factory pattern when working with dynamic languages. It can be thought of as a way to get interfaces into javascript, or a way to deal with inheritance without using any actual inheritance. I do not find it helpful when working with class based languages but I do use it extensively when writing javascript.
 
 ###Normal factory pattern
 I'm a big fan of the factory method pattern and I use it a lot when writing c# code. I find that it helps me with Interface based architectures as I can move logic for the creation of objects out of constructors and into a method that can be used to instantiate different implementations of a specific interface, without them having to share a base class, which I find is good for code reuse in most cases.
@@ -14,13 +14,13 @@ I'm a big fan of the factory method pattern and I use it a lot when writing c# c
 {% highlight c# %}
 public class Car
 {
-	public string Manufacturer { get; set; }
+  public string Manufacturer { get; set; }
 
-	//Factory method
-	public static Car Make()
-	{
-		return new Car();
-	}
+  //Factory method
+  public static Car Make()
+  {
+    return new Car();
+  }
 }
 
 Car c = Car.Make();
@@ -111,3 +111,6 @@ var phoneAble = {
   }
 };
 {% endhighlight %}
+
+###Conclusion
+I use this pattern most of the time when I write javascript, it helps me avoid moving logic into constructors functions and adds to code reuse as I can build reusable code components (implemented interfaces). These are my experiences with it and your mileage may vary.
