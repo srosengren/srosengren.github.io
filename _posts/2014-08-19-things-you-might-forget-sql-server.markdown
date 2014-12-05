@@ -7,6 +7,29 @@ tags: [sql, sql server,stratiteq]
 
 My goal has always been to be a "full stack developer" and this is also something that is required of me in my current position. But there used to be a time when a spent most of my energy on the top layers of application, ie UX, APIs and business logic, and less time with SQL. The aim of this post is to document some of the things in SQL Server that I've had to learn more than once due to using it to seldom, it should hopefully be stuck in my head by now though. Remembering things I've have forgotten isn't the easiest task, meaning that I'll be updating this post when I remember something new.
 
+##Delete from table based on join
+Sometimes you want to delete rows in a table but you have to constrain what rows to delete based on another table. Lets say that you have a database for a online shop and you want to remove all items from any manufacturer that you are no longer in business with.
+
+The DB might look like this:
+{% highlight sql %}
+CREATE Table Item (
+	ItemId INT,
+	ManufacturerId INT
+)
+Create Table Manufacturer (
+	ManufacturerId INT
+)
+{% endhighlight %}
+
+You could then write the query like this:
+{% highlight sql %}
+DELETE i
+FROM Item i
+INNER JOIN Manufacturer m ON m.ManufacturerId = i.ManufacturerId
+{% endhighlight %}
+
+And this would only delete the items connected to this manufacturer.
+
 ##Fieldnames in select is accessible from subquery
 This is generally a good thing, being able to use a fieldname from your select statement in a subquery. You could for instance write a select like this:
 
