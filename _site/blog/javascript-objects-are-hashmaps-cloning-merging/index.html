@@ -198,7 +198,7 @@
     <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
         <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">prop</span> <span class="k">in</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">]){</span>
             <span class="k">if</span><span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">prop</span><span class="p">)){</span>
-                   <span class="nx">clone</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span> <span class="o">=</span> <span class="nx">getValue</span><span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">prop</span><span class="p">]);</span>
+            	<span class="nx">clone</span><span class="p">[</span><span class="nx">prop</span><span class="p">]</span> <span class="o">=</span> <span class="nx">getValue</span><span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">prop</span><span class="p">]);</span>
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">}</span>
@@ -206,6 +206,9 @@
 <span class="p">}</span></code></pre></div>
 
 <p>The new code here is that we pick the prototype from the last argument instead of from a named parameter, we also loop over the arguments and assigns each objects properties into the clone, which will overwrite it if it already exists.</p>
+
+<h2 id="extending-the-code-even-further">Extending the code even further</h2>
+<p>You can extend this code even further by adding the ability to do some form of deep merging where properties that are on more than one argument doesn’t overwrite the previous one if it’s an object, but instead it merges these to.</p>
 
 <h2 id="working-code">Working code</h2>
 <p>The full working code with some tests can be found in this <a href="http://jsfiddle.net/srosengren/a9w3fm13/">fiddler</a></p>
@@ -890,6 +893,7 @@
           Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
         </footer>
       </div>
+      <script src="https://sridentity.azurewebsites.net/analytics/analytics.js?publickey=53a5ebb7-013f-4af9-8d6d-62d803c120a3"></script>
       <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
