@@ -8,10 +8,10 @@ tags: [development,translations,resources,cultures,aspnet,web,stratiteq]
 I'm currently converting a webapplication into a multi-tenant solution for a client at work. Handling translations in the app is currently done using resource (.resx) files to build a master resource collection. The client can then translate any resource into a specific language using a separate tool that creates satellite assemblies which are then dropped into the bin folder, just like visual studio does if you create a specific culture .resx file. The application then sets the culture based on the Accept-Language header when it receives a request (unless it's already been set). The user can override this inside the application.
 
 ![Resources in Visual Studio](/media/VSResources.PNG)
-<small>Notice that the Main.sv.resx file doesn't have a designer file attached to it.</small>
+<p><small>Notice that the Main.sv.resx file doesn't have a designer file attached to it.</small></p>
 
-![Satellite resource assembly on disk](/media/ResourceLocation.PNG)
-<small>This is where the "sv" translations will end up.</small>
+![Satellite resource assembly on disk](/media/ResourcesLocation.png)
+<p><small>This is where the "sv" translations will end up.</small></p>
 
 One of the requirements for the project is to make sure that every tenant can override resources to their liking. This includes being able to create tenant specific resources for any language/culture such as en-US, en-IE, etc.
 
