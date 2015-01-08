@@ -10,7 +10,7 @@ I'm currently converting a webapplication into a multi-tenant solution for a cli
 ![Resources in Visual Studio](/media/VSResources.PNG)
 <p><small>Notice that the Main.sv.resx file doesn't have a designer file attached to it.</small></p>
 
-![Satellite resource assembly on disk](/media/ResourcesLocation.png)
+![Satellite resource assembly on disk](/media/ResourcesLocation.PNG)
 <p><small>This is where the "sv" translations will end up.</small></p>
 
 One of the requirements for the project is to make sure that every tenant can override resources to their liking. This includes being able to create tenant specific resources for any language/culture such as en-US, en-IE, etc.
