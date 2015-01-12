@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Custom cultures and multi-tenant translations in .net"
+title:  "Custom cultures and multi-tenant localizations in .net"
 date:   2015-01-08 16:15:00
-tags: [development,translations,resources,cultures,aspnet,web,stratiteq]
+tags: [localization,development,translations,resources,cultures,aspnet,web,stratiteq]
 ---
 
 I'm currently converting a webapplication into a multi-tenant solution for a client at work. Handling translations in the app is currently done using resource (.resx) files to build a master resource collection. The client can then translate any resource into a specific language using a separate tool that creates satellite assemblies which are then dropped into the bin folder, just like visual studio does if you create a specific culture .resx file. The application then sets the culture based on the Accept-Language header when it receives a request (unless it's already been set). The user can override this inside the application.
