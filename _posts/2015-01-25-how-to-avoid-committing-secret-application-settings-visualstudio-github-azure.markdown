@@ -20,6 +20,8 @@ This is the strategy that I use.
 I create a new file name Web.Secret.Config and make sure that it has its Build Action set to "none", otherwise Azure won't be able to build the project.
 ![appSettings file](/media/Web.Secret.config-properties.PNG)
 
+This is what the external file should look like, with a appSettings root node instead of configuration.
+
 ![Web.Secret.config content](/media/Web.Secret.config-content.PNG)
 
 I then modify my .gitignore to make sure that it doesn't get committed.
