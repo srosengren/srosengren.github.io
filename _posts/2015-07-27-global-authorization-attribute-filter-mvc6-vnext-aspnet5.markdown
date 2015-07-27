@@ -12,8 +12,8 @@ You might have read [Securing your ASP.NET MVC 4 App and the new AllowAnonymous 
 {% highlight c# %}
 public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 {
-    filters.Add(new HandleErrorAttribute());
-    filters.Add(new System.Web.Mvc.AuthorizeAttribute());
+  filters.Add(new HandleErrorAttribute());
+  filters.Add(new System.Web.Mvc.AuthorizeAttribute());
 }
 {% endhighlight %}
 
@@ -31,22 +31,22 @@ In MVC6 you would instead use a [AuthorizationPolicy](https://msdn.microsoft.com
 {% highlight c# %}
 public IServiceProvider ConfigureServices(IServiceCollection services)
 {
-	services.AddMvc();
+  services.AddMvc();
 
-    var policy = new AuthorizationPolicyBuilder()
-		//This is what makes it function like the basic [Authorize] attribute
-        .RequireAuthenticatedUser()
-		//add functionality similar to [Authorize(Roles="myrole")]
-        .RequireRole("myrole")
-		//add functionality similar to [ClaimsAuthorize("myclaim")]
-		.RequireClaim("myclaim")
-        .Build();
-	
-	services.Configure<MvcOptions>(options =>
-	{
-        options.Filters.Add(new AuthorizeFilter(userPolicy));
-	});
+  var policy = new AuthorizationPolicyBuilder()
+    //This is what makes it function like the basic [Authorize] attribute
+    .RequireAuthenticatedUser()
+    //add functionality similar to [Authorize(Roles="myrole")]
+    .RequireRole("myrole")
+    //add functionality similar to [ClaimsAuthorize("myclaim")]
+    .RequireClaim("myclaim")
+    .Build();
+
+  services.Configure<MvcOptions>(options =>
+  {
+    options.Filters.Add(new AuthorizeFilter(userPolicy));
+  });
 }
 {% endhighlight %}
 
-You could then use the `[AllowAnonymous]` attribute on your actions/controllers as in mvc5.
+You could then use the `[AllowAnonymous]` attribute on your actions/controllers as in mvc5
