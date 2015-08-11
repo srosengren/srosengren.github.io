@@ -23,7 +23,7 @@ We have to make sure that we're using ``Microsoft.AspNet.Authorization`` and ``M
 
 Meaning that our .cshtml file could look something likes this:
 
-{% highlight html %}
+{% highlight c# %}
 @using Microsoft.AspNet.Authorization
 @using Microsoft.Framework.DependencyInjection
 
@@ -32,3 +32,20 @@ Meaning that our .cshtml file could look something likes this:
 }
 
 {% endhighlight %}
+
+###UPDATE: A better solution by Barry
+So I tweeted this to Barry ([@blowdart](https://twitter.com/blowdart)) to get his input, to which he replied ["Sort of"](https://twitter.com/blowdart/status/631098836409159682) ([His solution](http://pastebin.com/3pUyHHaX)). What I had missed was that we can now do dependency injection in .cshtml files using ``@inject`` which is pretty cool. I had also missed that there's a sync version of ``Authorize``.
+
+The example would now look something like this:
+{% highlight c# %}
+@using Microsoft.AspNet.Authorization
+
+@inject IAuthorizationService AuthorizationService
+
+@if(AuthorizationService.Authorize(User, "MyPolicy")){
+  @Html.ActionLink("Blocked link","Our blocked action")
+}
+
+{% endhighlight %}
+
+In his example he also moves the ``@using`` and ``@inject`` into the ``_ViewImport.cshtml`` file.
