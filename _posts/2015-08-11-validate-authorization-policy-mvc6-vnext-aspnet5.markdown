@@ -48,4 +48,4 @@ The example would now look something like this:
 
 {% endhighlight %}
 
-In his example he also moves the ``@using`` and ``@inject`` into the ``_ViewImport.cshtml`` file.
+In his example he also moves the ``@using`` and ``@inject`` into the ``_ViewImport.cshtml`` file which makes the ``AuthorizationService`` available in all your views without you having to repeat yourself.
