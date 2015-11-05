@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Rosengren.me - Change the framework for an application on IIS6</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content=" I'm one of those guys that code thingamajigs, sometimes for mobile devices, but mostly for the web using Javascript and css/less. ">
+
+        <meta property="og:type" content="website"/>
+        <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
+        <meta property="og:description" content=" I'm one of those guys that code thingamajigs, sometimes for mobile devices, but mostly for the web using Javascript and css/less. "/>
+
+        <!--[if lt IE 9]>
+           <script>
+              document.createElement('nav');
+              document.createElement('header');
+              document.createElement('section');
+              document.createElement('footer');
+              document.createElement('article');
+              document.createElement('time');
+           </script>
+        <![endif]-->
+        <link rel="stylesheet" href="/assets/styles/rosengren.css">
+
+    </head>
+    <body>
+      <div class="navbar-menu-toggle" id="menu-toggle">Menu</div>
+      <div class="page" id="page">
+        <nav class="navbar" id="navbar-menu">
+          <div class="navbar-menu collapse">
+            <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+            <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+          </div>
+          <span class="navbar-menu navbar-menu-contact collapse">
+            <a class="navbar-menu-item navbar-menu-item--linkedin" href="http://www.linkedin.com/in/srosengren" target="_blank">LinkedIn</a>
+            <a class="navbar-menu-item navbar-menu-item--twitter" href="https://twitter.com/srrosengren" target="_blank">Twitter</a>
+            <a class="navbar-menu-item navbar-menu-item--github" href="https://github.com/srosengren" target="_blank">Github</a>
+            <a class="navbar-menu-item navbar-menu-item--mail" href="javascript:;" id="mail-link">Mail</a>
+          </span>
+        </nav>
+        <div class="main-content" id="content">
+            <article class="post">
+	<header>
+		<h1 class="post__title">Change the framework for an application on IIS6</h1>
+		<div class="post__byline">
+			<time datetime="2012-08-30 15:38:00 +0200">30 Aug 2012</time>
+			web, iis, sitecore, and development
+		</div>
+	</header>
+	<div class="post__content"><p>Sometimes you have to work with older software, like IIS6 on windows server 2003.</p>
+
+<p>And sometimes this happen to coincide with you working on an application that requires an older framework, like Sitecore 6.1 on .NET2.0</p>
+
+<p>I was trying to run a Sitecore 6.1 site in IIS6 on a windows server 2003 that had .NET 1.1 2.0 and 4.0 installed. The application was automatically started with .NET 4.0 which doesn’t play well with Sitecore 6.1. I then tried to change the framework to .NET 2.0 which produced the following error.</p>
+
+<blockquote>
+  <p>Changing the Framework version requires a restart of the W3SVC service. Alternatively, you can change the Framework version without restarting the W3SVC service by running: aspnet_regiis.exe -norestart -s IIS-Viirtual-Path</p>
+</blockquote>
+
+<p>Well, I couldn’t let it restart w3svc since a lot of other sites ran on the same server, so I tried the alternative with a few issues.</p>
+
+<p>The first thing I noticed was that aspnet_regiis was not in my PATH so i had to find it on the filesystem (C:\WINDOWS\microsoft.net\Framework64\v2.0.50727\aspnet_regiis.exe for the 64bit version of 2.0).</p>
+
+<p>The next issue was to find the virtualpath for my application. I found that there’s a formula to this the path should look like this: “w3svc/appID”, you can find your appID by locating your websites identifier field in the website view of the IIS manager.</p>
+
+<p>This was of course not enough to get the application to run. I still had to create a new application pool and change the application to use this pool instead since there can only be one version of the .NET framework per pool. You can change the application pool by opening the properties for your application and looking under the “Home Directory” tab.</p>
+</div>
+</article>
+
+<section>
+
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+                
+                <h4>Similar Posts</h4>
+                <ul>
+                
+                <li>
+                    <a href="/blog/validate-authorization-policy-mvc6-vnext-aspnet5">Validate authorization policy in MVC6 vnext, asp.net5
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+                
+                <li>
+                    <a href="/blog/global-authorization-attribute-filter-mvc6-vnext-aspnet5">Global Authorization attribute filter in MVC6 vnext, asp.net5
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+                
+                <li>
+                    <a href="/blog/how-to-avoid-committing-secret-application-settings-visualstudio-github-azure">How to avoid committing secret application settings when working with visual studio, github and azure
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+                
+                <li>
+                    <a href="/blog/custom-cultures-multi-tenant-translations-dotnet">Custom cultures and multi-tenant localizations in .net
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+                
+                <li>
+                    <a href="/blog/css-boolean-state-using-checkboxes-radios">CSS boolean states using hidden checkboxes and radios
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+                
+                <li>
+                    <a href="/blog/perfect-height-width-ratio-fluid-layout">Perfect height-width ratio in fluid css layouts
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+
+    </ul>
+
+</section>
+        </div>
+        <footer class="footer-content">
+          Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+        </footer>
+      </div>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-41772613-1', 'rosengren.me');
+        ga('send', 'pageview');
+
+        document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+
+        document.getElementById('menu-toggle').addEventListener('click', function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          } else {
+            navbar.className = navbar.className + ' drawer--open';
+          }
+        });
+
+        document.getElementById('content').addEventListener('click',function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          }
+        })
+      </script>
+    </body>
+</html>

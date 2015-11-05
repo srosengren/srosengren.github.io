@@ -1,4 +1,5 @@
 name: Rosengren.me
+gems: [jekyll-paginate]
 highlighter: pygments
 markdown: kramdown
 

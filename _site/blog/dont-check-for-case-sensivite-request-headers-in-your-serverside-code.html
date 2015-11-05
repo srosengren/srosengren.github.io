@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Rosengren.me - dont check for case sensitive request headers in your serverside code</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content=" I'm one of those guys that code thingamajigs, sometimes for mobile devices, but mostly for the web using Javascript and css/less. ">
+
+        <meta property="og:type" content="website"/>
+        <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
+        <meta property="og:description" content=" I'm one of those guys that code thingamajigs, sometimes for mobile devices, but mostly for the web using Javascript and css/less. "/>
+
+        <!--[if lt IE 9]>
+           <script>
+              document.createElement('nav');
+              document.createElement('header');
+              document.createElement('section');
+              document.createElement('footer');
+              document.createElement('article');
+              document.createElement('time');
+           </script>
+        <![endif]-->
+        <link rel="stylesheet" href="/assets/styles/rosengren.css">
+
+    </head>
+    <body>
+      <div class="navbar-menu-toggle" id="menu-toggle">Menu</div>
+      <div class="page" id="page">
+        <nav class="navbar" id="navbar-menu">
+          <div class="navbar-menu collapse">
+            <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+            <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+          </div>
+          <span class="navbar-menu navbar-menu-contact collapse">
+            <a class="navbar-menu-item navbar-menu-item--linkedin" href="http://www.linkedin.com/in/srosengren" target="_blank">LinkedIn</a>
+            <a class="navbar-menu-item navbar-menu-item--twitter" href="https://twitter.com/srrosengren" target="_blank">Twitter</a>
+            <a class="navbar-menu-item navbar-menu-item--github" href="https://github.com/srosengren" target="_blank">Github</a>
+            <a class="navbar-menu-item navbar-menu-item--mail" href="javascript:;" id="mail-link">Mail</a>
+          </span>
+        </nav>
+        <div class="main-content" id="content">
+            <article class="post">
+	<header>
+		<h1 class="post__title">dont check for case sensitive request headers in your serverside code</h1>
+		<div class="post__byline">
+			<time datetime="2013-02-22 15:32:00 +0100">22 Feb 2013</time>
+			development, asp.net, MVC, web, and gotchas
+		</div>
+	</header>
+	<div class="post__content"><p>Todays funny bug, no ajax request would return data in a real IE8 (not effecting ie10 in ie8 mode).</p>
+
+<p>We’re building a MVC4 + WebApi app and are heavy users of ajax that we setup using $.ajaxSetup and setting custom AuthToken and AuthTokenSalt headers in the beforeSend function.</p>
+
+<p>Everything works perfectly fine in every other browser but IE8 kept complaining. Turns out that someone had implemented a simple first line check for testing if the required headers were present in the request, only thing was that the check looked something like this:</p>
+
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="n">HttpContext</span><span class="p">.</span><span class="n">Current</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Headers</span><span class="p">.</span><span class="n">AllKeys</span><span class="p">.</span><span class="n">Contains</span><span class="p">(</span><span class="s">&quot;AuthToken&quot;</span><span class="p">)</span> <span class="p">==</span> <span class="k">null</span></code></pre></figure>
+
+<p>Which of course does a case-sensitive compare, but IE8 had none of that since it sends custom headers in lowercase. The solution was to simply do a case-INsensitive request header check.</p>
+
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="n">HttpContext</span><span class="p">.</span><span class="n">Current</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Headers</span><span class="p">[</span><span class="s">&quot;AuthToken&quot;</span><span class="p">]</span> <span class="p">==</span> <span class="k">null</span></code></pre></figure>
+
+<p>This seemed like a much simpler solution than changing the beforeSend to only send lowercase headers and then remembering that when adding new headers in the future.</p>
+</div>
+</article>
+
+<section>
+
+
+    
+    
+        
+            
+                
+                <h4>Similar Posts</h4>
+                <ul>
+                
+                <li>
+                    <a href="/blog/validate-authorization-policy-mvc6-vnext-aspnet5">Validate authorization policy in MVC6 vnext, asp.net5
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+                
+                <li>
+                    <a href="/blog/global-authorization-attribute-filter-mvc6-vnext-aspnet5">Global Authorization attribute filter in MVC6 vnext, asp.net5
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+                
+                <li>
+                    <a href="/blog/how-to-avoid-committing-secret-application-settings-visualstudio-github-azure">How to avoid committing secret application settings when working with visual studio, github and azure
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+                
+                <li>
+                    <a href="/blog/custom-cultures-multi-tenant-translations-dotnet">Custom cultures and multi-tenant localizations in .net
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+                
+                <li>
+                    <a href="/blog/css-boolean-state-using-checkboxes-radios">CSS boolean states using hidden checkboxes and radios
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+                
+                <li>
+                    <a href="/blog/perfect-height-width-ratio-fluid-layout">Perfect height-width ratio in fluid css layouts
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+
+    </ul>
+
+</section>
+        </div>
+        <footer class="footer-content">
+          Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+        </footer>
+      </div>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-41772613-1', 'rosengren.me');
+        ga('send', 'pageview');
+
+        document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+
+        document.getElementById('menu-toggle').addEventListener('click', function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          } else {
+            navbar.className = navbar.className + ' drawer--open';
+          }
+        });
+
+        document.getElementById('content').addEventListener('click',function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          }
+        })
+      </script>
+    </body>
+</html>

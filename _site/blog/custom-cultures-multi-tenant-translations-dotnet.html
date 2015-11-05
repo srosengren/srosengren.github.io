@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Rosengren.me - Custom cultures and multi-tenant localizations in .net</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content=" I'm one of those guys that code thingamajigs, sometimes for mobile devices, but mostly for the web using Javascript and css/less. ">
+
+        <meta property="og:type" content="website"/>
+        <meta property="og:image" content="http://www.rosengren.me/assets/images/badge.jpg" />
+        <meta property="og:description" content=" I'm one of those guys that code thingamajigs, sometimes for mobile devices, but mostly for the web using Javascript and css/less. "/>
+
+        <!--[if lt IE 9]>
+           <script>
+              document.createElement('nav');
+              document.createElement('header');
+              document.createElement('section');
+              document.createElement('footer');
+              document.createElement('article');
+              document.createElement('time');
+           </script>
+        <![endif]-->
+        <link rel="stylesheet" href="/assets/styles/rosengren.css">
+
+    </head>
+    <body>
+      <div class="navbar-menu-toggle" id="menu-toggle">Menu</div>
+      <div class="page" id="page">
+        <nav class="navbar" id="navbar-menu">
+          <div class="navbar-menu collapse">
+            <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
+            <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
+          </div>
+          <span class="navbar-menu navbar-menu-contact collapse">
+            <a class="navbar-menu-item navbar-menu-item--linkedin" href="http://www.linkedin.com/in/srosengren" target="_blank">LinkedIn</a>
+            <a class="navbar-menu-item navbar-menu-item--twitter" href="https://twitter.com/srrosengren" target="_blank">Twitter</a>
+            <a class="navbar-menu-item navbar-menu-item--github" href="https://github.com/srosengren" target="_blank">Github</a>
+            <a class="navbar-menu-item navbar-menu-item--mail" href="javascript:;" id="mail-link">Mail</a>
+          </span>
+        </nav>
+        <div class="main-content" id="content">
+            <article class="post">
+	<header>
+		<h1 class="post__title">Custom cultures and multi-tenant localizations in .net</h1>
+		<div class="post__byline">
+			<time datetime="2015-01-08 17:15:00 +0100">08 Jan 2015</time>
+			localization, development, translations, resources, cultures, aspnet, web, and stratiteq
+		</div>
+	</header>
+	<div class="post__content"><p>I’m currently converting a webapplication into a multi-tenant solution for a client at work. Handling translations in the app is currently done using resource (.resx) files to build a master resource collection. The client can then translate any resource into a specific language using a separate tool that creates satellite assemblies which are then dropped into the bin folder, just like visual studio does if you create a specific culture .resx file. The application then sets the culture based on the Accept-Language header when it receives a request (unless it’s already been set). The user can override this inside the application.</p>
+
+<p><img src="/media/VSResources.PNG" alt="Resources in Visual Studio" /></p>
+<p><small>Notice that the Main.sv.resx file doesn't have a designer file attached to it.</small></p>
+
+<p><img src="/media/ResourcesLocation.PNG" alt="Satellite resource assembly on disk" /></p>
+<p><small>This is where the "sv" translations will end up.</small></p>
+
+<p>One of the requirements for the project is to make sure that every tenant can override resources to their liking. This includes being able to create tenant specific resources for any language/culture such as en-US, en-IE, etc.</p>
+
+<p>The simplest solution for this that I could come up with, that makes as little impact on existing tools as possible, is to create custom cultures by appending a tenant identifier to the end of the culture to override, ie en-tenantname or en-US-tenantname. The problem here is that we can’t simply set the applications culture to any arbitrary name, even though we might have satellite assemblies that are compiled and contains resources for this culture.</p>
+
+<p>We instead have to programmatically (or manually) install the custom culture. Something that might be a problem here is that the application has to be run as administrator for this code to run. This is something that wasn’t acceptable in our environment (running a webapp as admin that is), and I instead opted to build a separate tool to install the cultures. This is something that works for me since the client isn’t able to create any tenants without informing us first, and we have agreed on what languages they are using. But your mileage may vary.</p>
+
+<p>Here’s the code for installing a custom culture:</p>
+
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="kt">var</span> <span class="n">cultureAndRegionInfoBuilder</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CultureAndRegionInfoBuilder</span><span class="p">(</span><span class="n">customCultureName</span><span class="p">,</span> <span class="n">CultureAndRegionModifiers</span><span class="p">.</span><span class="n">None</span><span class="p">);</span>
+<span class="kt">var</span> <span class="n">parentCultureInfo</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CultureInfo</span><span class="p">(</span><span class="n">parentCultureName</span><span class="p">);</span>
+<span class="n">RegionInfo</span> <span class="n">regionInfo</span> <span class="p">=</span> <span class="k">new</span> <span class="n">RegionInfo</span><span class="p">(</span><span class="n">parentCultureInfo</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+
+<span class="n">cultureAndRegionInfoBuilder</span><span class="p">.</span><span class="n">LoadDataFromCultureInfo</span><span class="p">(</span><span class="n">parentCultureInfo</span><span class="p">);</span>
+<span class="n">cultureAndRegionInfoBuilder</span><span class="p">.</span><span class="n">LoadDataFromRegionInfo</span><span class="p">(</span><span class="n">parentCultureInfo</span><span class="p">);</span>
+
+<span class="n">cultureAndRegionInfoBuilder</span><span class="p">.</span><span class="n">CultureEnglishName</span> <span class="p">=</span> <span class="n">customCultureName</span><span class="p">;</span>
+<span class="n">cultureAndRegionInfoBuilder</span><span class="p">.</span><span class="n">CultureNativeName</span> <span class="p">=</span> <span class="n">customCultureName</span><span class="p">;</span>
+
+<span class="c1">//This code makes sure that we fallback to the parent culture on a missing translations</span>
+<span class="c1">//It will fallback to default culture if you remove this line</span>
+<span class="n">cultureAndRegionInfoBuilder</span><span class="p">.</span><span class="n">Parent</span> <span class="p">=</span> <span class="n">parentCultureInfo</span><span class="p">;</span>
+
+<span class="n">cultureAndRegionInfoBuilder</span><span class="p">.</span><span class="n">Register</span><span class="p">();</span></code></pre></figure>
+
+<p>If you run this code to install a custom culture while having Visual Studio running, and creates a new .resx file for the culture, then you have to restart VS for it to recognize your custom culture and actually build an assembly and drop it in /bin/</p>
+
+<p>This code uses the normal globalization assemblies, but it also requires sysglob.dll which is shipped with the .net framework since this includes the “CultureAndRegionInfoBuilder” type.</p>
+
+<p>Here’s the code for using the custom culture in the application</p>
+
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="kt">var</span> <span class="n">cultureInfo</span> <span class="p">=</span> <span class="k">new</span> <span class="n">CultureInfo</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(!</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrWhiteSpace</span><span class="p">(</span><span class="n">tenantName</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="n">name</span> <span class="p">=</span> <span class="n">name</span> <span class="p">+</span> <span class="s">&quot;-&quot;</span> <span class="p">+</span> <span class="n">tenantName</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">CultureInfo</span><span class="p">.</span><span class="n">GetCultures</span><span class="p">(</span><span class="n">CultureTypes</span><span class="p">.</span><span class="n">AllCultures</span><span class="p">).</span><span class="n">Any</span><span class="p">(</span><span class="n">ci</span> <span class="p">=&gt;</span> <span class="n">ci</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">name</span><span class="p">)))</span>
+        <span class="n">cultureInfo</span> <span class="p">=</span> <span class="n">CultureInfo</span><span class="p">.</span><span class="n">GetCultureInfo</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">Thread</span><span class="p">.</span><span class="n">CurrentThread</span><span class="p">.</span><span class="n">CurrentUICulture</span> <span class="p">=</span> <span class="n">cultureInfo</span><span class="p">;</span>
+<span class="n">Thread</span><span class="p">.</span><span class="n">CurrentThread</span><span class="p">.</span><span class="n">CurrentCulture</span> <span class="p">=</span> <span class="n">cultureInfo</span><span class="p">;</span></code></pre></figure>
+
+<p>This code checks that we actually have an overriding culture installed for this tenant before it tries to use it, since it will throw an exception if you try to use a culture that doesn’t exist. This code will also fallback gracefully since we might have installed the culture but haven’t yet created any translations for it (this is built in behaviour).</p>
+</div>
+</article>
+
+<section>
+
+
+    
+    
+        
+            
+        
+            
+                
+                <h4>Similar Posts</h4>
+                <ul>
+                
+                <li>
+                    <a href="/blog/validate-authorization-policy-mvc6-vnext-aspnet5">Validate authorization policy in MVC6 vnext, asp.net5
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+                
+                <li>
+                    <a href="/blog/global-authorization-attribute-filter-mvc6-vnext-aspnet5">Global Authorization attribute filter in MVC6 vnext, asp.net5
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+                
+                <li>
+                    <a href="/blog/how-to-avoid-committing-secret-application-settings-visualstudio-github-azure">How to avoid committing secret application settings when working with visual studio, github and azure
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+                <li>
+                    <a href="/blog/things-you-might-forget-sql-server">Things you might forget how to do in sql (server)
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+                <li>
+                    <a href="/blog/css-boolean-state-using-checkboxes-radios">CSS boolean states using hidden checkboxes and radios
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+                
+                <li>
+                    <a href="/blog/perfect-height-width-ratio-fluid-layout">Perfect height-width ratio in fluid css layouts
+                    
+                    </a>
+                </li>
+                
+                
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+    
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    
+
+
+    </ul>
+
+</section>
+        </div>
+        <footer class="footer-content">
+          Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
+        </footer>
+      </div>
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-41772613-1', 'rosengren.me');
+        ga('send', 'pageview');
+
+        document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
+
+        document.getElementById('menu-toggle').addEventListener('click', function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          } else {
+            navbar.className = navbar.className + ' drawer--open';
+          }
+        });
+
+        document.getElementById('content').addEventListener('click',function(){
+          var navbar = document.getElementById('page');
+          if(navbar.className.indexOf('drawer--open') > -1){
+            navbar.className = navbar.className.replace(' drawer--open','');
+          }
+        })
+      </script>
+    </body>
+</html>
