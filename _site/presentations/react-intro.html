@@ -45,77 +45,6 @@
 Virtual DOM
 Render on every change</p>
 
-<h2 id="components">Components</h2>
-
-<h3 id="stateful">Stateful</h3>
-
-<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
-  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;</span>
-  <span class="p">}</span>
-<span class="p">})</span>
-
-<span class="kr">class</span> <span class="nx">MyComponent</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
-  <span class="nx">render</span><span class="p">(){</span>
-    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;;</span>
-  <span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
-
-<ul>
-  <li>Has a backing instance (this)</li>
-  <li>Lifecycle methods</li>
-  <li>Access to this.state</li>
-</ul>
-
-<h3 id="stateless">Stateless</h3>
-
-<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;;</span>
-<span class="p">}</span></code></pre></figure>
-
-<ul>
-  <li>Pure function (No side effects)</li>
-  <li>Gets props as as an argument</li>
-  <li>Faster path to render</li>
-</ul>
-
-<h3 id="composition">Composition</h3>
-
-<ul>
-  <li>Common pattern to have a stateful component composed with stateless children (controller view)</li>
-  <li>Children has no knowledge of parent</li>
-  <li>Communicates “up” with callbacks or actions.</li>
-</ul>
-
-<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">Menu</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
-  <span class="nx">selectItem</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">itemId</span><span class="p">){</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">selectedItemId</span><span class="o">:</span> <span class="nx">itemId</span><span class="p">});</span>
-  <span class="p">},</span>
-  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-    <span class="k">return</span> <span class="p">(</span>
-      <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">MenuItem</span> <span class="nx">select</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">selectItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="mi">1</span><span class="p">)}</span> <span class="nx">isSelected</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">selectedItemId</span> <span class="o">===</span> <span class="mi">1</span><span class="p">}</span><span class="o">&gt;</span>
-          <span class="nx">Item1</span>
-        <span class="o">&lt;</span><span class="err">/MenuItem&gt;</span>
-        <span class="o">&lt;</span><span class="nx">MenuItem</span> <span class="nx">select</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">selectItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="mi">2</span><span class="p">)}</span> <span class="nx">isSelected</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">selectedItemId</span> <span class="o">===</span> <span class="mi">2</span><span class="p">}</span><span class="o">&gt;</span>
-          <span class="nx">Item2</span>
-        <span class="o">&lt;</span><span class="err">/MenuItem&gt;</span>
-        <span class="o">&lt;</span><span class="nx">MenuItem</span> <span class="nx">select</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">selectItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="mi">3</span><span class="p">)}</span> <span class="nx">isSelected</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">selectedItemId</span> <span class="o">===</span> <span class="mi">3</span><span class="p">}</span><span class="o">&gt;</span>
-          <span class="nx">Item3</span>
-        <span class="o">&lt;</span><span class="err">/MenuItem&gt;</span>
-      <span class="o">&lt;</span><span class="err">/ul&gt;</span>
-    <span class="p">)</span>
-  <span class="p">}</span>
-<span class="p">})</span>
-
-<span class="kd">var</span> <span class="nx">MenuItem</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
-  <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClick</span><span class="o">&gt;</span>
-      <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span>
-    <span class="o">&lt;</span><span class="err">/li&gt;</span>
-  <span class="p">)</span>
-<span class="p">}</span></code></pre></figure>
-
 <h2 id="jsx">JSX</h2>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ProfileImage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
@@ -152,6 +81,40 @@ Render on every change</p>
     <span class="p">)</span>
   <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
+
+<h2 id="components">Components</h2>
+
+<h3 id="stateful">Stateful</h3>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="kr">class</span> <span class="nx">MyComponent</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li>Has a backing instance (this)</li>
+  <li>Lifecycle methods</li>
+  <li>Access to this.state</li>
+</ul>
+
+<h3 id="stateless">Stateless</h3>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;;</span>
+<span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li>Pure function (No side effects)</li>
+  <li>Gets props as as an argument</li>
+  <li>Faster path to render</li>
+</ul>
 
 <h2 id="render-into-dom">Render into DOM</h2>
 
@@ -260,13 +223,151 @@ Also: augment existing app with sprinkles of React.</p>
   <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
-<h2 id="composition-1">Composition</h2>
+<h2 id="composition">Composition</h2>
+
+<ul>
+  <li>Common pattern to have a stateful component composed with stateless children (controller view)</li>
+  <li>Children has no knowledge of parent</li>
+  <li>Communicates “up” with callbacks or actions.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">Menu</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">selectItem</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">itemId</span><span class="p">){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">selectedItemId</span><span class="o">:</span> <span class="nx">itemId</span><span class="p">});</span>
+  <span class="p">},</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">MenuItem</span> <span class="nx">select</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">selectItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="mi">1</span><span class="p">)}</span> <span class="nx">isSelected</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">selectedItemId</span> <span class="o">===</span> <span class="mi">1</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="nx">Item1</span>
+        <span class="o">&lt;</span><span class="err">/MenuItem&gt;</span>
+        <span class="o">&lt;</span><span class="nx">MenuItem</span> <span class="nx">select</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">selectItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="mi">2</span><span class="p">)}</span> <span class="nx">isSelected</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">selectedItemId</span> <span class="o">===</span> <span class="mi">2</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="nx">Item2</span>
+        <span class="o">&lt;</span><span class="err">/MenuItem&gt;</span>
+        <span class="o">&lt;</span><span class="nx">MenuItem</span> <span class="nx">select</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">selectItem</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="mi">3</span><span class="p">)}</span> <span class="nx">isSelected</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">selectedItemId</span> <span class="o">===</span> <span class="mi">3</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="nx">Item3</span>
+        <span class="o">&lt;</span><span class="err">/MenuItem&gt;</span>
+      <span class="o">&lt;</span><span class="err">/ul&gt;</span>
+    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+
+<span class="kd">var</span> <span class="nx">MenuItem</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">li</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">onClick</span><span class="o">&gt;</span>
+      <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="err">/li&gt;</span>
+  <span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
 
 <h3 id="mixins">Mixins</h3>
 
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">StoreMixin</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">componentWillMount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">unsubscribe</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">storeChanged</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="nx">componentWillUnmount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">StoreListener</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">mixins</span><span class="o">:</span> <span class="p">[</span><span class="nx">StoreMixin</span><span class="p">],</span>
+  <span class="nx">store</span><span class="o">:</span> <span class="nx">MyStore</span><span class="p">,</span>
+  <span class="nx">storeChanged</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">data</span><span class="o">:</span> <span class="nx">MyStore</span><span class="p">.</span><span class="nx">get</span><span class="p">()});</span>
+  <span class="p">},</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">data</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+  <span class="p">}</span>
+<span class="p">});</span></code></pre></figure>
+
+<ul>
+  <li>Provides lifecycle hooks</li>
+  <li>Magic merge of lifecycle hooks</li>
+  <li>Might use the same state field</li>
+  <li>Crashes if mixins define the same props/functions</li>
+  <li>Not available on es6 classes</li>
+</ul>
+
 <h3 id="higher-order-components">Higher order components</h3>
 
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">StoreHO</span> <span class="o">=</span> <span class="p">(</span><span class="nx">Component</span><span class="p">,</span><span class="nx">store</span><span class="p">,</span><span class="nx">mapping</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+    <span class="nx">componentWillMount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">unsubscribe</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">storeUpdate</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">componentWillUnmount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+    <span class="p">},</span>
+    <span class="nx">storeUpdate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">mapping</span><span class="p">(</span><span class="nx">store</span><span class="p">.</span><span class="nx">get</span><span class="p">()));</span>
+    <span class="p">},</span>
+    <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="k">return</span> <span class="o">&lt;</span><span class="nx">Component</span> <span class="p">{...</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">}</span> <span class="p">{...</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">}</span> <span class="o">/&gt;</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">StoreListener</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">data</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="p">}</span>
+
+<span class="nx">StoreListener</span> <span class="o">=</span> <span class="nx">StoreHO</span><span class="p">(</span><span class="nx">StoreListener</span><span class="p">,</span><span class="nx">MyStore</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">storeData</span><span class="p">){</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="nx">storeData</span>
+  <span class="p">}</span>
+<span class="p">});</span></code></pre></figure>
+
+<ul>
+  <li>Has its own backing instance (this) with own state</li>
+  <li>Infinitely chainable/nestable</li>
+  <li>Only collision risk is props being overwritten</li>
+  <li>Can wrap stateless components</li>
+  <li>Transparent</li>
+</ul>
+
 <h3 id="wrapper-components">Wrapper components</h3>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">StoreWrapper</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">componentWillMount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">unsubscribe</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">storeUpdate</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="nx">componentWillUnmount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">storeUpdate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">(</span><span class="nx">mapping</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">get</span><span class="p">()));</span>
+  <span class="p">},</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Children</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">child</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">cloneElement</span><span class="p">(</span><span class="nx">child</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">StoreConsumer</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">data</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">Application</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">StoreWrapper</span> <span class="nx">store</span><span class="o">=</span><span class="p">{</span><span class="nx">MyStore</span><span class="p">}</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">StoreConsumer</span> <span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="err">/StoreWrapper&gt;</span>
+    <span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">});</span></code></pre></figure>
+
+<ul>
+  <li>Mostly used to provide layout wrapping</li>
+  <li>Easy to provide separate props for wrapper/child</li>
+  <li>Can wrap stateless components</li>
+  <li>Hidden coupling</li>
+  <li>Has to provide layout</li>
+  <li>Opaque</li>
+</ul>
 
 <h1 id="flux">Flux</h1>
 

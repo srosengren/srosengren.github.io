@@ -10,75 +10,6 @@ A viewengine
 Virtual DOM
 Render on every change
 
-##Components
-
-###Stateful
-{% highlight js %}
-var MyComponent = React.createClass({
-  render: function(){
-    return <div></div>
-  }
-})
-
-class MyComponent extends React.Component {
-  render(){
-    return <div></div>;
-  }
-}
-{% endhighlight %}
-
-* Has a backing instance (this)
-* Lifecycle methods
-* Access to this.state
-
-###Stateless
-{% highlight js %}
-var MyComponent = function(props){
-  return <div></div>;
-}
-{% endhighlight %}
-
-* Pure function (No side effects)
-* Gets props as as an argument
-* Faster path to render
-
-###Composition
-
-* Common pattern to have a stateful component composed with stateless children (controller view)
-* Children has no knowledge of parent
-* Communicates "up" with callbacks or actions.
-
-{% highlight js %}
-var Menu = React.createClass({
-  selectItem: function(itemId){
-    this.setState({selectedItemId: itemId});
-  },
-  render: function(){
-    return (
-      <ul>
-        <MenuItem select={this.selectItem.bind(null,1)} isSelected={this.state.selectedItemId === 1}>
-          Item1
-        </MenuItem>
-        <MenuItem select={this.selectItem.bind(null,2)} isSelected={this.state.selectedItemId === 2}>
-          Item2
-        </MenuItem>
-        <MenuItem select={this.selectItem.bind(null,3)} isSelected={this.state.selectedItemId === 3}>
-          Item3
-        </MenuItem>
-      </ul>
-    )
-  }
-})
-
-var MenuItem = function(props){
-  return (
-    <li onClick={props.onClick>
-      {props.children}
-    </li>
-  )
-}
-{% endhighlight %}
-
 ##JSX
 {% highlight js %}
 var ProfileImage = function(props){
@@ -118,6 +49,39 @@ var Bio = function(props){
   )
 }
 {% endhighlight %}
+
+
+##Components
+
+###Stateful
+{% highlight js %}
+var MyComponent = React.createClass({
+  render: function(){
+    return <div></div>
+  }
+})
+
+class MyComponent extends React.Component {
+  render(){
+    return <div></div>;
+  }
+}
+{% endhighlight %}
+
+* Has a backing instance (this)
+* Lifecycle methods
+* Access to this.state
+
+###Stateless
+{% highlight js %}
+var MyComponent = function(props){
+  return <div></div>;
+}
+{% endhighlight %}
+
+* Pure function (No side effects)
+* Gets props as as an argument
+* Faster path to render
 
 ##Render into DOM
 
@@ -244,11 +208,154 @@ var Menu = function(props){
 
 ##Composition
 
+* Common pattern to have a stateful component composed with stateless children (controller view)
+* Children has no knowledge of parent
+* Communicates "up" with callbacks or actions.
+
+{% highlight js %}
+var Menu = React.createClass({
+  selectItem: function(itemId){
+    this.setState({selectedItemId: itemId});
+  },
+  render: function(){
+    return (
+      <ul>
+        <MenuItem select={this.selectItem.bind(null,1)} isSelected={this.state.selectedItemId === 1}>
+          Item1
+        </MenuItem>
+        <MenuItem select={this.selectItem.bind(null,2)} isSelected={this.state.selectedItemId === 2}>
+          Item2
+        </MenuItem>
+        <MenuItem select={this.selectItem.bind(null,3)} isSelected={this.state.selectedItemId === 3}>
+          Item3
+        </MenuItem>
+      </ul>
+    )
+  }
+})
+
+var MenuItem = function(props){
+  return (
+    <li onClick={props.onClick>
+      {props.children}
+    </li>
+  )
+}
+{% endhighlight %}
+
 ###Mixins
+
+{% highlight js %}
+var StoreMixin = {
+  componentWillMount: function() {
+    this.unsubscribe = this.store.subscribe(this.storeChanged);
+  },
+  componentWillUnmount: function() {
+    this.unsubscribe();
+  }
+};
+
+var StoreListener = React.createClass({
+  mixins: [StoreMixin],
+  store: MyStore,
+  storeChanged: function(){
+    this.setState({data: MyStore.get()});
+  },
+  render: function(){
+    return <div>{this.state.data}</div>
+  }
+});
+
+{% endhighlight %}
+
+* Provides lifecycle hooks
+* Magic merge of lifecycle hooks
+* Might use the same state field
+* Crashes if mixins define the same props/functions
+* Not available on es6 classes
 
 ###Higher order components
 
+{% highlight js %}
+
+var StoreHO = (Component,store,mapping) => {
+  return React.createClass({
+    componentWillMount: function() {
+      this.unsubscribe = store.subscribe(this.storeUpdate);
+    },
+    componentWillUnmount: function() {
+      this.unsubscribe();
+    },
+    storeUpdate: function(){
+      this.setState(mapping(store.get()));
+    },
+    render: function(){
+      return <Component {...this.props} {...this.state} />
+    }
+  })
+}
+
+var StoreListener = function(props){
+  return <div>{props.data}</div>
+}
+
+StoreListener = StoreHO(StoreListener,MyStore,function(storeData){
+  return {
+    data: storeData
+  }
+});
+
+{% endhighlight %}
+
+* Has its own backing instance (this) with own state
+* Infinitely chainable/nestable
+* Only collision risk is props being overwritten
+* Can wrap stateless components
+* Transparent
+
 ###Wrapper components
+
+{% highlight js %}
+
+var StoreWrapper = React.createClass({
+  componentWillMount: function() {
+    this.unsubscribe = this.props.store.subscribe(this.storeUpdate);
+  },
+  componentWillUnmount: function() {
+    this.unsubscribe();
+  },
+  storeUpdate: function(){
+    this.setState(mapping(this.props.store.get()));
+  },
+  render: function(){
+    return React.Children.map(this.props.children, function(child) {
+      return React.cloneElement(child, this.state);
+    });
+  }
+});
+
+var StoreConsumer = function(props){
+  return <div>{props.data}</div>
+}
+
+var Application = React.createClass({
+  render: function(){
+    return (
+      <StoreWrapper store={MyStore}>
+        <StoreConsumer />
+      </StoreWrapper>
+    )
+  }
+});
+
+{% endhighlight %}
+
+* Mostly used to provide layout wrapping
+* Easy to provide separate props for wrapper/child
+* Can wrap stateless components
+* Hidden coupling
+* Has to provide layout
+* Opaque
 
 #Flux
 
