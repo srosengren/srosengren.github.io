@@ -53,6 +53,8 @@
   <li>Lear once, use everywhere</li>
 </ul>
 
+<p>React wraps an imperative API with a declarative one.</p>
+
 <h2 id="jsx">JSX</h2>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ProfileImage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
@@ -447,21 +449,102 @@ Also: augment existing app with sprinkles of React.</p>
 
 <h2 id="types-of-flux">Types of flux</h2>
 
-<h3 id="flux-with-dispatcher">Flux with dispatcher</h3>
+<h3 id="flux-with-dispatcher-flux-utils">Flux with dispatcher, Flux utils</h3>
 
-<p>Flux toolkit</p>
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">appDispatcher</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Flux</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">();</span>
 
-<p>*Very verbose</p>
+<span class="kr">class</span> <span class="nx">Store</span> <span class="kr">extends</span> <span class="nx">PseudoStore</span> <span class="p">{</span>
+  <span class="nx">number</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nx">unregisterToken</span><span class="o">:</span> <span class="nx">appDispatcher</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">action</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">action</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;ACTION_INCREMENT&#39;</span><span class="p">){</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">number</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">emitChange</span><span class="p">();</span>
+  <span class="p">});</span>  
+<span class="p">}</span>
 
-<h3 id="flux-without-dispatcher">Flux without dispatcher</h3>
+<span class="kd">var</span> <span class="nx">NumberComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">storeData</span><span class="o">:</span> <span class="nx">Store</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">componentWillMount</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">unregisterStore</span> <span class="o">=</span> <span class="nx">Store</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">onStoreChange</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="nx">componentWillUnmount</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">unRegisterStore</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">onStoreChange</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="nx">storeData</span><span class="o">:</span> <span class="nx">Store</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">},</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">storeDate</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+  <span class="p">}</span>
+<span class="p">});</span></code></pre></figure>
 
-<p>Reflux</p>
+<ul>
+  <li>Very verbose</li>
+  <li>Magical strings</li>
+</ul>
 
-<h3 id="flux-without-flux">Flux without flux</h3>
+<h3 id="flux-without-dispatcher-reflux">Flux without dispatcher, Reflux</h3>
 
-<p>Redux</p>
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">incrementAction</span> <span class="o">=</span> <span class="nx">Reflux</span><span class="p">.</span><span class="nx">createAction</span><span class="p">(</span><span class="s1">&#39;increment&#39;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">Store</span> <span class="o">=</span> <span class="nx">Reflux</span><span class="p">.</span><span class="nx">createStore</span><span class="p">({</span>
+  <span class="nx">number</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="nx">incrementAction</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">increment</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="nx">increment</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">number</span><span class="o">++</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">number</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">NumberComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="p">{};</span>
+  <span class="p">},</span>
+  <span class="nx">mixins</span><span class="o">:</span> <span class="p">[</span><span class="nx">Reflux</span><span class="p">.</span><span class="nx">listenTo</span><span class="p">(</span><span class="nx">Store</span><span class="p">,</span><span class="s1">&#39;onStoreChange&#39;</span><span class="p">)],</span>
+  <span class="nx">onStoreChange</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">storeState</span><span class="p">){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span>
+      <span class="nx">storeData</span><span class="o">:</span> <span class="nx">storeState</span>
+    <span class="p">});</span>
+  <span class="p">},</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">storeDate</span><span class="o">&lt;</span><span class="err">/div&gt;;</span>
+  <span class="p">}</span>
+<span class="p">});</span></code></pre></figure>
+
+<ul>
+  <li>Every action is a dispatcher</li>
+  <li>Stores can listen to individual actions</li>
+</ul>
+
+<h3 id="flux-without-flux-redux">Flux without flux, Redux</h3>
 
 <h2 id="immutable-data">Immutable data</h2>
+
+<ul>
+  <li>Easy to see if an object has changed</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>oldObject === newObject instead of oldObject.prop1 === newObject.prop1</td>
+          <td> </td>
+          <td>oldObject.prop2 === …</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>Removes one source of side effects.</li>
+  <li>Object.freeze, extreme immutability</li>
+</ul>
 
         </div>
         <footer class="footer-content">

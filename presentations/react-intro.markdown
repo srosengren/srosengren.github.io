@@ -16,6 +16,8 @@ tags: []
 * Easy isomorphism
 * Lear once, use everywhere
 
+React wraps an imperative API with a declarative one.
+
 
 ##JSX
 {% highlight js %}
@@ -436,18 +438,92 @@ var Application = React.createClass({
 
 ##Types of flux
 
-###Flux with dispatcher
+###Flux with dispatcher, Flux utils
 
-Flux toolkit
+{% highlight js %}
 
-*Very verbose
+var appDispatcher = new Flux.Dispatcher();
 
-###Flux without dispatcher
+class Store extends PseudoStore {
+  number: 0,
+  unregisterToken: appDispatcher.register(function(action){
+    if(action.type === 'ACTION_INCREMENT'){
+      this.number++;
+    }
+    this.emitChange();
+  });  
+}
 
-Reflux
+var NumberComponent = React.createClass({
+  getInitialState: function(){
+    return {
+      storeData: Store.get();
+    }
+  },
+  componentWillMount: function(){
+    this.unregisterStore = Store.register(this.onStoreChange);
+  },
+  componentWillUnmount: function(){
+    this.unRegisterStore();
+  },
+  onStoreChange: function(){
+    this.setState({
+      storeData: Store.get();
+    });
+  },
+  render: function(){
+    return <div>{this.state.storeDate</div>;
+  }
+});
 
-###Flux without flux
+{% endhighlight %}
 
-Redux
+* Very verbose
+* Magical strings
+
+###Flux without dispatcher, Reflux
+
+{% highlight js %}
+
+var incrementAction = Reflux.createAction('increment');
+
+var Store = Reflux.createStore({
+  number: 0,
+  init: function(){
+    this.listenTo(incrementAction,this.increment);
+  },
+  increment: function(){
+    this.number++;
+    this.trigger(this.number);
+  }
+});
+
+var NumberComponent = React.createClass({
+  getInitialState: function(){
+    return {};
+  },
+  mixins: [Reflux.listenTo(Store,'onStoreChange')],
+  onStoreChange: function(storeState){
+    this.setState({
+      storeData: storeState
+    });
+  },
+  render: function(){
+    return <div>{this.state.storeDate</div>;
+  }
+});
+
+{% endhighlight %}
+
+* Every action is a dispatcher
+* Stores can listen to individual actions
+
+
+###Flux without flux, Redux
 
 ##Immutable data
+
+* Easy to see if an object has changed
+* oldObject === newObject instead of oldObject.prop1 === newObject.prop1 || oldObject.prop2 === ...
+* Removes one source of side effects.
+* Object.freeze, extreme immutability
