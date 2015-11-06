@@ -43,8 +43,10 @@
             <h2 id="what-why">what? Why?</h2>
 <ul>
   <li>A viewengine</li>
+  <li>Not a framework, coexists with others</li>
   <li>Render on every change</li>
   <li>Templates? We’ve got javascript</li>
+  <li>Components</li>
   <li>Virtual DOM</li>
   <li>Lightweight description, not actual DOM</li>
   <li>Easy isomorphism</li>
@@ -135,7 +137,11 @@
 <h3 id="stateless">Stateless</h3>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;;</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">increment</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">number</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+    <span class="o">&lt;</span><span class="err">/div&gt;</span>
+  <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
 <ul>

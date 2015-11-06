@@ -7,8 +7,10 @@ tags: []
 
 ##what? Why?
 * A viewengine
+* Not a framework, coexists with others
 * Render on every change
 * Templates? We've got javascript
+* Components
 * Virtual DOM
 * Lightweight description, not actual DOM
 * Easy isomorphism
@@ -102,7 +104,11 @@ class MyComponent extends React.Component {
 ###Stateless
 {% highlight js %}
 var MyComponent = function(props){
-  return <div></div>;
+  return (
+    <div>
+      <button onClick={props.increment}>{props.number}</button>
+    </div>
+  )
 }
 {% endhighlight %}
 
