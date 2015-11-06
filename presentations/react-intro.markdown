@@ -5,10 +5,15 @@ date:   2015-11-04 19:04:00
 tags: []
 ---
 
-##wat?
-A viewengine
-Virtual DOM
-Render on every change
+##what? Why?
+* A viewengine
+* Render on every change
+* Templates? We've got javascript
+* Virtual DOM
+* Lightweight description, not actual DOM
+* Easy isomorphism
+* Lear once, use everywhere
+
 
 ##JSX
 {% highlight js %}
@@ -212,6 +217,47 @@ var Menu = function(props){
 * Children has no knowledge of parent
 * Communicates "up" with callbacks or actions.
 
+### State vs props
+
+* State is a side effect
+* Pure functions
+* Single source of truth
+* Which ancestor has changed?
+* Don't convert props to state, changes ownership, becomes stale.
+
+{% highlight js %}
+
+//NO! Bad developer!
+var ItsMine = React.createCLass({
+  getInitialState: function(){
+    return: {
+      theOneRing: this.props.theOneRing
+    }
+  },
+  render: function(){
+    return <h1>{this.state.theOneRing}</h1>
+  }
+});
+
+//Better
+var MaybeILook = React.createCLass({
+  getOwnRing: function(ring){
+    this.setState({myRing: ring});
+  },
+  render: function(){
+    return <h1>{this.state.myRing || this.props.theOneRing}</h1>
+  }
+});
+
+//Often best
+var DisplayPrettyRing = function(props){
+  return <h1>{props.theOneRing}<h1>
+}
+
+{% endhighlight %}
+
+###Controller view
+
 {% highlight js %}
 var Menu = React.createClass({
   selectItem: function(itemId){
@@ -219,7 +265,7 @@ var Menu = React.createClass({
   },
   render: function(){
     return (
-      <ul>
+      <div>
         <MenuItem select={this.selectItem.bind(null,1)} isSelected={this.state.selectedItemId === 1}>
           Item1
         </MenuItem>
@@ -227,18 +273,19 @@ var Menu = React.createClass({
           Item2
         </MenuItem>
         <MenuItem select={this.selectItem.bind(null,3)} isSelected={this.state.selectedItemId === 3}>
-          Item3
+          <h4>Complex child</h4>
+          <p>Desc</p>
         </MenuItem>
-      </ul>
+      </div>
     )
   }
 })
 
 var MenuItem = function(props){
   return (
-    <li onClick={props.onClick>
+    <div onClick={props.onClick>
       {props.children}
-    </li>
+    </div>
   )
 }
 {% endhighlight %}
