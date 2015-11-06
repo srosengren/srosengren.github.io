@@ -61,14 +61,36 @@ var Bio = function(props){
 ###Stateful
 {% highlight js %}
 var MyComponent = React.createClass({
+  getInitialState: function(){
+    return {number: 0};
+  },
+  increment: function(){
+    this.setState({number: this.state.number + 1});
+  }
   render: function(){
-    return <div></div>
+    return (
+      <div>
+        <button onClick={this.increment}>{this.state.number}</button>
+      </div>
+    )
   }
 })
 
 class MyComponent extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {number: 0};
+    this.increment.bind(this);
+  }
+  increment(){
+    this.setState({number: this.state.number + 1});
+  }
   render(){
-    return <div></div>;
+    return (
+      <div>
+        <button onClick={this.increment}>{this.state.number}</button>
+      </div>
+    )
   }
 }
 {% endhighlight %}
@@ -412,6 +434,8 @@ var Application = React.createClass({
 
 Flux toolkit
 
+*Very verbose
+
 ###Flux without dispatcher
 
 Reflux
@@ -419,3 +443,5 @@ Reflux
 ###Flux without flux
 
 Redux
+
+##Immutable data

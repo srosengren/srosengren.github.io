@@ -93,14 +93,36 @@
 <h3 id="stateful">Stateful</h3>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
+  <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">number</span><span class="o">:</span> <span class="mi">0</span><span class="p">};</span>
+  <span class="p">},</span>
+  <span class="nx">increment</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">number</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">});</span>
+  <span class="p">}</span>
   <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">increment</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">number</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+      <span class="o">&lt;</span><span class="err">/div&gt;</span>
+    <span class="p">)</span>
   <span class="p">}</span>
 <span class="p">})</span>
 
 <span class="kr">class</span> <span class="nx">MyComponent</span> <span class="kr">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
+    <span class="kr">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="nx">number</span><span class="o">:</span> <span class="mi">0</span><span class="p">};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">increment</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">increment</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="nx">number</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">});</span>
+  <span class="p">}</span>
   <span class="nx">render</span><span class="p">(){</span>
-    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;;</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">increment</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">number</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+      <span class="o">&lt;</span><span class="err">/div&gt;</span>
+    <span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
@@ -423,6 +445,8 @@ Also: augment existing app with sprinkles of React.</p>
 
 <p>Flux toolkit</p>
 
+<p>*Very verbose</p>
+
 <h3 id="flux-without-dispatcher">Flux without dispatcher</h3>
 
 <p>Reflux</p>
@@ -430,6 +454,8 @@ Also: augment existing app with sprinkles of React.</p>
 <h3 id="flux-without-flux">Flux without flux</h3>
 
 <p>Redux</p>
+
+<h2 id="immutable-data">Immutable data</h2>
 
         </div>
         <footer class="footer-content">
