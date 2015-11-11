@@ -22,4 +22,5 @@ body, html {
 <script src="NewCommentForm.jsx" type="text/babel"></script>
 <script src="CommentsList.jsx" type="text/babel"></script>
 <script src="Comment.jsx" type="text/babel"></script>
+<script src="commentStore.jsx" type="text/babel"></script>
 <script src="App.jsx" type="text/babel"></script>

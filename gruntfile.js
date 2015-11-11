@@ -25,7 +25,7 @@ module.exports = function(grunt) {
       jsx: {
       	files: [{
 			expand: true,
-      		src: ['presentations/**/*.jsx'],
+      		src: ['presentations/**/*.js*'],
 			dest: '_site/'
       	}]
       }
