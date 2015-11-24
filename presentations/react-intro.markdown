@@ -5,6 +5,8 @@ date:   2015-11-04 19:04:00
 tags: []
 ---
 
+<div style="height: 100px"></div>
+
 ##what? Why?
 * A viewengine
 * Not a framework, coexists with others
@@ -14,7 +16,8 @@ tags: []
 * Virtual DOM
 * Lightweight description, not actual DOM
 * Easy isomorphism
-* Lear once, use everywhere
+* Learn once, use everywhere
+* Enables the developer to do the right thing (immutability)
 
 React wraps an imperative API with a declarative one.
 
@@ -22,6 +25,11 @@ React wraps an imperative API with a declarative one.
 <div style="height: 100px"></div>
 
 ##JSX
+
+* Full power of javascript
+* Not html, neither is templates
+* Single event handler
+* React native
 
 <div class="pure-g">
     <div class="pure-u-1-2">
@@ -70,6 +78,18 @@ var Bio = function(props){
 <div style="height: 100px"></div>
 
 ##Components
+
+<div class="pure-g">
+	<div class="pure-u-1-3" style="display: flex;align-items: center;">
+		<ul>
+			<li>Templates separate technologies, not concerns</li>
+			<li>Only way in is props, only thing out is a view</li>
+		</ul>
+	</div>
+	<div class="pure-u-2-3">
+		<img src="/media/react-flow.jpg" style="width: 100%" />
+	</div>
+</div>
 
 <div class="pure-g">
 	<div class="pure-u-1-2">
