@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: presentation
 title:  "Intro to React"
 date:   2015-11-04 19:04:00
 tags: []
@@ -19,50 +19,61 @@ tags: []
 React wraps an imperative API with a declarative one.
 
 
+<div style="height: 100px"></div>
+
 ##JSX
+
+<div class="pure-g">
+    <div class="pure-u-1-2">
 {% highlight js %}
 var ProfileImage = function(props){
-  return <img src={props.url} />
+    return <img src={props.url} />
 }
 
 var Bio = function(props){
-  return (
+    return (
     <div>
-      <h2>{props.title}</h2>
-      <ProfileImage url="urlToImage" />
+        <h2>{props.title}</h2>
+        <ProfileImage url="urlToImage" />
     </div>
-  )
+    )
 }
 {% endhighlight %}
-
-Is transpiled into
-
+		This is...
+    </div>
+    <div class="pure-u-1-2">
 {% highlight js %}
 var ProfileImage = function(props){
-  return React.createElement('img',{src: props.url})
+    return React.createElement('img',{src: props.url})
 }
 
 var Bio = function(props){
-  return React.createElement(
-    'div',
-    null,
-    React.createElement(
-      'h2',
-      null,
-      props.title
-    ),
-    React.createElement(
-      ProfileImage,
-      {url: "urlToImage"}
+    return React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h2',
+            null,
+            props.title
+        ),
+        React.createElement(
+            ProfileImage,
+            {url: "urlToImage"}
+        )
     )
-  )
 }
 {% endhighlight %}
+		...transpiled into this.
+    </div>
+</div>
 
+<div style="height: 100px"></div>
 
 ##Components
 
-###Stateful
+<div class="pure-g">
+	<div class="pure-u-1-2">
+<h3>Stateful</h3>
 {% highlight js %}
 var MyComponent = React.createClass({
   getInitialState: function(){
@@ -74,7 +85,9 @@ var MyComponent = React.createClass({
   render: function(){
     return (
       <div>
-        <button onClick={this.increment}>{this.state.number}</button>
+        <button onClick={this.increment}>
+          {this.state.number}
+        </button>
       </div>
     )
   }
@@ -92,34 +105,47 @@ class MyComponent extends React.Component {
   render(){
     return (
       <div>
-        <button onClick={this.increment}>{this.state.number}</button>
+        <button onClick={this.increment}>
+          {this.state.number}
+        </button>
       </div>
     )
   }
 }
 {% endhighlight %}
-
-* Has a backing instance (this)
-* Lifecycle methods
-* Access to this.state
-
-###Stateless
+	<ul>
+		<li>Has a backing instance (this)</li>
+		<li>Lifecycle methods</li>
+		<li>Access to this.state</li>
+	</ul>
+	</div>
+	<div class="pure-u-1-2">
+<h3>Stateless</h3>
 {% highlight js %}
 var MyComponent = function(props){
   return (
     <div>
-      <button onClick={props.increment}>{props.number}</button>
+      <button onClick={props.increment}>
+          {props.number}
+      </button>
     </div>
   )
 }
 {% endhighlight %}
 
-* Pure function (No side effects)
-* Gets props as as an argument
-* Faster path to render
+	<ul>
+		<li>Pure function (No side effects)</li>
+		<li>Gets props as as an argument</li>
+		<li>Faster path to render</li>
+	</ul>
+	</div>
+</div>
+
+<div style="height: 100px"></div>
 
 ##Render into DOM
-
+<div class="pure-g">
+	<div class="pure-u-1-2">
 {% highlight html %}
 <html>
   <body>
@@ -140,7 +166,9 @@ ReactDOM.render(
   document.getElementById('MountNode')  
 )
 {% endhighlight %}
-
+		This is...
+	</div>
+	<div class="pure-u-1-2">
 {% highlight html %}
 <html>
   <body>
@@ -150,12 +178,25 @@ ReactDOM.render(
   </body>
 </html>
 {% endhighlight %}
+		...rendered into this.
+	</div>
+</div>
 
-Common: Top level component, single entry
-Also: augment existing app with sprinkles of React.
+Common: 
 
-###If statements
+* Top level component 
+* Single entry
 
+Also:
+ 
+* Augment existing app with sprinkles of React.
+
+<div style="height: 100px"></div>
+
+##If statements
+<div class="pure-g">
+	<div class="pure-u-1-2">
+		This would be...
 {% highlight js %}
 var ProfileImage = function(props){
   return (
@@ -169,7 +210,7 @@ var ProfileImage = function(props){
 }
 {% endhighlight %}
 
-Not legal javascript
+...transpiled into this, illegal javascript.
 
 {% highlight js %}
 var ProfileImage = function(props){
@@ -189,7 +230,9 @@ var ProfileImage = function(props){
   )
 }
 {% endhighlight %}
-
+	</div>
+	<div class="pure-u-1-2">
+		Whereas this would be...
 {% highlight js %}
 var ProfileImage = function(props){
   return (
@@ -204,7 +247,7 @@ var ProfileImage = function(props){
 }
 {% endhighlight %}
 
-Totally legit
+...transpiled into this, totally legit javascript.
 
 {% highlight js %}
 var ProfileImage = function(props){
@@ -224,8 +267,12 @@ var ProfileImage = function(props){
   )
 }
 {% endhighlight %}
+	</div>
+</div>
 
-###Loops/lists
+<div style="height: 100px"></div>
+
+##Loops/lists
 
 Same as if statments, can't have a for loop in function call
 
@@ -241,11 +288,15 @@ var Menu = function(props){
 }
 {% endhighlight %}
 
+<div style="height: 100px"></div>
+
 ##Composition
 
 * Common pattern to have a stateful component composed with stateless children (controller view)
 * Children has no knowledge of parent
 * Communicates "up" with callbacks or actions.
+
+<div style="height: 50px"></div>
 
 ### State vs props
 
@@ -286,6 +337,8 @@ var DisplayPrettyRing = function(props){
 
 {% endhighlight %}
 
+<div style="height: 100px"></div>
+
 ###Controller view
 
 {% highlight js %}
@@ -320,6 +373,8 @@ var MenuItem = function(props){
 }
 {% endhighlight %}
 
+<div style="height: 100px"></div>
+
 ###Mixins
 
 {% highlight js %}
@@ -350,6 +405,8 @@ var StoreListener = React.createClass({
 * Might use the same state field
 * Crashes if mixins define the same props/functions
 * Not available on es6 classes
+
+<div style="height: 100px"></div>
 
 ###Higher order components
 
@@ -389,6 +446,8 @@ StoreListener = StoreHO(StoreListener,MyStore,function(storeData){
 * Only collision risk is props being overwritten
 * Can wrap stateless components
 * Transparent
+
+<div style="height: 100px"></div>
 
 ###Wrapper components
 
@@ -433,6 +492,9 @@ var Application = React.createClass({
 * Hidden coupling
 * Has to provide layout
 * Opaque
+
+
+<div style="height: 200px"></div>
 
 #Flux
 

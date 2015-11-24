@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
@@ -22,25 +22,18 @@
            </script>
         <![endif]-->
         <link rel="stylesheet" href="/assets/styles/rosengren.css">
+        <link rel="stylesheet" href="/assets/styles/pure-min.css">
+
+		<style>
+			figure {
+				margin-right: 20px;
+			}
+		</style>
 
     </head>
     <body>
-      <div class="navbar-menu-toggle" id="menu-toggle">Menu</div>
-      <div class="page" id="page">
-        <nav class="navbar" id="navbar-menu">
-          <div class="navbar-menu collapse">
-            <a class="navbar-menu-item navbar-menu-title navbar-menu-item--home" href="/">home</a>
-            <a class="navbar-menu-item navbar-menu-item--blog" href="/blog">blog</a>
-          </div>
-          <span class="navbar-menu navbar-menu-contact collapse">
-            <a class="navbar-menu-item navbar-menu-item--linkedin" href="http://www.linkedin.com/in/srosengren" target="_blank">LinkedIn</a>
-            <a class="navbar-menu-item navbar-menu-item--twitter" href="https://twitter.com/srrosengren" target="_blank">Twitter</a>
-            <a class="navbar-menu-item navbar-menu-item--github" href="https://github.com/srosengren" target="_blank">Github</a>
-            <a class="navbar-menu-item navbar-menu-item--mail" href="javascript:;" id="mail-link">Mail</a>
-          </span>
-        </nav>
-        <div class="main-content" id="content">
-            <h2 id="what-why">what? Why?</h2>
+		<div style="max-width: 1200px; padding: 0 20px;margin: auto;">
+			<h2 id="what-why">what? Why?</h2>
 <ul>
   <li>A viewengine</li>
   <li>Not a framework, coexists with others</li>
@@ -55,46 +48,61 @@
 
 <p>React wraps an imperative API with a declarative one.</p>
 
+<div style="height: 100px"></div>
+
 <h2 id="jsx">JSX</h2>
 
+<div class="pure-g">
+    <div class="pure-u-1-2">
+
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ProfileImage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">img</span> <span class="nx">src</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span> <span class="o">/&gt;</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">img</span> <span class="nx">src</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span> <span class="o">/&gt;</span>
 <span class="p">}</span>
 
 <span class="kd">var</span> <span class="nx">Bio</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
-  <span class="k">return</span> <span class="p">(</span>
+    <span class="k">return</span> <span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-      <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
-      <span class="o">&lt;</span><span class="nx">ProfileImage</span> <span class="nx">url</span><span class="o">=</span><span class="s2">&quot;urlToImage&quot;</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+        <span class="o">&lt;</span><span class="nx">ProfileImage</span> <span class="nx">url</span><span class="o">=</span><span class="s2">&quot;urlToImage&quot;</span> <span class="o">/&gt;</span>
     <span class="o">&lt;</span><span class="err">/div&gt;</span>
-  <span class="p">)</span>
+    <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>Is transpiled into</p>
+		This is...
+    </div>
+    <div class="pure-u-1-2">
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ProfileImage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
-  <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">,{</span><span class="nx">src</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">url</span><span class="p">})</span>
+    <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">,{</span><span class="nx">src</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">url</span><span class="p">})</span>
 <span class="p">}</span>
 
 <span class="kd">var</span> <span class="nx">Bio</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
-  <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
-    <span class="s1">&#39;div&#39;</span><span class="p">,</span>
-    <span class="kc">null</span><span class="p">,</span>
-    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
-      <span class="s1">&#39;h2&#39;</span><span class="p">,</span>
-      <span class="kc">null</span><span class="p">,</span>
-      <span class="nx">props</span><span class="p">.</span><span class="nx">title</span>
-    <span class="p">),</span>
-    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
-      <span class="nx">ProfileImage</span><span class="p">,</span>
-      <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;urlToImage&quot;</span><span class="p">}</span>
+    <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
+        <span class="s1">&#39;div&#39;</span><span class="p">,</span>
+        <span class="kc">null</span><span class="p">,</span>
+        <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
+            <span class="s1">&#39;h2&#39;</span><span class="p">,</span>
+            <span class="kc">null</span><span class="p">,</span>
+            <span class="nx">props</span><span class="p">.</span><span class="nx">title</span>
+        <span class="p">),</span>
+        <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
+            <span class="nx">ProfileImage</span><span class="p">,</span>
+            <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;urlToImage&quot;</span><span class="p">}</span>
+        <span class="p">)</span>
     <span class="p">)</span>
-  <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
+
+		...transpiled into this.
+    </div>
+</div>
+
+<div style="height: 100px"></div>
 
 <h2 id="components">Components</h2>
 
-<h3 id="stateful">Stateful</h3>
+<div class="pure-g">
+	<div class="pure-u-1-2">
+<h3>Stateful</h3>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">getInitialState</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
@@ -106,7 +114,9 @@
   <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
     <span class="k">return</span> <span class="p">(</span>
       <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">increment</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">number</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">increment</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">number</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="err">/button&gt;</span>
       <span class="o">&lt;</span><span class="err">/div&gt;</span>
     <span class="p">)</span>
   <span class="p">}</span>
@@ -124,41 +134,55 @@
   <span class="nx">render</span><span class="p">(){</span>
     <span class="k">return</span> <span class="p">(</span>
       <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">increment</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">number</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+        <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">increment</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">number</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="err">/button&gt;</span>
       <span class="o">&lt;</span><span class="err">/div&gt;</span>
     <span class="p">)</span>
   <span class="p">}</span>
 <span class="p">}</span></code></pre></figure>
 
-<ul>
-  <li>Has a backing instance (this)</li>
-  <li>Lifecycle methods</li>
-  <li>Access to this.state</li>
-</ul>
-
-<h3 id="stateless">Stateless</h3>
+	<ul>
+		<li>Has a backing instance (this)</li>
+		<li>Lifecycle methods</li>
+		<li>Access to this.state</li>
+	</ul>
+	</div>
+	<div class="pure-u-1-2">
+<h3>Stateless</h3>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
   <span class="k">return</span> <span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">increment</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">number</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+      <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">increment</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">number</span><span class="p">}</span>
+      <span class="o">&lt;</span><span class="err">/button&gt;</span>
     <span class="o">&lt;</span><span class="err">/div&gt;</span>
   <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
-<ul>
-  <li>Pure function (No side effects)</li>
-  <li>Gets props as as an argument</li>
-  <li>Faster path to render</li>
-</ul>
+
+	<ul>
+		<li>Pure function (No side effects)</li>
+		<li>Gets props as as an argument</li>
+		<li>Faster path to render</li>
+	</ul>
+	</div>
+</div>
+
+<div style="height: 100px"></div>
 
 <h2 id="render-into-dom">Render into DOM</h2>
+<div class="pure-g">
+	<div class="pure-u-1-2">
 
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;html&gt;</span>
   <span class="nt">&lt;body&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;MountNode&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">MainComponent</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
@@ -171,6 +195,10 @@
   <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;MountNode&#39;</span><span class="p">)</span>  
 <span class="p">)</span></code></pre></figure>
 
+		This is...
+	</div>
+	<div class="pure-u-1-2">
+
 <figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;html&gt;</span>
   <span class="nt">&lt;body&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;MountNode&quot;</span><span class="nt">&gt;</span>
@@ -179,10 +207,29 @@
   <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span></code></pre></figure>
 
-<p>Common: Top level component, single entry
-Also: augment existing app with sprinkles of React.</p>
+		...rendered into this.
+	</div>
+</div>
 
-<h3 id="if-statements">If statements</h3>
+<p>Common:</p>
+
+<ul>
+  <li>Top level component</li>
+  <li>Single entry</li>
+</ul>
+
+<p>Also:</p>
+
+<ul>
+  <li>Augment existing app with sprinkles of React.</li>
+</ul>
+
+<div style="height: 100px"></div>
+
+<h2 id="if-statements">If statements</h2>
+<div class="pure-g">
+	<div class="pure-u-1-2">
+		This would be...
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ProfileImage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
   <span class="k">return</span> <span class="p">(</span>
@@ -195,7 +242,9 @@ Also: augment existing app with sprinkles of React.</p>
   <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>Not legal javascript</p>
+
+...transpiled into this, illegal javascript.
+
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ProfileImage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
   <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
@@ -214,6 +263,10 @@ Also: augment existing app with sprinkles of React.</p>
   <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
+	</div>
+	<div class="pure-u-1-2">
+		Whereas this would be...
+
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ProfileImage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
   <span class="k">return</span> <span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
@@ -226,7 +279,9 @@ Also: augment existing app with sprinkles of React.</p>
   <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
-<p>Totally legit</p>
+
+...transpiled into this, totally legit javascript.
+
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ProfileImage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
   <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
@@ -245,7 +300,12 @@ Also: augment existing app with sprinkles of React.</p>
   <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
-<h3 id="loopslists">Loops/lists</h3>
+	</div>
+</div>
+
+<div style="height: 100px"></div>
+
+<h2 id="loopslists">Loops/lists</h2>
 
 <p>Same as if statments, can’t have a for loop in function call</p>
 
@@ -259,6 +319,8 @@ Also: augment existing app with sprinkles of React.</p>
   <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
+<div style="height: 100px"></div>
+
 <h2 id="composition">Composition</h2>
 
 <ul>
@@ -266,6 +328,8 @@ Also: augment existing app with sprinkles of React.</p>
   <li>Children has no knowledge of parent</li>
   <li>Communicates “up” with callbacks or actions.</li>
 </ul>
+
+<div style="height: 50px"></div>
 
 <h3 id="state-vs-props">State vs props</h3>
 
@@ -304,6 +368,8 @@ Also: augment existing app with sprinkles of React.</p>
   <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">theOneRing</span><span class="p">}</span><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span>
 <span class="p">}</span></code></pre></figure>
 
+<div style="height: 100px"></div>
+
 <h3 id="controller-view">Controller view</h3>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">Menu</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
@@ -336,6 +402,8 @@ Also: augment existing app with sprinkles of React.</p>
   <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
+<div style="height: 100px"></div>
+
 <h3 id="mixins">Mixins</h3>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">StoreMixin</span> <span class="o">=</span> <span class="p">{</span>
@@ -365,6 +433,8 @@ Also: augment existing app with sprinkles of React.</p>
   <li>Crashes if mixins define the same props/functions</li>
   <li>Not available on es6 classes</li>
 </ul>
+
+<div style="height: 100px"></div>
 
 <h3 id="higher-order-components">Higher order components</h3>
 
@@ -402,6 +472,8 @@ Also: augment existing app with sprinkles of React.</p>
   <li>Can wrap stateless components</li>
   <li>Transparent</li>
 </ul>
+
+<div style="height: 100px"></div>
 
 <h3 id="wrapper-components">Wrapper components</h3>
 
@@ -444,6 +516,8 @@ Also: augment existing app with sprinkles of React.</p>
   <li>Has to provide layout</li>
   <li>Opaque</li>
 </ul>
+
+<div style="height: 200px"></div>
 
 <h1 id="flux">Flux</h1>
 
@@ -546,37 +620,18 @@ Also: augment existing app with sprinkles of React.</p>
   <li>Object.freeze, extreme immutability</li>
 </ul>
 
-        </div>
-        <footer class="footer-content">
-          Powered by <a href="http://http://jekyllrb.com/" target="_blank">Jekyll</a>, hosted on <a href="https://github.com/" target="_blank">Github</a>, compiled using <a href="http://www.ruby-lang.org/en/" target="_blank">Ruby</a> and <a href="http://http://python.org/" target="_blank">Python</a> by a <a href="http://www.microsoft.com/net" target="_blank">.NET</a> guy.
-        </footer>
-      </div>
-      <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		</div>
 
-        ga('create', 'UA-41772613-1', 'rosengren.me');
-        ga('send', 'pageview');
+		<script>
+			(function (i, s, o, g, r, a, m) {
+				i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+					(i[r].q = i[r].q || []).push(arguments)
+				}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+			})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-        document.getElementById('mail-link').href = 'mailto:' + 'sebastian' + '@' + 'rosengren' + '.me';
-
-        document.getElementById('menu-toggle').addEventListener('click', function(){
-          var navbar = document.getElementById('page');
-          if(navbar.className.indexOf('drawer--open') > -1){
-            navbar.className = navbar.className.replace(' drawer--open','');
-          } else {
-            navbar.className = navbar.className + ' drawer--open';
-          }
-        });
-
-        document.getElementById('content').addEventListener('click',function(){
-          var navbar = document.getElementById('page');
-          if(navbar.className.indexOf('drawer--open') > -1){
-            navbar.className = navbar.className.replace(' drawer--open','');
-          }
-        })
-      </script>
-    </body>
+			ga('create', 'UA-41772613-1', 'rosengren.me');
+			ga('send', 'pageview');
+		</script>
+</body>
 </html>
