@@ -5,9 +5,11 @@ date:   2015-11-04 19:04:00
 tags: []
 ---
 
-<div style="height: 100px"></div>
+<div style="height: 200px"></div>
 
-##what? Why?
+#React
+
+##What? Why?
 * A viewengine
 * Not a framework, coexists with others
 * Render on every change
@@ -18,11 +20,12 @@ tags: []
 * Easy isomorphism
 * Learn once, use everywhere
 * Enables the developer to do the right thing (immutability)
+* "Throwaway code" (loosely coupled) = Easy to iterate
 
 React wraps an imperative API with a declarative one.
 
 
-<div style="height: 100px"></div>
+<div style="height: 200px"></div>
 
 ##JSX
 
