@@ -5,82 +5,88 @@ date:   2015-11-04 19:04:00
 tags: []
 ---
 
-<div style="height: 200px"></div>
+<div class="slide">
 
-#React
+	<h1>React</h1>
 
-##What? Why?
-* A viewengine
-* Not a framework, coexists with others
-* Render on every change
-* Templates? We've got javascript
-* Components
-* Virtual DOM
-* Lightweight description, not actual DOM
-* Easy isomorphism
-* Learn once, use everywhere
-* Enables the developer to do the right thing (immutability)
-* "Throwaway code" (loosely coupled) = Easy to iterate
+	<h2>What? Why?</h2>
+	<ul>
+		<li> A viewengine</li>
+		<li> Not a framework, coexists with others</li>
+		<li> Render on every change</li>
+		<li> Templates? We've got javascript</li>
+		<li> Components</li>
+		<li> Virtual DOM</li>
+		<li> Lightweight description, not actual DOM</li>
+		<li> Easy isomorphism</li>
+		<li> Learn once, use everywhere</li>
+		<li> Enables the developer to do the right thing (immutability)</li>
+		<li> "Throwaway code" (loosely coupled) = Easy to iterate</li>
+	</ul>
 
-React wraps an imperative API with a declarative one.
+	<p>React wraps an imperative API with a declarative one.</p>
+
+</div>
 
 
-<div style="height: 200px"></div>
+<div class="slide">
 
-##JSX
+	<h2>JSX</h2>
+	<ul>
+		<li>Full power of javascript</li>
+		<li>Not html, neither is templates</li>
+		<li>Single event handler</li>
+		<li>React native</li>
+	</ul>
 
-* Full power of javascript
-* Not html, neither is templates
-* Single event handler
-* React native
-
-<div class="pure-g">
-    <div class="pure-u-1-2">
+	<div class="pure-g">
+		<div class="pure-u-1-2">
 {% highlight js %}
 var ProfileImage = function(props){
-    return <img src={props.url} />
+  return <img src={props.url} />
 }
 
 var Bio = function(props){
-    return (
-    <div>
-        <h2>{props.title}</h2>
-        <ProfileImage url="urlToImage" />
-    </div>
-    )
+return (
+ <div>
+   <h2>{props.title}</h2>
+   <ProfileImage url="urlToImage" />
+ </div>
+ )
 }
 {% endhighlight %}
-		This is...
-    </div>
-    <div class="pure-u-1-2">
+			This is...
+		</div>
+		<div class="pure-u-1-2">
 {% highlight js %}
 var ProfileImage = function(props){
-    return React.createElement('img',{src: props.url})
+  return React.createElement('img',{src: props.url})
 }
 
 var Bio = function(props){
-    return React.createElement(
-        'div',
-        null,
-        React.createElement(
-            'h2',
-            null,
-            props.title
-        ),
-        React.createElement(
-            ProfileImage,
-            {url: "urlToImage"}
-        )
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+      'h2',
+      null,
+      props.title
+    ),
+    React.createElement(
+      ProfileImage,
+      {url: "urlToImage"}
     )
+  )
 }
 {% endhighlight %}
 		...transpiled into this.
-    </div>
+		</div>
+	</div>
 </div>
 
-<div style="height: 100px"></div>
+<div class="slide">
 
-##Components
+<h2>Components</h2>
 
 <div class="pure-g">
 	<div class="pure-u-1-3" style="display: flex;align-items: center;">
@@ -163,10 +169,11 @@ var MyComponent = function(props){
 	</ul>
 	</div>
 </div>
+</div>
 
-<div style="height: 100px"></div>
+<div class="slide">
 
-##Render into DOM
+<h2>Render into DOM</h2>
 <div class="pure-g">
 	<div class="pure-u-1-2">
 {% highlight html %}
@@ -206,17 +213,20 @@ ReactDOM.render(
 </div>
 
 Common: 
-
-* Top level component 
-* Single entry
+<ul>
+<li> Top level component </li>
+<li> Single entry</li>
+</ul>
 
 Also:
- 
-* Augment existing app with sprinkles of React.
+ <ul>
+<li> Augment existing app with sprinkles of React.</li>
+</ul>
+</div>
 
-<div style="height: 100px"></div>
+<div class="slide">
 
-##If statements
+<h2>If statements</h2>
 <div class="pure-g">
 	<div class="pure-u-1-2">
 		This would be...
@@ -292,10 +302,11 @@ var ProfileImage = function(props){
 {% endhighlight %}
 	</div>
 </div>
+</div>
 
-<div style="height: 100px"></div>
+<div class="slide">
 
-##Loops/lists
+<h2>Loops/lists</h2>
 
 Same as if statments, can't have a for loop in function call
 
@@ -310,24 +321,28 @@ var Menu = function(props){
   )
 }
 {% endhighlight %}
+</div>
 
-<div style="height: 100px"></div>
+<div class="slide">
 
-##Composition
+<h2>Composition</h2>
+<ul>
+<li>Common pattern to have a stateful component composed with stateless children (controller view)</li>
+<li>Children has no knowledge of parent</li>
+<li>Communicates "up" with callbacks or actions.</li>
+</ul>
+</div>
 
-* Common pattern to have a stateful component composed with stateless children (controller view)
-* Children has no knowledge of parent
-* Communicates "up" with callbacks or actions.
+<div class="slide subslide">
 
-<div style="height: 50px"></div>
-
-### State vs props
-
-* State is a side effect
-* Pure functions
-* Single source of truth
-* Which ancestor has changed?
-* Don't convert props to state, changes ownership, becomes stale.
+<h3>State vs props</h3>
+<ul>
+<li>State is a side effect</li>
+<li>Pure functions</li>
+<li>Single source of truth</li>
+<li>Which ancestor has changed?</li>
+<li>Don't convert props to state, changes ownership, becomes stale.</li>
+</ul>
 
 {% highlight js %}
 
@@ -359,10 +374,11 @@ var DisplayPrettyRing = function(props){
 }
 
 {% endhighlight %}
+</div>
 
-<div style="height: 100px"></div>
+<div class="slide subslide">
 
-###Controller view
+<h3>Controller view</h3>
 
 {% highlight js %}
 var Menu = React.createClass({
@@ -395,10 +411,10 @@ var MenuItem = function(props){
   )
 }
 {% endhighlight %}
+</div>
+<div class="slide subslide">
 
-<div style="height: 100px"></div>
-
-###Mixins
+<h3>Mixins</h3>
 
 {% highlight js %}
 var StoreMixin = {
@@ -423,15 +439,18 @@ var StoreListener = React.createClass({
 
 {% endhighlight %}
 
-* Provides lifecycle hooks
-* Magic merge of lifecycle hooks
-* Might use the same state field
-* Crashes if mixins define the same props/functions
-* Not available on es6 classes
+<ul>
+<li>Provides lifecycle hooks</li>
+<li>Magic merge of lifecycle hooks</li>
+<li>Might use the same state field</li>
+<li>Crashes if mixins define the same props/functions</li>
+<li>Not available on es6 classes</li>
+</ul>
+</div>
 
-<div style="height: 100px"></div>
+<div class="slide subslide">
 
-###Higher order components
+<h3>Higher order components</h3>
 
 {% highlight js %}
 
@@ -464,15 +483,17 @@ StoreListener = StoreHO(StoreListener,MyStore,function(storeData){
 
 {% endhighlight %}
 
-* Has its own backing instance (this) with own state
-* Infinitely chainable/nestable
-* Only collision risk is props being overwritten
-* Can wrap stateless components
-* Transparent
+<ul>
+<li>Has its own backing instance (this) with own state</li>
+<li>Infinitely chainable/nestable</li>
+<li>Only collision risk is props being overwritten</li>
+<li>Can wrap stateless components</li>
+<li>Transparent</li>
+</ul>
+</div>
+<div class="slide subslide">
 
-<div style="height: 100px"></div>
-
-###Wrapper components
+<h3>Wrapper components</h3>
 
 {% highlight js %}
 
@@ -508,22 +529,24 @@ var Application = React.createClass({
 });
 
 {% endhighlight %}
+<ul>
+<li>Mostly used to provide layout wrapping</li>
+<li>Easy to provide separate props for wrapper/child</li>
+<li>Can wrap stateless components</li>
+<li>Hidden coupling</li>
+<li>Has to provide layout</li>
+<li>Opaque</li>
+</ul>
+</div>
 
-* Mostly used to provide layout wrapping
-* Easy to provide separate props for wrapper/child
-* Can wrap stateless components
-* Hidden coupling
-* Has to provide layout
-* Opaque
 
+<div class="slide subslide">
 
-<div style="height: 200px"></div>
+<h1>Flux</h1>
 
-#Flux
+<h2>Types of flux</h2>
 
-##Types of flux
-
-###Flux with dispatcher, Flux utils
+<h3>Flux with dispatcher, Flux utils</h3>
 
 {% highlight js %}
 
@@ -563,10 +586,12 @@ var NumberComponent = React.createClass({
 
 {% endhighlight %}
 
-* Very verbose
-* Magical strings
+<ul>
+<li>Very verbose</li>
+<li>Magical strings</li>
+</ul>
 
-###Flux without dispatcher, Reflux
+<h3>Flux without dispatcher, Reflux</h3>
 
 {% highlight js %}
 
@@ -599,16 +624,20 @@ var NumberComponent = React.createClass({
 });
 
 {% endhighlight %}
+<ul>
+<li>Every action is a dispatcher</li>
+<li>Stores can listen to individual actions</li>
+</ul>
 
-* Every action is a dispatcher
-* Stores can listen to individual actions
 
+<h3>Flux without flux, Redux</h3>
 
-###Flux without flux, Redux
+<h2>Immutable data</h2>
+<ul>
+<li>Easy to see if an object has changed</li>
+<li>oldObject === newObject instead of oldObject.prop1 === newObject.prop1 || oldObject.prop2 === ...</li>
+<li>Removes one source of side effects.</li>
+<li>Object.freeze, extreme immutability</li>
+</ul>
 
-##Immutable data
-
-* Easy to see if an object has changed
-* oldObject === newObject instead of oldObject.prop1 === newObject.prop1 || oldObject.prop2 === ...
-* Removes one source of side effects.
-* Object.freeze, extreme immutability
+</div>

@@ -23,6 +23,7 @@
         <![endif]-->
         <link rel="stylesheet" href="/assets/styles/rosengren.css">
         <link rel="stylesheet" href="/assets/styles/pure-min.css">
+		<link rel="stylesheet" href="/assets/styles/presentation.css">
 
 		<style>
 			figure {
@@ -32,86 +33,87 @@
 
     </head>
     <body>
-		<div style="max-width: 1200px; padding: 0 20px;margin: auto;">
-			<div style="height: 200px"></div>
+		<div class="slide">
 
-<h1 id="react">React</h1>
+	<h1>React</h1>
 
-<h2 id="what-why">What? Why?</h2>
-<ul>
-  <li>A viewengine</li>
-  <li>Not a framework, coexists with others</li>
-  <li>Render on every change</li>
-  <li>Templates? We’ve got javascript</li>
-  <li>Components</li>
-  <li>Virtual DOM</li>
-  <li>Lightweight description, not actual DOM</li>
-  <li>Easy isomorphism</li>
-  <li>Learn once, use everywhere</li>
-  <li>Enables the developer to do the right thing (immutability)</li>
-  <li>“Throwaway code” (loosely coupled) = Easy to iterate</li>
-</ul>
+	<h2>What? Why?</h2>
+	<ul>
+		<li> A viewengine</li>
+		<li> Not a framework, coexists with others</li>
+		<li> Render on every change</li>
+		<li> Templates? We've got javascript</li>
+		<li> Components</li>
+		<li> Virtual DOM</li>
+		<li> Lightweight description, not actual DOM</li>
+		<li> Easy isomorphism</li>
+		<li> Learn once, use everywhere</li>
+		<li> Enables the developer to do the right thing (immutability)</li>
+		<li> "Throwaway code" (loosely coupled) = Easy to iterate</li>
+	</ul>
 
-<p>React wraps an imperative API with a declarative one.</p>
+	<p>React wraps an imperative API with a declarative one.</p>
 
-<div style="height: 200px"></div>
+</div>
 
-<h2 id="jsx">JSX</h2>
+<div class="slide">
 
-<ul>
-  <li>Full power of javascript</li>
-  <li>Not html, neither is templates</li>
-  <li>Single event handler</li>
-  <li>React native</li>
-</ul>
+	<h2>JSX</h2>
+	<ul>
+		<li>Full power of javascript</li>
+		<li>Not html, neither is templates</li>
+		<li>Single event handler</li>
+		<li>React native</li>
+	</ul>
 
-<div class="pure-g">
-    <div class="pure-u-1-2">
+	<div class="pure-g">
+		<div class="pure-u-1-2">
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ProfileImage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
-    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">img</span> <span class="nx">src</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span> <span class="o">/&gt;</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">img</span> <span class="nx">src</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span> <span class="o">/&gt;</span>
 <span class="p">}</span>
 
 <span class="kd">var</span> <span class="nx">Bio</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
-    <span class="k">return</span> <span class="p">(</span>
-    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
-        <span class="o">&lt;</span><span class="nx">ProfileImage</span> <span class="nx">url</span><span class="o">=</span><span class="s2">&quot;urlToImage&quot;</span> <span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="err">/div&gt;</span>
-    <span class="p">)</span>
+<span class="k">return</span> <span class="p">(</span>
+ <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+   <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+   <span class="o">&lt;</span><span class="nx">ProfileImage</span> <span class="nx">url</span><span class="o">=</span><span class="s2">&quot;urlToImage&quot;</span> <span class="o">/&gt;</span>
+ <span class="o">&lt;</span><span class="err">/div&gt;</span>
+ <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
-		This is...
-    </div>
-    <div class="pure-u-1-2">
+			This is...
+		</div>
+		<div class="pure-u-1-2">
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">ProfileImage</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
-    <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">,{</span><span class="nx">src</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">url</span><span class="p">})</span>
+  <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">,{</span><span class="nx">src</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">url</span><span class="p">})</span>
 <span class="p">}</span>
 
 <span class="kd">var</span> <span class="nx">Bio</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
-    <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
-        <span class="s1">&#39;div&#39;</span><span class="p">,</span>
-        <span class="kc">null</span><span class="p">,</span>
-        <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
-            <span class="s1">&#39;h2&#39;</span><span class="p">,</span>
-            <span class="kc">null</span><span class="p">,</span>
-            <span class="nx">props</span><span class="p">.</span><span class="nx">title</span>
-        <span class="p">),</span>
-        <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
-            <span class="nx">ProfileImage</span><span class="p">,</span>
-            <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;urlToImage&quot;</span><span class="p">}</span>
-        <span class="p">)</span>
+  <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
+    <span class="s1">&#39;div&#39;</span><span class="p">,</span>
+    <span class="kc">null</span><span class="p">,</span>
+    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
+      <span class="s1">&#39;h2&#39;</span><span class="p">,</span>
+      <span class="kc">null</span><span class="p">,</span>
+      <span class="nx">props</span><span class="p">.</span><span class="nx">title</span>
+    <span class="p">),</span>
+    <span class="nx">React</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span>
+      <span class="nx">ProfileImage</span><span class="p">,</span>
+      <span class="p">{</span><span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;urlToImage&quot;</span><span class="p">}</span>
     <span class="p">)</span>
+  <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
 		...transpiled into this.
-    </div>
+		</div>
+	</div>
 </div>
 
-<div style="height: 100px"></div>
+<div class="slide">
 
-<h2 id="components">Components</h2>
+<h2>Components</h2>
 
 <div class="pure-g">
 	<div class="pure-u-1-3" style="display: flex;align-items: center;">
@@ -194,10 +196,11 @@
 	</ul>
 	</div>
 </div>
+</div>
 
-<div style="height: 100px"></div>
+<div class="slide">
 
-<h2 id="render-into-dom">Render into DOM</h2>
+<h2>Render into DOM</h2>
 <div class="pure-g">
 	<div class="pure-u-1-2">
 
@@ -236,22 +239,21 @@
 	</div>
 </div>
 
-<p>Common:</p>
-
+Common: 
 <ul>
-  <li>Top level component</li>
-  <li>Single entry</li>
+<li> Top level component </li>
+<li> Single entry</li>
 </ul>
 
-<p>Also:</p>
-
-<ul>
-  <li>Augment existing app with sprinkles of React.</li>
+Also:
+ <ul>
+<li> Augment existing app with sprinkles of React.</li>
 </ul>
+</div>
 
-<div style="height: 100px"></div>
+<div class="slide">
 
-<h2 id="if-statements">If statements</h2>
+<h2>If statements</h2>
 <div class="pure-g">
 	<div class="pure-u-1-2">
 		This would be...
@@ -327,12 +329,14 @@
 
 	</div>
 </div>
+</div>
 
-<div style="height: 100px"></div>
+<div class="slide">
 
-<h2 id="loopslists">Loops/lists</h2>
+<h2>Loops/lists</h2>
 
-<p>Same as if statments, can’t have a for loop in function call</p>
+Same as if statments, can't have a for loop in function call
+
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">Menu</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">){</span>
   <span class="k">return</span> <span class="p">(</span>
@@ -344,27 +348,29 @@
   <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
-<div style="height: 100px"></div>
+</div>
 
-<h2 id="composition">Composition</h2>
+<div class="slide">
 
+<h2>Composition</h2>
 <ul>
-  <li>Common pattern to have a stateful component composed with stateless children (controller view)</li>
-  <li>Children has no knowledge of parent</li>
-  <li>Communicates “up” with callbacks or actions.</li>
+<li>Common pattern to have a stateful component composed with stateless children (controller view)</li>
+<li>Children has no knowledge of parent</li>
+<li>Communicates "up" with callbacks or actions.</li>
+</ul>
+</div>
+
+<div class="slide subslide">
+
+<h3>State vs props</h3>
+<ul>
+<li>State is a side effect</li>
+<li>Pure functions</li>
+<li>Single source of truth</li>
+<li>Which ancestor has changed?</li>
+<li>Don't convert props to state, changes ownership, becomes stale.</li>
 </ul>
 
-<div style="height: 50px"></div>
-
-<h3 id="state-vs-props">State vs props</h3>
-
-<ul>
-  <li>State is a side effect</li>
-  <li>Pure functions</li>
-  <li>Single source of truth</li>
-  <li>Which ancestor has changed?</li>
-  <li>Don’t convert props to state, changes ownership, becomes stale.</li>
-</ul>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">//NO! Bad developer!</span>
 <span class="kd">var</span> <span class="nx">ItsMine</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createCLass</span><span class="p">({</span>
@@ -393,9 +399,12 @@
   <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">theOneRing</span><span class="p">}</span><span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span>
 <span class="p">}</span></code></pre></figure>
 
-<div style="height: 100px"></div>
+</div>
 
-<h3 id="controller-view">Controller view</h3>
+<div class="slide subslide">
+
+<h3>Controller view</h3>
+
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">Menu</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">selectItem</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">itemId</span><span class="p">){</span>
@@ -427,9 +436,11 @@
   <span class="p">)</span>
 <span class="p">}</span></code></pre></figure>
 
-<div style="height: 100px"></div>
+</div>
+<div class="slide subslide">
 
-<h3 id="mixins">Mixins</h3>
+<h3>Mixins</h3>
+
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">StoreMixin</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">componentWillMount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -451,17 +462,20 @@
   <span class="p">}</span>
 <span class="p">});</span></code></pre></figure>
 
+
 <ul>
-  <li>Provides lifecycle hooks</li>
-  <li>Magic merge of lifecycle hooks</li>
-  <li>Might use the same state field</li>
-  <li>Crashes if mixins define the same props/functions</li>
-  <li>Not available on es6 classes</li>
+<li>Provides lifecycle hooks</li>
+<li>Magic merge of lifecycle hooks</li>
+<li>Might use the same state field</li>
+<li>Crashes if mixins define the same props/functions</li>
+<li>Not available on es6 classes</li>
 </ul>
+</div>
 
-<div style="height: 100px"></div>
+<div class="slide subslide">
 
-<h3 id="higher-order-components">Higher order components</h3>
+<h3>Higher order components</h3>
+
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">StoreHO</span> <span class="o">=</span> <span class="p">(</span><span class="nx">Component</span><span class="p">,</span><span class="nx">store</span><span class="p">,</span><span class="nx">mapping</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
@@ -490,17 +504,19 @@
   <span class="p">}</span>
 <span class="p">});</span></code></pre></figure>
 
+
 <ul>
-  <li>Has its own backing instance (this) with own state</li>
-  <li>Infinitely chainable/nestable</li>
-  <li>Only collision risk is props being overwritten</li>
-  <li>Can wrap stateless components</li>
-  <li>Transparent</li>
+<li>Has its own backing instance (this) with own state</li>
+<li>Infinitely chainable/nestable</li>
+<li>Only collision risk is props being overwritten</li>
+<li>Can wrap stateless components</li>
+<li>Transparent</li>
 </ul>
+</div>
+<div class="slide subslide">
 
-<div style="height: 100px"></div>
+<h3>Wrapper components</h3>
 
-<h3 id="wrapper-components">Wrapper components</h3>
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">StoreWrapper</span> <span class="o">=</span> <span class="nx">React</span><span class="p">.</span><span class="nx">createClass</span><span class="p">({</span>
   <span class="nx">componentWillMount</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -534,21 +550,23 @@
 <span class="p">});</span></code></pre></figure>
 
 <ul>
-  <li>Mostly used to provide layout wrapping</li>
-  <li>Easy to provide separate props for wrapper/child</li>
-  <li>Can wrap stateless components</li>
-  <li>Hidden coupling</li>
-  <li>Has to provide layout</li>
-  <li>Opaque</li>
+<li>Mostly used to provide layout wrapping</li>
+<li>Easy to provide separate props for wrapper/child</li>
+<li>Can wrap stateless components</li>
+<li>Hidden coupling</li>
+<li>Has to provide layout</li>
+<li>Opaque</li>
 </ul>
+</div>
 
-<div style="height: 200px"></div>
+<div class="slide subslide">
 
-<h1 id="flux">Flux</h1>
+<h1>Flux</h1>
 
-<h2 id="types-of-flux">Types of flux</h2>
+<h2>Types of flux</h2>
 
-<h3 id="flux-with-dispatcher-flux-utils">Flux with dispatcher, Flux utils</h3>
+<h3>Flux with dispatcher, Flux utils</h3>
+
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">appDispatcher</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Flux</span><span class="p">.</span><span class="nx">Dispatcher</span><span class="p">();</span>
 
@@ -584,12 +602,14 @@
   <span class="p">}</span>
 <span class="p">});</span></code></pre></figure>
 
+
 <ul>
-  <li>Very verbose</li>
-  <li>Magical strings</li>
+<li>Very verbose</li>
+<li>Magical strings</li>
 </ul>
 
-<h3 id="flux-without-dispatcher-reflux">Flux without dispatcher, Reflux</h3>
+<h3>Flux without dispatcher, Reflux</h3>
+
 
 <figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">incrementAction</span> <span class="o">=</span> <span class="nx">Reflux</span><span class="p">.</span><span class="nx">createAction</span><span class="p">(</span><span class="s1">&#39;increment&#39;</span><span class="p">);</span>
 
@@ -620,32 +640,23 @@
 <span class="p">});</span></code></pre></figure>
 
 <ul>
-  <li>Every action is a dispatcher</li>
-  <li>Stores can listen to individual actions</li>
+<li>Every action is a dispatcher</li>
+<li>Stores can listen to individual actions</li>
 </ul>
 
-<h3 id="flux-without-flux-redux">Flux without flux, Redux</h3>
 
-<h2 id="immutable-data">Immutable data</h2>
+<h3>Flux without flux, Redux</h3>
 
+<h2>Immutable data</h2>
 <ul>
-  <li>Easy to see if an object has changed</li>
-  <li>
-    <table>
-      <tbody>
-        <tr>
-          <td>oldObject === newObject instead of oldObject.prop1 === newObject.prop1</td>
-          <td> </td>
-          <td>oldObject.prop2 === …</td>
-        </tr>
-      </tbody>
-    </table>
-  </li>
-  <li>Removes one source of side effects.</li>
-  <li>Object.freeze, extreme immutability</li>
+<li>Easy to see if an object has changed</li>
+<li>oldObject === newObject instead of oldObject.prop1 === newObject.prop1 || oldObject.prop2 === ...</li>
+<li>Removes one source of side effects.</li>
+<li>Object.freeze, extreme immutability</li>
 </ul>
 
-		</div>
+</div>
+
 
 		<script>
 			(function (i, s, o, g, r, a, m) {

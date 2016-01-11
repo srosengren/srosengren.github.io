@@ -12,14 +12,16 @@ module.exports = function(grunt) {
           compress: true
         },
         files: {
-          './assets/styles/rosengren.css': './assets/styles/rosengren.less'
+        	'./assets/styles/rosengren.css': './assets/styles/rosengren.less',
+        	'./assets/styles/presentation.css': './assets/styles/presentation.less'
         }
       }
     },
     copy: {
       css : {
         files: {
-          './_site/assets/styles/rosengren.css': './assets/styles/rosengren.css'
+        	'./_site/assets/styles/rosengren.css': './assets/styles/rosengren.css',
+        	'./_site/assets/styles/presentation.css': './assets/styles/presentation.css'
         }
       },
       jsx: {
