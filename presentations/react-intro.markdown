@@ -212,6 +212,8 @@ ReactDOM.render(
 	</div>
 </div>
 
+<div style="height: 100px"></div>
+
 Common: 
 <ul>
 <li> Top level component </li>
@@ -243,6 +245,9 @@ var ProfileImage = function(props){
 }
 {% endhighlight %}
 
+	</div>
+	<div class="pure-u-1-2">
+
 ...transpiled into this, illegal javascript.
 
 {% highlight js %}
@@ -264,6 +269,8 @@ var ProfileImage = function(props){
 }
 {% endhighlight %}
 	</div>
+</div>
+<div class="pure-g" style="margin-top: 100px">
 	<div class="pure-u-1-2">
 		Whereas this would be...
 {% highlight js %}
@@ -279,6 +286,8 @@ var ProfileImage = function(props){
   )
 }
 {% endhighlight %}
+	</div>
+	<div class="pure-u-1-2">
 
 ...transpiled into this, totally legit javascript.
 
