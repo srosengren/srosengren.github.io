@@ -639,8 +639,6 @@ var NumberComponent = React.createClass({
 </ul>
 
 
-<h3>Flux without flux, Redux</h3>
-
 <h2>Immutable data</h2>
 <ul>
 <li>Easy to see if an object has changed</li>
