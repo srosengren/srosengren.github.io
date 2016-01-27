@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Validate authorization policy in MVC6 vnext, asp.net5"
-date:   2015-07-27 13:30:00
+date:   2015-08-11 13:30:00
 tags: [development,web,configuration,authorization,mvc6,vnext,aspnet5]
 ---
 
