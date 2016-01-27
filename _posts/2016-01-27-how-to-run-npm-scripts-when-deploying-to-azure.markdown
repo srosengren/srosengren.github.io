@@ -1,5 +1,4 @@
 ---
----
 layout: post
 title:  "How to run NPM scripts (or do other stuff) when deploying to azure from github"
 date:   2015-07-27 13:30:00
