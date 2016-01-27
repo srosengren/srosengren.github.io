@@ -25,7 +25,7 @@ This will generate a .deployment and deploy.cmd file in your current directory. 
 
 Let's first take a look at the code that we're going to add to our deploy.cmd file.
 
-{% highlight winbash %}
+{% highlight bat %}
 :: 4. Run NPM script
 echo Run NPM script
 
@@ -46,7 +46,7 @@ Well, were do with put this code snippet then?
 
 Here's a pristine azure node deploy file. We would insert our code snippet as the 4th step under the deployment step (line #107)
 
-{% highlight winbash %}
+{% highlight bat %}
 @if "%SCM_TRACE_LEVEL%" NEQ "4" @echo off
 
 :: ----------------------
