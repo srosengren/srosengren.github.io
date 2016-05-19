@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Conclusions of a React Native hackalong, abridged"
-date:   2016-01-27 15:30:00
+date:   2016-05-19 15:30:00
 tags: [development,web,react,native,reactnative,ios,android]
 ---
 
