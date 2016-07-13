@@ -26,4 +26,4 @@ The cons:
 
 Conclusions:
 We found that React Native would be very well suited for prototyping applications. The easiest way to do this for web devs otherwise would be to use hybrid apps or "native feel" web frameworks. That doesn't really give the same look and feel as a truly native application. Other options could be Xamarin for .NET developers or Nativescript which has the same basic idea as React Native.
-We also figure that React Native is production ready, not that we got that far in our own experiments but fom what we've read and by looking at how feature complete it is.
+We also figure that React Native is production ready, not that we got that far in our own experiments but from what we've read and by looking at how feature complete it is.
