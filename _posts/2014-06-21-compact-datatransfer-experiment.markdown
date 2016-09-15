@@ -101,12 +101,13 @@ ajson = {
 This code removes the definition from the received array and uses it to in place replace every subarray containing the objects data with real objects.
 
 ###So what does this work give us?
-I use fiddler to look at the requests and som javascript time checking to see how long the deserialization takes. The results are as follows:
+
+I use fiddler to look at the requests and some javascript time checking to see how long the deserialization takes. The results are as follows:
 *	5000 items normal JSON, GZIPed ~118KB, no compression ~572KB
 *	5000 items compact JSON array, GZIPed ~88KB, no compression ~187KB
 
 I have tried a few different configurations and the saving is ~25% in most cases, this will not hold true if your objects contains lots of data as the property:data ratio will be different, but it produces significant savings in many of the APIs that I create.
 
-The overhead of deserializing it on the client? The 5000 items took 7ms to deserialize from normal JSON to a a javascript array. The same items took 7ms + 25ms to deserialize from compact JSON to a javascript array. This is tested on chrome on my ultrabook, and I believe that it will take a while longer to run on, for instance IE8, but so will deserializing it from normal JSON to.
+The overhead of deserializing it on the client? The 5000 items took 7ms to deserialize from normal JSON to a a javascript array. The same items took 7ms + 25ms to deserialize from compact JSON to a javascript array. This is tested on chrome on my ultrabook, and I believe that it will take a while longer to run on, for instance IE8, but so will deserializing it from normal JSON too.
 
 These tests show that serializing data like this can improve performance in applications that send out lots of items containing very small data.
