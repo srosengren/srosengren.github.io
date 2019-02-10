@@ -37,7 +37,7 @@ module.exports = function(grunt) {
         options: {
           stdout: true
         },
-        command: 'jekyll build --incremental'
+        command: 'jekyll build'
       }
     },
     watch: {
@@ -50,7 +50,7 @@ module.exports = function(grunt) {
         }
       },
       jsx: {
-      	files: './**/*.jsx',
+      	files: './presentations/**/*.jsx',
 		tasks: ['copy:jsx']
       },
       jekyll: {
