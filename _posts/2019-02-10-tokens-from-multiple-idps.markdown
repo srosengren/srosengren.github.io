@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Accept tokens from multiple identity providers in .NET Core"
-date:   2018-05-17 14:12:00
+date:   2019-02-10 14:12:00
 tags: [development,identity,oidc,jwt,dotnetcore,aad,auth0]
 ---
 
