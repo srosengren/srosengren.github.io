@@ -33,6 +33,8 @@ services:
     image: mcr.microsoft.com/mssql/server:2019-CU5-ubuntu-16.04
     ports:
       - "1433:1433"
+    volumes:
+      - /var/opt/mssql
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD={secret-password}
@@ -44,6 +46,7 @@ This is actually our complete file, let's walk through it:
     - `container_name`: Setting this explicitly allows us to reference it later on when connecting to it, either through code, or through a management tool. This is otherwise generated automatically based on the name of your app, and the name of your service. Setting this explicitly will however block us from scaling to more than one container of this service [https://docs.docker.com/compose/compose-file/#container_name](https://docs.docker.com/compose/compose-file/#container_name). This is fine by me when running it locally while developing without any orchestration.
     - `image`: This is the `{image}:{tag}` that we want to use for this container. In our case the image is SQL Server, and the tag is the specific version that we want to use.
     - `ports`: These are the port mappings that we want to want to expose from our dockers app internal network, to the machine that's running docker (our computer). In this case we're exposing port 1433 (SQL Server default port) to our machine, allowing us to connect to it using a tool such as Sql Server Management Studio, Azure Data Studio, or a CLI. The format of these mappings are `HOST:CONTAINER`, for full reference see [Docker compose:ports](https://docs.docker.com/compose/compose-file/#ports), or do a deep dive into [networking in docker compose](https://docs.docker.com/compose/networking/)
+    - `volumes`: We want our SQL data to be persisted even when the container is stopped, and therefore we'll mount a volume that will keep it. `/var/opt/mssql` is where the MS SQL docker image will store its data (created databases etc) in the container by default, and that's why we create a volume that will store anything saved to it, we could also mount this as named container in order to allow other containers to access it, but since only our `db` container will need it, and we're only ever using one instance of our `db` container, then it's ok to use an unnamed container, see [docker-compose volumes](https://docs.docker.com/compose/compose-file/#volumes) for more information.
     - `environments`
         - `ACCEPT_EULA`: This makes sure that you don't need to stop to accept the EULA.
         - `SA_PASSWORD`: The password of your new SQL Servers `sa` account, this must adhere to [SQL Server password requirements](https://docs.microsoft.com/en-us/sql/relational-databases/security/password-policy?view=sql-server-ver15)
@@ -63,3 +66,4 @@ Once started we may connect to the database using our favorite tool such as Sql 
 - [Docker Compose Sqlserver](https://www.kimsereylam.com/docker/2018/10/05/docker-compose-sqlserver.html)
 - [Docker compose file]((https://docs.docker.com/compose/compose-file/)) 
 - [https://docs.docker.com/compose/aspnet-mssql-compose/](https://docs.docker.com/compose/aspnet-mssql-compose/)
+- [Volumes](https://blog.container-solutions.com/understanding-volumes-docker) 
