@@ -1,8 +1,8 @@
 name: Rosengren.me
 gems: [jekyll-paginate]
-highlighter: pygments
+highlighter: rouge
 markdown: kramdown
 
-permalink: /blog/:title
+permalink: /blog/:title/
 
 paginate: 5
