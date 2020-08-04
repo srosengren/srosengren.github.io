@@ -1,5 +1,24 @@
-.highlight  { background: #efefef; padding: 0 15px; }
-.highlight pre {white-space: pre; overflow:auto;}
+.highlight {
+  background: @color-code-background;
+  margin: 1em 0;
+  @media (max-width: 767px) {
+		margin-left: -@main-content-gutter;
+		margin-right: -@main-content-gutter;
+	}
+}
+.highlight pre {
+  white-space: pre;
+  overflow:auto;
+  margin: 0;
+  padding: 1em;
+  @media (max-width: 767px) {
+		padding-left: @main-content-gutter;
+		padding-right: @main-content-gutter;
+	}
+}
+code.highlighter-rouge {
+  background: @color-code-background;
+}
 .highlight .c { color: #999988; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
 .highlight .k { font-weight: bold } /* Keyword */
