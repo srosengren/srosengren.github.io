@@ -51,7 +51,7 @@ public static class HttpStart
 
         if (!existingInstances.Any())
         {
-            string instanceId = await starter.StartNewAsync(functionName, eventData);
+            string instanceId = await starter.StartNewAsync(functionName, $"{instanceIdPrefix}_{Guid.NewGuid()}, eventData);
 
             log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
             return starter.CreateCheckStatusResponse(req, instanceId);
