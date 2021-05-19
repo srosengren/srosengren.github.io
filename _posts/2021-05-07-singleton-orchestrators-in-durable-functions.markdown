@@ -69,3 +69,7 @@ What did we change?
 - We change the `existingInstance` variable to be `existingInstances`, and instead of fetching the status for a single instance id, we search for the `instanceIdPrefix` and statuses that we're interested in. We're interested in the `Pending`, `Running`, and `ContinuedAsNew` statuses, as thos are the ones that may be interpreted as "this instance is running, or about to run".
 - We run `StartNewAsync` with the concatenation of our `instanceIdPrefix` and any instance specific string we want, in this case just a guid.
 - We capture the `instanceId` returned from `StartNewAsync`, and return the response from calling `CreateCheckStatusResponse`, just as the original example.
+
+## Versions used
+- .NET core 3.1
+- Microsoft.Azure.WebJobs.Extensions.DurableTask v2.4.3
