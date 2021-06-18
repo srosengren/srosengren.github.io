@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Structured logging with Durable Functions and Application Insights"
-date:   2021-05-07 16:58:00
+date:   2021-06-18 16:20:00
 tags: [development,csharp,dotnet,azure,functions, durable, applicaiton insights, logging]
 ---
 

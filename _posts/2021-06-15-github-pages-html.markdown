@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Easy github pages index.html"
-date:   2021-05-26 12:08:00
+date:   2021-06-15 12:08:00
 tags: [development,github,website]
 ---
 
