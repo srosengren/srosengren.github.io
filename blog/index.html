@@ -10,7 +10,7 @@ title: "my blog"
       <article class="post">
         <a href="{{ post.url }}"  class="post__title">{{ post.title }}</a>
         <p class="post__byline"><time datetime="{{ post.date }}">{{ post.date | date_to_string }}</time> {{ post.tags | array_to_sentence_string }}</p>
-        <div class="post__excerpt">{{ post.excerpt }}</div>
+        <div class="post__excerpt">{{ post.content | markdownify | strip_html | truncatewords: 50 }}</div>
       </article>
     {% endfor %}
   </section>
