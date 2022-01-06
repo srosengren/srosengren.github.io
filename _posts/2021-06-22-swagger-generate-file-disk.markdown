@@ -9,7 +9,7 @@ tags: [development,csharp,dotnet,swagger,devops]
 We've got a .NET core project with a [web API](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-3.1&tabs=visual-studio), and we're using [Swashbuckle](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.1&tabs=visual-studio) to generate [Swagger](https://swagger.io/) [Open API](https://www.openapis.org/) documentation for it.
 
 Now we want to integrate this into our API Management instance, using a custom DevOps task (not important for this post) which requires us to have a Swagger/Open API file on disk.
-
+<!--more-->
 
 ## Solution
 First things first, how do we generate a swagger.json file (the one you configure using `SwaggerEndpoint("route", "description"` in your `Startup.Configure` is dynamically generated and not stored anywhere). It turns out that Swashbuckle has a [tool for precisely this](https://github.com/domaindrivendev/Swashbuckle.AspNetCore#using-the-tool-with-the-net-core-30-sdk-or-later) that we may use. More info about using `dotnet tool` may be found [here](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-install).
