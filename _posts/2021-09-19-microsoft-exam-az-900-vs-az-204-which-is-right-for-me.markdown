@@ -8,7 +8,7 @@ tags: [development,azure,certifications]
 So you're interested in taking either/or both the [AZ-900](https://docs.microsoft.com/en-us/learn/certifications/exams/az-900) and the [AZ-204](https://docs.microsoft.com/en-us/learn/certifications/exams/az-204) exams in order to become Microsoft certified as a Azure Fundamentals or Azure Developer Associate. That's great! Perhaps you're starting your journey towards a cloud oriented role, want to make sure that you don't have gaps in your knowledge, or want to demonstrate your level of knowledge.
 
 I recently did them back to back and are hoping that I can bring some insights that will help you decide your own path.
-
+<!--more-->
 ## Quick intro to Microsoft exams and certifications
 You might be confused as to why there's both a concept of exams and certifications. Well, in the case of [AZ-900](https://docs.microsoft.com/en-us/learn/certifications/exams/az-900) and [AZ-204](https://docs.microsoft.com/en-us/learn/certifications/exams/az-204) there's a 1 to 1 relationship between them, pass the exam [AZ-900](https://docs.microsoft.com/en-us/learn/certifications/exams/az-900) and become "Microsoft Certified: Azure Fundamentals", or pass the exam [AZ-204](https://docs.microsoft.com/en-us/learn/certifications/exams/az-204) and become "Microsoft Certified: Azure Developer Associate". But in some cases, as for becoming "Microsoft Certified: Azure Solutions Architect Expert" you need to pass the 2 exams [AZ-303](https://docs.microsoft.com/en-us/learn/certifications/exams/az-303) and [AZ-304](https://docs.microsoft.com/en-us/learn/certifications/exams/az-304).
 
