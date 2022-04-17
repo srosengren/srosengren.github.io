@@ -3,6 +3,9 @@ gems: [jekyll-paginate]
 highlighter: rouge
 markdown: kramdown
 
+future: true
+timezone: Europe/Stockholm
+
 permalink: /blog/:title/
 
 paginate: 5
